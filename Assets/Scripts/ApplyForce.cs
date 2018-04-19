@@ -60,8 +60,8 @@ public class ApplyForce : MonoBehaviour
     private void FixedUpdate()
     {
         //playerRB.velocity = (Player.forward * PlayerSpeed) + (new Vector3(0,-LeftHandTrigger.forward.y,0) * LeftVelocity) + (new Vector3(0, -RightHandTrigger.forward.y, 0) * RightVelocity);
-        playerRB.velocity = ((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
-        //playerRB.AddForce((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
+       // playerRB.velocity = ((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
+            playerRB.AddForce((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
         Debug.Log(playerRB.velocity.z);
 
     }
