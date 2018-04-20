@@ -13,7 +13,6 @@ public class SpeedLines : MonoBehaviour
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();
-
     }
 
 
@@ -21,11 +20,14 @@ public class SpeedLines : MonoBehaviour
     {
         if (playerRigidBody.velocity.z + 1 >= minRBSpeed)
         {
-            speedLineParticles.Play();
+            if(!speedLineParticles.isPlaying)
+                speedLineParticles.Play();
 
             float rot = (playerRigidBody.velocity.z - minRBSpeed) * ((maxLineRate - minLineRate) / (maxRBSpeed - minRBSpeed)) + minLineRate;
             var emission = speedLineParticles.emission;
-            emission.rateOverTime = rot;
+
+            if (rot <= maxLineRate)
+                emission.rateOverTime = rot;
 
             var rad = (playerRigidBody.velocity.z - minRBSpeed) * ((maxRadius - minRadius) / (maxRBSpeed - minRBSpeed)) + minRadius;
             var shape = speedLineParticles.shape;
@@ -33,10 +35,13 @@ public class SpeedLines : MonoBehaviour
             if(rad >= maxRadius)
                 shape.radius = rad;
 
+            
+
         }
         else
         {
-            speedLineParticles.Stop();
+            if (speedLineParticles.isPlaying)
+                speedLineParticles.Stop();
         }
 
 

@@ -14,7 +14,7 @@ public class MoveRightHand : MonoBehaviour
     {
 
         trackedObject = GetComponentInParent<SteamVR_TrackedObject>();
-        AFScript = GameObject.Find("PlayerMotherParent").GetComponent<ApplyForce>();
+        AFScript = GameObject.Find("Player").GetComponent<ApplyForce>();
 
     }
 

@@ -55,14 +55,30 @@ public class ApplyForce : MonoBehaviour
             RightVelocity = HandVelocity;
         else
             RightVelocity = 0;
+
+    }
+
+    private void FadeToBlack()
+    {
+        //set start color
+        SteamVR_Fade.Start(Color.clear, 0f);
+        //set and start fade to
+        SteamVR_Fade.Start(Color.black, 0.5f);
+    }
+    private void FadeFromBlack()
+    {
+        //set start color
+        SteamVR_Fade.Start(Color.black, 0f);
+        //set and start fade to
+        SteamVR_Fade.Start(Color.clear, 0.5f);
     }
 
     private void FixedUpdate()
     {
         //playerRB.velocity = (Player.forward * PlayerSpeed) + (new Vector3(0,-LeftHandTrigger.forward.y,0) * LeftVelocity) + (new Vector3(0, -RightHandTrigger.forward.y, 0) * RightVelocity);
-       // playerRB.velocity = ((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
-            playerRB.AddForce((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
-        Debug.Log(playerRB.velocity.z);
+        playerRB.velocity = ((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
+        //playerRB.AddForce((Player.forward * PlayerSpeed) + (-LeftHandTrigger.forward * LeftVelocity) + (-RightHandTrigger.forward * RightVelocity));
+        //Debug.Log(playerRB.velocity.z);
 
     }
 }
