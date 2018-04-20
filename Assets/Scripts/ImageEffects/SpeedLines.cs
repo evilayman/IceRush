@@ -35,8 +35,6 @@ public class SpeedLines : MonoBehaviour
             if(rad >= maxRadius)
                 shape.radius = rad;
 
-            
-
         }
         else
         {

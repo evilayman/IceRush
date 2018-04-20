@@ -26,13 +26,15 @@ public class MoveRightHand : MonoBehaviour
         {
             AFScript.IsPressedRight = true;
             device.TriggerHapticPulse(1000);
-            Emission.Play();
+            if(!Emission.isPlaying)
+                Emission.Play();
 
         }
         if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
             AFScript.IsPressedRight = false;
-            Emission.Stop();
+            if (Emission.isPlaying)
+                Emission.Stop();
 
         }
     }
