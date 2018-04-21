@@ -62,7 +62,7 @@
 				fixed4 col = tex2D(_MainTex, uv);
 
 				float4 coords = screenCoords(i.uv);
-				float radius = length(coords.xy / (_ScreenParams.xy)) / 2;
+				float radius = length((coords.xy) / (_ScreenParams.xy / 2)) / 2;
 				float avMin = (1 - _AV) - _Feather;
 				float avMax = (1 - _AV) + _Feather;
 				float t = saturate((radius - avMin) / (avMax - avMin));

@@ -752,7 +752,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1811846541550326}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalPosition: {x: 0, y: 48.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4277497319991928}
@@ -2009,8 +2009,17 @@ MonoBehaviour:
   LeftHandTrigger: {fileID: 4159476766902152}
   RightHandTrigger: {fileID: 4615090384112274}
   Player: {fileID: 4299563829287210}
-  HandVelocity: 10
-  PlayerSpeed: 10
+  HandPushSpeed: 0
+  PlayerSpeed: 0
+  AccSpeed: 5
+  AccTime: 0.2
+  isAccelerating: 0
+  isAcceleratingLeft: 0
+  isAcceleratingRight: 0
+  isPressedLeft: 0
+  isPressedRight: 0
+  GameStarted: 1
+  Died: 0
 --- !u!114 &114712649363566200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2123,7 +2132,7 @@ MonoBehaviour:
   minRBSpeed: 10
   maxRBSpeed: 50
   minLineRate: 10
-  maxLineRate: 70
+  maxLineRate: 50
   minRadius: 20
   maxRadius: 10
 --- !u!114 &114907503155561734
