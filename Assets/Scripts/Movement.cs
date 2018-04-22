@@ -43,16 +43,17 @@ public class Movement : MonoBehaviour
     }
 
 
-    void Start ()
+    void Start()
     {
         playerRB = GetComponent<Rigidbody>();
         FadeFromBlack(0.2f);
     }
-	
-	void Update ()
+
+    void Update()
     {
         if (IsPressedLeft)
         {
+            
             if (!isAcceleratingLeft && CurrentLeftSpeed < HandPushSpeed)
             {
                 isAcceleratingLeft = true;
@@ -91,7 +92,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if(!isAccelerating && CurrentPlayerSpeed < PlayerSpeed)
+        if (!isAccelerating && CurrentPlayerSpeed < PlayerSpeed)
         {
             isAccelerating = true;
             StartCoroutine(Accelerate());
@@ -102,7 +103,7 @@ public class Movement : MonoBehaviour
             StartCoroutine(Accelerate());
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerSpeed += 50;
         }
@@ -116,7 +117,7 @@ public class Movement : MonoBehaviour
     {
         yield return new WaitForSeconds(AccTime);
 
-        if(CurrentPlayerSpeed < PlayerSpeed)
+        if (CurrentPlayerSpeed < PlayerSpeed)
         {
             CurrentPlayerSpeed += AccSpeed;
         }
@@ -174,7 +175,7 @@ public class Movement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!Died)
+        if (!Died)
         {
             Died = true;
             FadeToBlack(0.2f);
@@ -182,17 +183,34 @@ public class Movement : MonoBehaviour
         }
     }
     IEnumerator resetScene(float time)
-    { 
+    {
         yield return new WaitForSeconds(time);
         SceneManager.LoadScene("Main");
     }
 
     private void FixedUpdate()
     {
-        if(GameStarted)
+        if (GameStarted)
         {
-            playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (-LeftHandTrigger.forward * CurrentLeftSpeed) + (-RightHandTrigger.forward * CurrentRightSpeed));
-            Debug.Log(playerRB.velocity.z);
+            if (IsPressedRight && IsPressedLeft)
+            {
+                playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (-LeftHandTrigger.forward * CurrentLeftSpeed) + (-RightHandTrigger.forward * CurrentRightSpeed));
+            }
+            else if (IsPressedRight)
+            {
+                playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (-RightHandTrigger.forward * CurrentRightSpeed));
+
+            }
+            else if (IsPressedLeft)
+            {
+                playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (-LeftHandTrigger.forward * CurrentLeftSpeed));
+
+            }
+            else
+            {
+                playerRB.velocity = (Player.forward * CurrentPlayerSpeed);
+               // Debug.Log(playerRB.velocity.z);
+            }
         }
     }
 }
