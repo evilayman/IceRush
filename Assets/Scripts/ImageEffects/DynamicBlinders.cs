@@ -12,10 +12,12 @@ public class DynamicBlinders : MonoBehaviour
     private float leftDistance;
     private float rightDistance;
 
-    public float minIntensity, maxIntensity, xChangeMin, xChangeMax, minDistance, maxDistance;
-    private float currentIntensity, leftIntensity, RightIntensity, currentX, leftX, rightX;
+    public float minIntensity, maxIntensity, xChangeMin, xChangeMax, minDistance, maxDistance, lerpTime;
+    private float currentIntensity, leftIntensity, RightIntensity, currentX, leftX, rightX, targetIntensity, targetX;
 
-    public float shiftBy, incrementBy, numRays, rayDistance;
+    public float shiftByX, ShiftByZ, incrementBy, numRays, rayDistance;
+
+    private bool leftHit, rightHit;
     void Start ()
     {
         tempSettings = PPP.vignette.settings;
@@ -27,7 +29,6 @@ public class DynamicBlinders : MonoBehaviour
         CreateRaysRight(transform.position, Vector3.right);
         CreateRaysLeft(transform.position, -Vector3.right);
         CalculateIntensity();
-        print(currentIntensity);
     }
 
     void CalculateIntensity()
@@ -38,31 +39,46 @@ public class DynamicBlinders : MonoBehaviour
         RightIntensity = ((rightDistance - minDistance) / (maxDistance - minDistance)) * (maxIntensity - minIntensity) + minIntensity;
         rightX = ((rightDistance - minDistance) / (maxDistance - minDistance)) * (xChangeMax - xChangeMin) + xChangeMin;
 
-        currentX = 0.5f + leftX - rightX;
-        currentIntensity = leftIntensity + RightIntensity;
-        
+        targetX = 0.5f + leftX - rightX;
+        targetIntensity = leftIntensity + RightIntensity;
+
+        currentIntensity = Mathf.Lerp(currentIntensity, targetIntensity, lerpTime);
+        currentX = Mathf.Lerp(currentX, targetX, lerpTime);
+
         ChangeIntensity(currentIntensity, currentX);
     }
 
     void CreateRaysRight(Vector3 pos, Vector3 dir)
     {
-        var xpos = pos.x + shiftBy;
-        var zpos = pos.z;
+        var xpos = pos.x + shiftByX;
+        var zpos = pos.z + ShiftByZ;
+        rightHit = false;
         for (int i = 0; i < numRays; i++)
         {
             DrawRaysRight(new Vector3(xpos, pos.y, zpos), dir);
             zpos += incrementBy;
         }
+
+        if (!rightHit)
+        {
+            rightDistance = minDistance;
+        }
     }
 
     void CreateRaysLeft(Vector3 pos, Vector3 dir)
     {
-        var xpos = pos.x - shiftBy;
-        var zpos = pos.z;
+        var xpos = pos.x - shiftByX;
+        var zpos = pos.z + ShiftByZ;
+        leftHit = false;
         for (int i = 0; i < numRays; i++)
         {
             DrawRaysLeft(new Vector3(xpos, pos.y, zpos), dir);
             zpos += incrementBy;
+        }
+
+        if(!leftHit)
+        {
+            leftDistance = minDistance;
         }
     }
 
@@ -73,11 +89,11 @@ public class DynamicBlinders : MonoBehaviour
         if (Physics.Raycast(pos, dir, out hit, rayDistance))
         {
             rightDistance = hit.distance;
+            rightHit = true;
         }
-        else
-            rightDistance = minDistance;
 
-        Debug.DrawLine(pos, new Vector3(pos.x - rayDistance, pos.y, pos.z), Color.red);
+        //Debug.DrawLine(pos, new Vector3(pos.x - rayDistance, pos.y, pos.z), Color.red);
+        Debug.DrawRay(pos, dir, Color.red);
     }
 
     void DrawRaysLeft(Vector3 pos, Vector3 dir)
@@ -87,11 +103,12 @@ public class DynamicBlinders : MonoBehaviour
         if (Physics.Raycast(pos, dir, out hit, rayDistance))
         {
             leftDistance = hit.distance;
+            leftHit = true;
         }
-        else
-            leftDistance = minDistance;
 
-        Debug.DrawLine(pos, new Vector3(pos.x + rayDistance, pos.y, pos.z), Color.red);
+        //Debug.DrawLine(pos, new Vector3(pos.x + rayDistance, pos.y, pos.z), Color.red);
+        Debug.DrawRay(pos, dir, Color.red);
+
     }
 
     void ChangeIntensity(float intensity, float xpos)
