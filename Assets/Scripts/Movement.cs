@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
+    MoveLeftHand leftHandScript;
+    MoveRightHand rightHandScript;
     private Rigidbody playerRB;
 
     public Transform LeftHandTrigger, RightHandTrigger, Player;
@@ -15,43 +17,20 @@ public class Movement : MonoBehaviour
     private Vector3 LeftHand, RightHand, LeftHandDirection, RightHandDirection;
 
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
-        isPressedLeft = false, isPressedRight = false, GameStarted = true, Died = false;
+        GameStarted = true, Died = false;
 
-    public bool IsPressedLeft
-    {
-        get
-        {
-            return isPressedLeft;
-        }
-
-        set
-        {
-            isPressedLeft = value;
-        }
-    }
-    public bool IsPressedRight
-    {
-        get
-        {
-            return isPressedRight;
-        }
-
-        set
-        {
-            isPressedRight = value;
-        }
-    }
-
+   
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
         FadeFromBlack(0.2f);
+        leftHandScript = GameObject.Find("Player").GetComponent<MoveLeftHand>();
     }
 
     void Update()
     {
-        if (IsPressedLeft)
+        if (leftHandScript.IsPressedLeft)
         {
 
             LeftHandDirection = -LeftHandTrigger.forward;
@@ -75,7 +54,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (IsPressedRight)
+        if (rightHandScript.IsPressedRight)
         {
 
             RightHandDirection = -RightHandTrigger.forward;

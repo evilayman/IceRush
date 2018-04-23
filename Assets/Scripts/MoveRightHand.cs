@@ -9,7 +9,19 @@ public class MoveRightHand : MonoBehaviour
 
     Movement MovementScript;
     public ParticleSystem Emission;
+    private bool isPressedRight = false;
+    public bool IsPressedRight
+    {
+        get
+        {
+            return isPressedRight;
+        }
 
+        set
+        {
+            isPressedRight = value;
+        }
+    }
     void Start()
     {
 
@@ -24,9 +36,10 @@ public class MoveRightHand : MonoBehaviour
         device = SteamVR_Controller.Input((int)trackedObject.index);
         if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            Debug.Log(device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x);
-            Debug.Log(device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).y);
-            MovementScript.IsPressedRight = true;
+            //how much is the trigger pressed still working on it..
+            //Debug.Log(device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x);
+            //Debug.Log(device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).y);
+            isPressedRight = true;
             device.TriggerHapticPulse(1000);
             if(!Emission.isPlaying)
                 Emission.Play();
@@ -35,7 +48,7 @@ public class MoveRightHand : MonoBehaviour
         }
         if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
-            MovementScript.IsPressedRight = false;
+            isPressedRight = false;
             if (Emission.isPlaying)
                 Emission.Stop();
         }

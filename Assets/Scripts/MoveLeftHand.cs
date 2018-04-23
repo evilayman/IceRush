@@ -10,11 +10,25 @@ public class MoveLeftHand : MonoBehaviour
     Movement MovementScript;
     public ParticleSystem Emission;
 
+    private bool isPressedLeft = false;
+
+    public bool IsPressedLeft
+    {
+        get
+        {
+            return isPressedLeft;
+        }
+
+        set
+        {
+            isPressedLeft = value;
+        }
+    }
+
     void Start()
     {
 
         trackedObject = GetComponentInParent<SteamVR_TrackedObject>();
-        MovementScript = GameObject.Find("Player").GetComponent<Movement>();
 
     }
 
@@ -24,7 +38,7 @@ public class MoveLeftHand : MonoBehaviour
         device = SteamVR_Controller.Input((int)trackedObject.index);
         if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            MovementScript.IsPressedLeft = true;
+            isPressedLeft = true;
             device.TriggerHapticPulse(1000);
             if (!Emission.isPlaying)
                 Emission.Play();
@@ -32,7 +46,7 @@ public class MoveLeftHand : MonoBehaviour
         }
         if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
-            MovementScript.IsPressedLeft = false;
+            isPressedLeft = false;
             if (Emission.isPlaying)
                 Emission.Stop();
 
