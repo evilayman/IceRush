@@ -213,7 +213,7 @@ public class Movement : MonoBehaviour
             //else
             //{
             //    playerRB.velocity = (Player.forward * CurrentPlayerSpeed);
-             Debug.Log(playerRB.velocity.z);
+             //Debug.Log(playerRB.velocity.z);
             //}
         }
     }
