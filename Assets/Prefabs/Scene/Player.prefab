@@ -25,7 +25,8 @@ GameObject:
   - component: {fileID: 114943045880205292}
   - component: {fileID: 23580380107331664}
   - component: {fileID: 33086428958385176}
-  - component: {fileID: 114993848147191500}
+  - component: {fileID: 114068927469952668}
+  - component: {fileID: 114877002386575650}
   m_Layer: 0
   m_Name: Main Camera (eye)
   m_TagString: MainCamera
@@ -516,6 +517,7 @@ GameObject:
   - component: {fileID: 54248178866340932}
   - component: {fileID: 114697846784404228}
   - component: {fileID: 114862867716319294}
+  - component: {fileID: 114436565985502442}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1579,6 +1581,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 13
   origin: {fileID: 0}
+--- !u!114 &114068927469952668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005467580942994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 88a0af03e638fcb4ca0d3b666cb0ba0a, type: 2}
 --- !u!114 &114073298417556092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1830,6 +1844,22 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
+--- !u!114 &114436565985502442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811846541550326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4233fee55e516454981925c8e0deb885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PPP: {fileID: 11400000, guid: 88a0af03e638fcb4ca0d3b666cb0ba0a, type: 2}
+  minIntensity: 0
+  maxIntensity: 0.25
+  xChangeMin: 0
+  xChangeMax: 0.3
 --- !u!114 &114489076379489702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1925,7 +1955,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1005467580942994}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 232ff5953460f854fbdaa395001cd53d, type: 3}
   m_Name: 
@@ -2006,20 +2036,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc26c34a20e85b41a28d7d400e7d81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHandScript: {fileID: 114861897993564640}
+  rightHandScript: {fileID: 114597133305382078}
   LeftHandTrigger: {fileID: 4159476766902152}
   RightHandTrigger: {fileID: 4615090384112274}
   Player: {fileID: 4299563829287210}
-  HandPushSpeed: 0
+  HandPushSpeed: 10
   PlayerSpeed: 0
-  AccSpeed: 5
+  AccSpeed: 1
   AccTime: 0.2
-  isAccelerating: 0
-  isAcceleratingLeft: 0
-  isAcceleratingRight: 0
-  isPressedLeft: 0
-  isPressedRight: 0
-  GameStarted: 1
-  Died: 0
 --- !u!114 &114712649363566200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2135,6 +2160,20 @@ MonoBehaviour:
   maxLineRate: 50
   minRadius: 20
   maxRadius: 10
+--- !u!114 &114877002386575650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005467580942994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 4463362656767064}
+  _ears: {fileID: 4535421378468882}
+  wireframe: 1
 --- !u!114 &114907503155561734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2210,20 +2249,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 5
   origin: {fileID: 0}
---- !u!114 &114993848147191500
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1005467580942994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _head: {fileID: 4463362656767064}
-  _ears: {fileID: 4535421378468882}
-  wireframe: 1
 --- !u!124 &124839377358356716
 Behaviour:
   m_ObjectHideFlags: 1
