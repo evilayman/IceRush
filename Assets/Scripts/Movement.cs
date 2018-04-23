@@ -181,7 +181,5 @@ public class Movement : MonoBehaviour
         {
             playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
         }
-
-        print(CurrentLeftSpeed);
     }
 }
