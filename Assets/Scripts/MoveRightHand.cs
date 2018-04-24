@@ -26,8 +26,6 @@ public class MoveRightHand : MonoBehaviour
     {
 
         trackedObject = GetComponentInParent<SteamVR_TrackedObject>();
-        MovementScript = GameObject.Find("Player").GetComponent<Movement>();
-
     }
 
     void Update()
@@ -41,9 +39,9 @@ public class MoveRightHand : MonoBehaviour
             //Debug.Log(device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).y);
             isPressedRight = true;
             device.TriggerHapticPulse(1000);
-            if(!Emission.isPlaying)
+            if (!Emission.isPlaying)
                 Emission.Play();
-            
+
 
         }
         if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))

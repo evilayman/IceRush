@@ -4,138 +4,120 @@ using UnityEngine;
 
 public class IceManMovement : MonoBehaviour
 {
-    public float baseSpeed;
-    public float maxHorizontalSpeed;
-    public float maxVerticalSpeed;
-    public GameObject player;
-    List<Vector3> mousePos;
-    Vector3 velocity;
-    float mouseMovedX;
-    float mouseMovedY;
+    public MoveLeftHand leftHandScript;
+    public MoveRightHand rightHandScript;
+    public Transform leftHandPosition, rightHandPosition;
+    public float AccTime, AccSpeed, baseSpeed, handSpeed;
 
+    private Vector3 leftHandPivotPostion, rightHandPivotPostion;
+    private bool firstPressLeft, firstPressRight, isAcceleratingRight = false, isAcceleratingLeft = false;
+    private Vector3 leftHandDirection, rightHandDirection;
+    private float currentLeftSpeed, currentRightSpeed, leftHandSpeed, rightHandSpeed;
     private Rigidbody playerRB;
-    private SteamVR_TrackedObject trackedObject;
-    private SteamVR_Controller.Device device;
-
-
 
     void Start()
     {
-        mousePos = new List<Vector3>();
-        baseSpeed = 10;
-        velocity = new Vector3(0, 0, 1);
-
-        trackedObject = GetComponentInParent<SteamVR_TrackedObject>();
+        playerRB = GetComponent<Rigidbody>();
+        firstPressLeft = false;
     }
-
 
     void Update()
     {
-        MoveJo();
-
+        Move();
     }
-    void MoveJo()
+
+    void Move()
     {
-        //mousePos = Input.mousePosition;
-        //worldPos = camera.ScreenToWorldPoint(mousePos);
-        device = SteamVR_Controller.Input((int)trackedObject.index);
-
-        if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+        if (leftHandScript.IsPressedLeft)
         {
-            mousePos.Add(Input.mousePosition);
-            mouseMovedX = mousePos[0].x - mousePos[mousePos.Count - 1].x;
-            mouseMovedY = mousePos[0].y - mousePos[mousePos.Count - 1].y;
-            if (Mathf.Abs(mouseMovedX) > maxHorizontalSpeed)
+            leftHandSpeed = handSpeed;
+            if (!firstPressLeft)
             {
-                if (mouseMovedX > 0)
-                {
-                    mouseMovedX = maxHorizontalSpeed;
-                }
-                else
-                {
-                    mouseMovedX = -maxHorizontalSpeed;
-                }
-
+                firstPressLeft = true;
+                leftHandPivotPostion = leftHandPosition.localPosition;
             }
 
-            if (Mathf.Abs(mouseMovedY) > maxVerticalSpeed)
+            if (currentLeftSpeed < leftHandSpeed && !isAcceleratingLeft)
             {
-                if (mouseMovedY > 0)
-                {
-                    mouseMovedY = maxVerticalSpeed;
-                }
-                else
-                {
-                    mouseMovedY = -maxVerticalSpeed;
-                }
-
-            }
-            velocity = new Vector3(-mouseMovedX, -mouseMovedY, 1);
-
-            if (mousePos.Count > 2)
-            {
-                mousePos.Clear();
+                isAcceleratingLeft = true;
+                StartCoroutine(AccelerateLeft());
             }
 
-
+            leftHandDirection = (leftHandPosition.localPosition - leftHandPivotPostion);
 
         }
-        if (Input.GetMouseButtonUp(0))
+        else
         {
-            mousePos.Clear();
-            velocity = new Vector3(0, 0, 1);
+            leftHandSpeed = 0;
+            firstPressLeft = false;
+            if(!isAcceleratingLeft)
+            {
+                isAcceleratingLeft = true;
+                StartCoroutine(DeccelerateLeft());
+            }
         }
 
-        player.GetComponent<Rigidbody>().velocity = velocity * baseSpeed;
+        if (rightHandScript.IsPressedRight)
+        {
+            rightHandSpeed = handSpeed;
+            if (!firstPressRight)
+            {
+                firstPressRight = true;
+                rightHandPivotPostion = rightHandPosition.localPosition;
+            }
+            if (currentRightSpeed < rightHandSpeed && !isAcceleratingRight)
+            {
+                isAcceleratingRight = true;
+                StartCoroutine(AccelerateRight());
+            }
+            rightHandDirection = (rightHandPosition.localPosition - rightHandPivotPostion);
+        }
+        else
+        {
+            rightHandSpeed = 0;
+            firstPressRight = false;
+            if(!isAcceleratingRight)
+            {
+                isAcceleratingRight = true;
+                StartCoroutine(DeccelerateRight());
+            }
+        }
+
+        playerRB.velocity = (baseSpeed * transform.forward) + (currentLeftSpeed * leftHandDirection) + (currentRightSpeed * rightHandDirection);
 
     }
-    //    if (Input.GetMouseButton(0))
-    //    {
-    //        mousePos.Add(Input.mousePosition);
-    //        mouseMovedX = mousePos[0].x - mousePos[mousePos.Count - 1].x;
-    //        mouseMovedY = mousePos[0].y - mousePos[mousePos.Count - 1].y;          
-    //        if (Mathf.Abs(mouseMovedX)>maxHorizontalSpeed)
-    //        {
-    //            if (mouseMovedX>0)
-    //            {
-    //                mouseMovedX = maxHorizontalSpeed;
-    //            }
-    //            else
-    //            {
-    //                mouseMovedX = -maxHorizontalSpeed;
-    //            }
 
-    //        }
+    IEnumerator AccelerateLeft()
+    {
+        yield return new WaitForSeconds(AccTime);
+        currentLeftSpeed += AccSpeed;
+        isAcceleratingLeft = false;
+    }
 
-    //        if (Mathf.Abs(mouseMovedY) > maxVerticalSpeed)
-    //        {
-    //            if (mouseMovedY > 0)
-    //            {
-    //                mouseMovedY = maxVerticalSpeed;
-    //            }
-    //            else
-    //            {
-    //                mouseMovedY = -maxVerticalSpeed;
-    //            }
+    IEnumerator DeccelerateLeft()
+    {
+        yield return new WaitForSeconds(AccTime);
+        if (currentLeftSpeed > leftHandSpeed)
+        {
+            currentLeftSpeed -= AccSpeed;
+        }
+        isAcceleratingLeft = false;
+    }
 
-    //        }
-    //        velocity = new Vector3(-mouseMovedX, -mouseMovedY, 1);
-
-    //        if (mousePos.Count > 2)
-    //        {
-    //            mousePos.Clear();
-    //        }
-
-
-
-    //    }
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        mousePos.Clear();
-    //        velocity = new Vector3(0, 0, 1);
-    //    }
-
-    //    player.GetComponent<Rigidbody>().velocity = velocity * baseSpeed;
-
-    //}
+    IEnumerator AccelerateRight()
+    {
+        yield return new WaitForSeconds(AccTime);
+        currentRightSpeed += AccSpeed;
+        isAcceleratingRight = false;
+    }
+    
+    IEnumerator DeccelerateRight()
+    {
+        yield return new WaitForSeconds(AccTime);
+        if (currentRightSpeed > rightHandSpeed)
+        {
+            currentRightSpeed -= AccSpeed;
+        }
+        isAcceleratingRight = false;
+    }
 }
