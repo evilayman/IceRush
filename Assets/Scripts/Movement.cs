@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private Vector3 LeftHandDirection, RightHandDirection;
 
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
-        GameStarted = false, Died = false;
+        GameStarted = true, Died = false;
 
    
 
@@ -56,7 +56,6 @@ public class Movement : MonoBehaviour
 
         if (rightHandScript.IsPressedRight)
         {
-
             RightHandDirection = -RightHandTrigger.forward;
             RightHandSpeed = HandPushSpeed;
 
