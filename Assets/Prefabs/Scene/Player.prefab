@@ -228,7 +228,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4849236063334256}
-  - component: {fileID: 114861897993564640}
+  - component: {fileID: 114886009941650626}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4309876217215516}
-  - component: {fileID: 114597133305382078}
+  - component: {fileID: 114093005107653708}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 33406043111893766}
   - component: {fileID: 114519348687090630}
   m_Layer: 0
-  m_Name: Main Camera (origin)
+  m_Name: '[CameraRig]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -516,7 +516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4299563829287210}
   - component: {fileID: 54248178866340932}
-  - component: {fileID: 114697846784404228}
   - component: {fileID: 114862867716319294}
   - component: {fileID: 114440470046486540}
   m_Layer: 0
@@ -755,7 +754,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1811846541550326}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 300, z: 0}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4277497319991928}
@@ -1289,7 +1288,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5c60712b0c48b0749943f8ccfe997ee4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1359,7 +1358,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5c60712b0c48b0749943f8ccfe997ee4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1639,6 +1638,17 @@ MonoBehaviour:
   right: {fileID: 1415459384786866}
   objects: []
   assignAllBeforeIdentified: 0
+--- !u!114 &114093005107653708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1437156282661386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb443cf0671205a42ae3896098571d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114105399882904212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1892,16 +1902,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054c7d74ee8a837439e71c5f6fb2d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandScript: {fileID: 114861897993564640}
-  rightHandScript: {fileID: 114597133305382078}
+  leftHandScript: {fileID: 114886009941650626}
+  rightHandScript: {fileID: 114093005107653708}
   LeftHandTrigger: {fileID: 4159476766902152}
   RightHandTrigger: {fileID: 4615090384112274}
-  Player: {fileID: 4299563829287210}
-  HandPushSpeed: 0
   PlayerSpeed: 0
-  AccSpeed: 5
+  HandPushSpeed: 0
   AccTime: 0.2
+  AccSpeed: 5
   DirThreshold: 0.2
+  GameStarted: 0
+  EmissionLeft: {fileID: 198646434132402736}
+  EmissionRight: {fileID: 198165189059049284}
 --- !u!114 &114489076379489702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1979,18 +1991,6 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
---- !u!114 &114597133305382078
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437156282661386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8e56fafb5723784ba3ba0ecaea9b569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Emission: {fileID: 198165189059049284}
 --- !u!114 &114624973550168824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2067,26 +2067,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 14
   origin: {fileID: 0}
---- !u!114 &114697846784404228
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1811846541550326}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc26c34a20e85b41a28d7d400e7d81d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHandScript: {fileID: 114861897993564640}
-  rightHandScript: {fileID: 114597133305382078}
-  LeftHandTrigger: {fileID: 4159476766902152}
-  RightHandTrigger: {fileID: 4615090384112274}
-  Player: {fileID: 4299563829287210}
-  HandPushSpeed: 60
-  PlayerSpeed: 0
-  AccSpeed: 1
-  AccTime: 0.2
 --- !u!114 &114712649363566200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2172,18 +2152,6 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
---- !u!114 &114861897993564640
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356586216451054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadeb8ca12e7642468bcfab4a6cb04db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Emission: {fileID: 198646434132402736}
 --- !u!114 &114862867716319294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2202,6 +2170,17 @@ MonoBehaviour:
   maxLineRate: 50
   minRadius: 20
   maxRadius: 10
+--- !u!114 &114886009941650626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356586216451054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb443cf0671205a42ae3896098571d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114907503155561734
 MonoBehaviour:
   m_ObjectHideFlags: 1
