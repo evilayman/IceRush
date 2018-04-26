@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private Vector3 LeftHandDirection, RightHandDirection;
 
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
-        GameStarted = true, Died = false;
+        GameStarted = false, Died = false;
 
    
 
