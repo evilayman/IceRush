@@ -19,7 +19,9 @@ public class RealMovement : MonoBehaviour
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
         GameStarted = false, Died = false;
 
-    
+    private List<Vector3> myDirectionsLeft;
+    private List<float> myDirSpeedLeft;
+
 
     void Start()
     {
@@ -34,12 +36,22 @@ public class RealMovement : MonoBehaviour
         {
             
             LeftHandDirection = - LeftHandTrigger.forward;
-            LeftHandSpeed = HandPushSpeed;
 
-            if (!isAcceleratingLeft && CurrentLeftSpeed < LeftHandSpeed)
+            if (!isAcceleratingLeft)
             {
                 isAcceleratingLeft = true;
-                StartCoroutine(AccelerateLeft());
+
+                for (int i = 0; i < myDirSpeedLeft.Count; i++)
+                {
+                    if(i == myDirSpeedLeft.Count - 1)
+                    {
+                        StartCoroutine(AccelerateLeft(myDirSpeedLeft[i], HandPushSpeed));
+                    }
+                    else
+                    {
+                        StartCoroutine(AccelerateLeft(myDirSpeedLeft[i], 0));
+                    }
+                }
             }
 
             if (!GameStarted)
@@ -47,11 +59,14 @@ public class RealMovement : MonoBehaviour
         }
         else
         {
-            LeftHandSpeed = 0;
             if (!isAcceleratingLeft && CurrentLeftSpeed > LeftHandSpeed)
             {
                 isAcceleratingLeft = true;
-                StartCoroutine(AccelerateLeft());
+
+                for (int i = 0; i < myDirSpeedLeft.Count; i++)
+                {
+                    StartCoroutine(AccelerateLeft(myDirSpeedLeft[i], 0));
+                }
             }
         }
 
@@ -98,6 +113,21 @@ public class RealMovement : MonoBehaviour
         {
             PlayerSpeed -= 100;
         }
+
+        tempRight = (oldDirRight - RightHandDirection).magnitude;
+        tempLeft = (oldDirLeft - LeftHandDirection).magnitude;
+
+        if (tempRight >= DirThreshold)
+        {
+            oldDirRight = RightHandDirection;
+            print("Changed Right");
+        }
+
+        if (tempLeft >= DirThreshold)
+        {
+            oldDirLeft = LeftHandDirection;
+            print("Changed Left");
+        }
     }
 
     IEnumerator Accelerate()
@@ -115,15 +145,15 @@ public class RealMovement : MonoBehaviour
         isAccelerating = false;
     }
 
-    IEnumerator AccelerateLeft()
+    IEnumerator AccelerateLeft(float CurrentLeftSpeed, float TargetSpeed)
     {
         yield return new WaitForSeconds(AccTime);
 
-        if (CurrentLeftSpeed < LeftHandSpeed)
+        if (CurrentLeftSpeed < TargetSpeed)
         {
             CurrentLeftSpeed += AccSpeed;
         }
-        else if (CurrentLeftSpeed > LeftHandSpeed)
+        else if (CurrentLeftSpeed > TargetSpeed)
         {
             CurrentLeftSpeed -= AccSpeed;
         }
@@ -149,7 +179,7 @@ public class RealMovement : MonoBehaviour
     {
         //set start color
         SteamVR_Fade.Start(Color.clear, 0f);
-        //set and start fade to
+        //set and start fade tos
         SteamVR_Fade.Start(Color.black, time);
     }
     private void FadeFromBlack(float time)
@@ -179,24 +209,21 @@ public class RealMovement : MonoBehaviour
     {
         if (GameStarted)
         {
-            playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
+            //playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
             //if(playerRB.velocity.magnitude < (HandPushSpeed*2))
             //    playerRB.AddForce((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
 
-            tempRight = (oldDirRight - RightHandDirection).magnitude;
-            tempLeft = (oldDirLeft - LeftHandDirection).magnitude;
-
-            if (tempRight >= DirThreshold)
+            for (int i = 0; i < myDirectionsLeft.Count; i++)
             {
-                oldDirRight = RightHandDirection;
-                print("Changed Right");
-            }
+                if(myDirSpeedLeft[i] == 0)
+                {
+                    myDirectionsLeft.Remove(myDirectionsLeft[i]);
+                    myDirSpeedLeft.Remove(myDirSpeedLeft[i]);
+                }
+                else
+                    playerRB.velocity += (myDirectionsLeft[i] * myDirSpeedLeft[i]);
+            }    
 
-            if (tempLeft >= DirThreshold)
-            {
-                oldDirLeft = LeftHandDirection;
-                print("Changed Left");
-            }
         }
     }
 }

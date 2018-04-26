@@ -19,8 +19,6 @@ public class Movement : MonoBehaviour
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
         GameStarted = false, Died = false;
 
-   
-
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
