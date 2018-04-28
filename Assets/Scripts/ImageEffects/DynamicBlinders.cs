@@ -41,7 +41,7 @@ public class DynamicBlinders : MonoBehaviour
         rightX = ((rightDistance - minDistance) / (maxDistance - minDistance)) * (xChangeMax - xChangeMin) + xChangeMin;
 
         targetX = 0.5f + leftX - rightX;
-        targetIntensity = leftIntensity + RightIntensity + 0.1f;
+        targetIntensity = leftIntensity + RightIntensity;
 
         currentIntensity = Mathf.Lerp(currentIntensity, targetIntensity, lerpTime);
         currentX = Mathf.Lerp(currentX, targetX, lerpTime);

@@ -4,45 +4,51 @@ using UnityEngine;
 
 public class MoveTestPlayer : Photon.MonoBehaviour
 {
-
-    private Vector3 selfPos;
+    private Rigidbody playerRB;
+    private Vector3 targetPos;
+    private float lag;
 
     void Start()
     {
+        playerRB = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         if (photonView.isMine)
-        {
             MovePlayer();
-        }
-        else
-        {
-            SmoothNetMovement();
-        }
+    }
 
+    private void FixedUpdate()
+    {
+        if (!photonView.isMine)
+            SmoothNetMovement();
     }
 
     private void MovePlayer()
     {
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * 10;
+        playerRB.velocity += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * 30;
     }
 
     private void SmoothNetMovement()
     {
-        transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
+        playerRB.position = Vector3.MoveTowards(playerRB.position, targetPos, Time.fixedDeltaTime);
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if(stream.isWriting)
+        if (stream.isWriting)
         {
-            stream.SendNext(transform.position);
+            stream.SendNext(playerRB.position);
+            stream.SendNext(playerRB.velocity);
         }
         else
         {
-            selfPos = (Vector3)stream.ReceiveNext();
+            targetPos = (Vector3)stream.ReceiveNext();
+            playerRB.velocity = (Vector3)stream.ReceiveNext();
+
+            lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
+            targetPos += (this.playerRB.velocity * lag);
         }
     }
 }

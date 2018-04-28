@@ -14,6 +14,10 @@ public class RoomManager : MonoBehaviour
     {
         DontDestroyOnLoad(transform);
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
+
+        // uncomment these two lines if the network is laggy or don't 
+        //PhotonNetwork.sendRate = 60;
+        //PhotonNetwork.sendRateOnSerialize = 30;
     }
 
     public void OnClickCreateOrJoin()

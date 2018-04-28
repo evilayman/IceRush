@@ -5,24 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class RealMovement : MonoBehaviour
 {
+    
     public HandScript leftHandScript, rightHandScript;
 
     private Rigidbody playerRB;
 
-    public Transform LeftHandTrigger, RightHandTrigger;
+    public Transform leftHandTrigger, rightHandTrigger;
 
-    public float PlayerSpeed, HandPushSpeed, AccTime, AccSpeed, DirThreshold;
-    private float CurrentPlayerSpeed;
+    public float baseSpeed, handSpeed, accTime, accRate, decRate, accTimeHand, accRateHand, decRateHand, dirThreshold;
+    private float currentBaseSpeed;
 
-    private Vector3 LeftHandDirection, RightHandDirection, totalSpeedLeft, totalSpeedRight;
+    private Vector3 leftHandDirection, lightHandDirection, totalSpeedLeft, totalSpeedRight;
 
-    public bool GameStarted = false;
+    public bool gameStarted = false;
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false, Died = false;
     
     private List<Vector3> myDirectionsLeft, myDirectionsRight;
     private List<float> myDirSpeedLeft, myDirSpeedRight;
 
-    public ParticleSystem EmissionLeft, EmissionRight;
+    public ParticleSystem emissionLeft, emissionRight;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -49,10 +50,10 @@ public class RealMovement : MonoBehaviour
 
     void Update()
     {
-        CheckBaseSpeed();
+        CheckbaseSpeed();
 
-        //CheckHand(leftHandScript.IsTriggerPressed, LeftHandDirection, LeftHandTrigger, ref myDirectionsLeft, ref myDirSpeedLeft, isAcceleratingLeft, (x) => isAcceleratingLeft = x);
-        //CheckHand(rightHandScript.IsTriggerPressed, RightHandDirection, RightHandTrigger, ref myDirectionsRight, ref myDirSpeedRight, isAcceleratingRight, (x) => isAcceleratingRight = x);
+        //CheckHand(leftHandScript.IsTriggerPressed, leftHandDirection, leftHandTrigger, ref myDirectionsLeft, ref myDirSpeedLeft, isAcceleratingLeft, (x) => isAcceleratingLeft = x);
+        //CheckHand(rightHandScript.IsTriggerPressed, lightHandDirection, rightHandTrigger, ref myDirectionsRight, ref myDirSpeedRight, isAcceleratingRight, (x) => isAcceleratingRight = x);
 
         CheckLeftHand();
         CheckRightHand();
@@ -60,21 +61,21 @@ public class RealMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameStarted)
+        if (gameStarted)
             MovePlayer();
     }
 
-    void CheckBaseSpeed()
+    void CheckbaseSpeed()
     {
-        if (!isAccelerating && CurrentPlayerSpeed < PlayerSpeed)
+        if (!isAccelerating && currentBaseSpeed < baseSpeed)
         {
             isAccelerating = true;
-            StartCoroutine(Accelerate());
+            StartCoroutine(Accelerate(accTime));
         }
-        else if (!isAccelerating && CurrentPlayerSpeed > PlayerSpeed)
+        else if (!isAccelerating && currentBaseSpeed > baseSpeed)
         {
             isAccelerating = true;
-            StartCoroutine(Accelerate());
+            StartCoroutine(Accelerate(accTime));
         }
     }
     void CheckHand(bool isTriggerPressed, Vector3 handDirection, Transform HandTrigger, ref List<Vector3> myDirections, ref List<float> myDirSpeeds, bool isHandAcc, System.Action<bool> myAction)
@@ -89,20 +90,20 @@ public class RealMovement : MonoBehaviour
                 isHandAcc = true;
                 for (int i = 0; i < myDirSpeeds.Count; i++)
                 {
-                    if (i == myDirSpeeds.Count - 1 && myDirSpeeds[i] < HandPushSpeed)
+                    if (i == myDirSpeeds.Count - 1 && myDirSpeeds[i] < handSpeed)
                     {
-                        myDirSpeeds[i] += AccSpeed;
+                        myDirSpeeds[i] += accRateHand;
                     }
                     else if(myDirSpeeds[i] > 0)
                     {
-                        myDirSpeeds[i] -= AccSpeed;
+                        myDirSpeeds[i] -= decRateHand;
                     }
                 }
-                StartCoroutine(AccelerateHand(myAction));
+                StartCoroutine(AccelerateHand(myAction, accTimeHand));
             }
 
-            if (!GameStarted)
-                GameStarted = true;
+            if (!gameStarted)
+                gameStarted = true;
         }
         else
         {
@@ -113,10 +114,10 @@ public class RealMovement : MonoBehaviour
                 {
                     if (myDirSpeeds[i] > 0)
                     {
-                        myDirSpeeds[i] -= AccSpeed;
+                        myDirSpeeds[i] -= decRateHand;
                     }
                 }
-                StartCoroutine(AccelerateHand(myAction));
+                StartCoroutine(AccelerateHand(myAction, accTimeHand));
             }
         }
     }
@@ -124,10 +125,10 @@ public class RealMovement : MonoBehaviour
     {
         if (leftHandScript.IsTriggerPressed)
         {
-            if (!EmissionLeft.isPlaying)
-                EmissionLeft.Play();
+            if (!emissionLeft.isPlaying)
+                emissionLeft.Play();
 
-            LeftHandDirection = -LeftHandTrigger.forward;
+            leftHandDirection = -leftHandTrigger.forward;
             GetDirsLeft();
 
             if (!isAcceleratingLeft)
@@ -136,27 +137,27 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedLeft.Count; i++)
                 {
-                    if (i == myDirSpeedLeft.Count - 1 && myDirSpeedLeft[i] < HandPushSpeed)
+                    if (i == myDirSpeedLeft.Count - 1 && myDirSpeedLeft[i] < handSpeed)
                     {
-                        myDirSpeedLeft[i] += AccSpeed;
+                        myDirSpeedLeft[i] += accRateHand;
                     }
                     else if (myDirSpeedLeft[i] > 0)
                     {
-                        myDirSpeedLeft[i] -= AccSpeed;
+                        myDirSpeedLeft[i] -= decRateHand;
                     }
                 }
 
-                StartCoroutine(AccelerateLeft());
+                StartCoroutine(AccelerateLeft(accTimeHand));
             }
 
-            if (!GameStarted)
-                GameStarted = true;
+            if (!gameStarted)
+                gameStarted = true;
         }
         else
         {
 
-            if (EmissionLeft.isPlaying)
-                EmissionLeft.Stop();
+            if (emissionLeft.isPlaying)
+                emissionLeft.Stop();
 
             if (!isAcceleratingLeft)
             {
@@ -164,21 +165,21 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedLeft.Count; i++)
                 {
-                    myDirSpeedLeft[i] -= AccSpeed;
+                    myDirSpeedLeft[i] -= decRateHand;
                 }
 
-                StartCoroutine(AccelerateLeft());
+                StartCoroutine(AccelerateLeft(accTimeHand));
             }
         }
     }
     void CheckRightHand()
     {
-        if (!EmissionRight.isPlaying)
-            EmissionRight.Play();
+        if (!emissionRight.isPlaying)
+            emissionRight.Play();
 
         if (rightHandScript.IsTriggerPressed)
         {
-            RightHandDirection = -RightHandTrigger.forward;
+            lightHandDirection = -rightHandTrigger.forward;
             GetDirsRight();
 
             if (!isAcceleratingRight)
@@ -187,27 +188,27 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedRight.Count; i++)
                 {
-                    if (i == myDirSpeedRight.Count - 1 && myDirSpeedRight[i] < HandPushSpeed)
+                    if (i == myDirSpeedRight.Count - 1 && myDirSpeedRight[i] < handSpeed)
                     {
-                        myDirSpeedRight[i] += AccSpeed;
+                        myDirSpeedRight[i] += accRateHand;
                     }
                     else if (myDirSpeedRight[i] > 0)
                     {
-                        myDirSpeedRight[i] -= AccSpeed;
+                        myDirSpeedRight[i] -= decRateHand;
                     }
                 }
 
-                StartCoroutine(AccelerateRight());
+                StartCoroutine(AccelerateRight(accTimeHand));
 
             }
 
-            if (!GameStarted)
-                GameStarted = true;
+            if (!gameStarted)
+                gameStarted = true;
         }
         else
         {
-            if (EmissionRight.isPlaying)
-                EmissionRight.Stop();
+            if (emissionRight.isPlaying)
+                emissionRight.Stop();
 
             if (!isAcceleratingRight)
             {
@@ -215,9 +216,9 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedRight.Count; i++)
                 {
-                    myDirSpeedRight[i] -= AccSpeed;
+                    myDirSpeedRight[i] -= decRateHand;
                 }
-                StartCoroutine(AccelerateRight());
+                StartCoroutine(AccelerateRight(accTimeHand));
             }
         }
     }
@@ -232,7 +233,7 @@ public class RealMovement : MonoBehaviour
 
         var temp = (MyDirections[MyDirections.Count - 1] - handDirection).magnitude;
 
-        if (temp >= DirThreshold)
+        if (temp >= dirThreshold)
         {
             MyDirections.Add(handDirection);
             myDirSpeeds.Add(0);
@@ -242,15 +243,15 @@ public class RealMovement : MonoBehaviour
     {
         if(myDirectionsLeft.Count == 0)
         {
-            myDirectionsLeft.Add(LeftHandDirection);
+            myDirectionsLeft.Add(leftHandDirection);
             myDirSpeedLeft.Add(0);
         }
         
-        float temp = (myDirectionsLeft[myDirectionsLeft.Count - 1] - LeftHandDirection).magnitude;
+        float temp = (myDirectionsLeft[myDirectionsLeft.Count - 1] - leftHandDirection).magnitude;
 
-        if (temp >= DirThreshold)
+        if (temp >= dirThreshold)
         {
-            myDirectionsLeft.Add(LeftHandDirection);
+            myDirectionsLeft.Add(leftHandDirection);
             myDirSpeedLeft.Add(0);
         }
     }
@@ -258,57 +259,56 @@ public class RealMovement : MonoBehaviour
     {
         if (myDirectionsRight.Count == 0)
         {
-            myDirectionsRight.Add(RightHandDirection);
+            myDirectionsRight.Add(lightHandDirection);
             myDirSpeedRight.Add(0);
         }
 
-        float temp = (myDirectionsRight[myDirectionsRight.Count - 1] - RightHandDirection).magnitude;
+        float temp = (myDirectionsRight[myDirectionsRight.Count - 1] - lightHandDirection).magnitude;
 
-        if (temp >= DirThreshold)
+        if (temp >= dirThreshold)
         {
-            myDirectionsRight.Add(RightHandDirection);
+            myDirectionsRight.Add(lightHandDirection);
             myDirSpeedRight.Add(0);
         }
     }
 
-    IEnumerator Accelerate()
+    IEnumerator Accelerate(float time)
     {
-        yield return new WaitForSeconds(AccTime);
+        yield return new WaitForSeconds(time);
 
-        if (CurrentPlayerSpeed < PlayerSpeed)
+        if (currentBaseSpeed < baseSpeed)
         {
-            CurrentPlayerSpeed += AccSpeed;
+            currentBaseSpeed += accRate;
         }
-        else if (CurrentPlayerSpeed > PlayerSpeed)
+        else if (currentBaseSpeed > baseSpeed)
         {
-            CurrentPlayerSpeed -= AccSpeed;
+            currentBaseSpeed -= decRate;
         }
-
         isAccelerating = false;
     }
-    IEnumerator AccelerateHand(System.Action<bool> myAction)
+    IEnumerator AccelerateHand(System.Action<bool> myAction, float time)
     {
-        yield return new WaitForSeconds(AccTime);
+        yield return new WaitForSeconds(time);
         myAction(false);
     }
-    IEnumerator AccelerateLeft()
+    IEnumerator AccelerateLeft(float time)
     {
-        yield return new WaitForSeconds(AccTime);
+        yield return new WaitForSeconds(time);
         isAcceleratingLeft = false;
     }
-    IEnumerator AccelerateRight()
+    IEnumerator AccelerateRight(float time)
     {
-        yield return new WaitForSeconds(AccTime);
+        yield return new WaitForSeconds(time);
         isAcceleratingRight = false;
     }
 
     void MovePlayer()
     {
-        //playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
-        //if(playerRB.velocity.magnitude < (HandPushSpeed*2))
-        //    playerRB.AddForce((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
+        //playerRB.velocity = ((Player.forward * currentBaseSpeed) + (leftHandDirection * CurrentLeftSpeed) + (lightHandDirection * CurrentRightSpeed));
+        //if(playerRB.velocity.magnitude < (handSpeed*2))
+        //    playerRB.AddForce((Player.forward * currentBaseSpeed) + (leftHandDirection * CurrentLeftSpeed) + (lightHandDirection * CurrentRightSpeed));
 
-        playerRB.velocity = LeftVelocity() + RightVelocity();
+        playerRB.velocity = LeftVelocity() + RightVelocity() + (transform.forward * currentBaseSpeed);
         //playerRB.velocity = HandVelocity(myDirectionsLeft, myDirSpeedLeft, totalSpeedLeft) + HandVelocity(myDirectionsRight, myDirSpeedRight, totalSpeedRight);
 
     }
