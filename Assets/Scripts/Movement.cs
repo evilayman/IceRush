@@ -5,19 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
-    public MoveLeftHand leftHandScript;
-    public MoveRightHand rightHandScript;
+    public HandScript leftHandScript, rightHandScript;
     private Rigidbody playerRB;
 
     public Transform LeftHandTrigger, RightHandTrigger, Player;
 
-    public float HandPushSpeed, PlayerSpeed, AccSpeed, AccTime;
-    private float CurrentPlayerSpeed, CurrentLeftSpeed, CurrentRightSpeed, LeftHandSpeed, RightHandSpeed;
+    public float HandPushSpeed, baseSpeed, AccSpeed, DecSpeed, AccTime;
+    private float CurrentbaseSpeed, CurrentLeftSpeed, CurrentRightSpeed, LeftHandSpeed, RightHandSpeed;
 
     private Vector3 LeftHandDirection, RightHandDirection;
 
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
-        GameStarted = false, Died = false;
+        GameStarted = true, Died = false;
+
+    public ParticleSystem emissionLeft, emissionRight;
 
     void Start()
     {
@@ -28,9 +29,12 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (leftHandScript.IsPressedLeft)
+        if (leftHandScript.IsTriggerPressed)
         {
-            LeftHandDirection = -LeftHandTrigger.forward;
+            if (!emissionLeft.isPlaying)
+                emissionLeft.Play();
+
+            LeftHandDirection = LeftHandTrigger.forward;
             LeftHandSpeed = HandPushSpeed;
 
             if (!isAcceleratingLeft && CurrentLeftSpeed < LeftHandSpeed)
@@ -44,6 +48,9 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            if (emissionLeft.isPlaying)
+                emissionLeft.Stop();
+
             LeftHandSpeed = 0;
             if (!isAcceleratingLeft && CurrentLeftSpeed > LeftHandSpeed)
             {
@@ -52,9 +59,12 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (rightHandScript.IsPressedRight)
+        if (rightHandScript.IsTriggerPressed)
         {
-            RightHandDirection = -RightHandTrigger.forward;
+            if (!emissionRight.isPlaying)
+                emissionRight.Play();
+
+            RightHandDirection = RightHandTrigger.forward;
             RightHandSpeed = HandPushSpeed;
 
             if (!isAcceleratingRight && CurrentRightSpeed < RightHandSpeed)
@@ -68,6 +78,9 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            if (emissionRight.isPlaying)
+                emissionRight.Stop();
+
             RightHandSpeed = 0;
             if (!isAcceleratingRight && CurrentRightSpeed > RightHandSpeed)
             {
@@ -76,12 +89,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (!isAccelerating && CurrentPlayerSpeed < PlayerSpeed)
-        {
-            isAccelerating = true;
-            StartCoroutine(Accelerate());
-        }
-        else if (!isAccelerating && CurrentPlayerSpeed > PlayerSpeed)
+        if (!isAccelerating)
         {
             isAccelerating = true;
             StartCoroutine(Accelerate());
@@ -89,11 +97,11 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlayerSpeed += 100;
+            baseSpeed += 100;
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            PlayerSpeed -= 100;
+            baseSpeed -= 100;
         }
     }
 
@@ -101,13 +109,13 @@ public class Movement : MonoBehaviour
     {
         yield return new WaitForSeconds(AccTime);
 
-        if (CurrentPlayerSpeed < PlayerSpeed)
+        if (CurrentbaseSpeed < baseSpeed)
         {
-            CurrentPlayerSpeed += AccSpeed;
+            CurrentbaseSpeed += AccSpeed;
         }
-        else if (CurrentPlayerSpeed > PlayerSpeed)
+        else if (CurrentbaseSpeed > baseSpeed)
         {
-            CurrentPlayerSpeed -= AccSpeed;
+            CurrentbaseSpeed -= DecSpeed;
         }
         isAccelerating = false;
     }
@@ -176,7 +184,7 @@ public class Movement : MonoBehaviour
     {
         if (GameStarted)
         {
-            playerRB.velocity = ((Player.forward * CurrentPlayerSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
+            playerRB.velocity = ((Player.forward * CurrentbaseSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
         }
     }
 }

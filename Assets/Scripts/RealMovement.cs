@@ -15,13 +15,13 @@ public class RealMovement : MonoBehaviour
     public float baseSpeed, handSpeed, accTime, accRate, decRate, accTimeHand, accRateHand, decRateHand, dirThreshold;
     private float currentBaseSpeed;
 
-    private Vector3 leftHandDirection, lightHandDirection, totalSpeedLeft, totalSpeedRight;
+    private Vector3 leftHandDirection, rightHandDirection, totalSpeedLeft, totalSpeedRight;
 
     public bool gameStarted = false;
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false, Died = false;
     
-    private List<Vector3> myDirectionsLeft, myDirectionsRight;
-    private List<float> myDirSpeedLeft, myDirSpeedRight;
+    public List<Vector3> myDirectionsLeft, myDirectionsRight;
+    public List<float> myDirSpeedLeft, myDirSpeedRight;
 
     public ParticleSystem emissionLeft, emissionRight;
 
@@ -53,7 +53,7 @@ public class RealMovement : MonoBehaviour
         CheckbaseSpeed();
 
         //CheckHand(leftHandScript.IsTriggerPressed, leftHandDirection, leftHandTrigger, ref myDirectionsLeft, ref myDirSpeedLeft, isAcceleratingLeft, (x) => isAcceleratingLeft = x);
-        //CheckHand(rightHandScript.IsTriggerPressed, lightHandDirection, rightHandTrigger, ref myDirectionsRight, ref myDirSpeedRight, isAcceleratingRight, (x) => isAcceleratingRight = x);
+        //CheckHand(rightHandScript.IsTriggerPressed, rightHandDirection, rightHandTrigger, ref myDirectionsRight, ref myDirSpeedRight, isAcceleratingRight, (x) => isAcceleratingRight = x);
 
         CheckLeftHand();
         CheckRightHand();
@@ -82,7 +82,7 @@ public class RealMovement : MonoBehaviour
     {
         if (isTriggerPressed)
         {
-            handDirection = -HandTrigger.forward;
+            handDirection = HandTrigger.forward;
             GetDirs(ref myDirections, ref myDirSpeeds, handDirection);
 
             if (!isHandAcc)
@@ -128,7 +128,7 @@ public class RealMovement : MonoBehaviour
             if (!emissionLeft.isPlaying)
                 emissionLeft.Play();
 
-            leftHandDirection = -leftHandTrigger.forward;
+            leftHandDirection = leftHandTrigger.forward;
             GetDirsLeft();
 
             if (!isAcceleratingLeft)
@@ -174,12 +174,12 @@ public class RealMovement : MonoBehaviour
     }
     void CheckRightHand()
     {
-        if (!emissionRight.isPlaying)
-            emissionRight.Play();
-
         if (rightHandScript.IsTriggerPressed)
         {
-            lightHandDirection = -rightHandTrigger.forward;
+            if (!emissionRight.isPlaying)
+                emissionRight.Play();
+
+            rightHandDirection = rightHandTrigger.forward;
             GetDirsRight();
 
             if (!isAcceleratingRight)
@@ -218,6 +218,7 @@ public class RealMovement : MonoBehaviour
                 {
                     myDirSpeedRight[i] -= decRateHand;
                 }
+
                 StartCoroutine(AccelerateRight(accTimeHand));
             }
         }
@@ -239,6 +240,7 @@ public class RealMovement : MonoBehaviour
             myDirSpeeds.Add(0);
         }
     }
+
     void GetDirsLeft()
     {
         if(myDirectionsLeft.Count == 0)
@@ -252,23 +254,23 @@ public class RealMovement : MonoBehaviour
         if (temp >= dirThreshold)
         {
             myDirectionsLeft.Add(leftHandDirection);
-            myDirSpeedLeft.Add(0);
+            myDirSpeedLeft.Add(myDirSpeedLeft[myDirectionsLeft.Count]);
         }
     }
     void GetDirsRight()
     {
         if (myDirectionsRight.Count == 0)
         {
-            myDirectionsRight.Add(lightHandDirection);
+            myDirectionsRight.Add(rightHandDirection);
             myDirSpeedRight.Add(0);
         }
 
-        float temp = (myDirectionsRight[myDirectionsRight.Count - 1] - lightHandDirection).magnitude;
+        float temp = (myDirectionsRight[myDirectionsRight.Count - 1] - rightHandDirection).magnitude;
 
         if (temp >= dirThreshold)
         {
-            myDirectionsRight.Add(lightHandDirection);
-            myDirSpeedRight.Add(0);
+            myDirectionsRight.Add(rightHandDirection);
+            myDirSpeedRight.Add(myDirSpeedRight[myDirectionsRight.Count]);
         }
     }
 
@@ -304,9 +306,9 @@ public class RealMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        //playerRB.velocity = ((Player.forward * currentBaseSpeed) + (leftHandDirection * CurrentLeftSpeed) + (lightHandDirection * CurrentRightSpeed));
+        //playerRB.velocity = ((Player.forward * currentBaseSpeed) + (leftHandDirection * CurrentLeftSpeed) + (rightHandDirection * CurrentRightSpeed));
         //if(playerRB.velocity.magnitude < (handSpeed*2))
-        //    playerRB.AddForce((Player.forward * currentBaseSpeed) + (leftHandDirection * CurrentLeftSpeed) + (lightHandDirection * CurrentRightSpeed));
+        //    playerRB.AddForce((Player.forward * currentBaseSpeed) + (leftHandDirection * CurrentLeftSpeed) + (rightHandDirection * CurrentRightSpeed));
 
         playerRB.velocity = LeftVelocity() + RightVelocity() + (transform.forward * currentBaseSpeed);
         //playerRB.velocity = HandVelocity(myDirectionsLeft, myDirSpeedLeft, totalSpeedLeft) + HandVelocity(myDirectionsRight, myDirSpeedRight, totalSpeedRight);
@@ -318,7 +320,7 @@ public class RealMovement : MonoBehaviour
         totalSpeed = Vector3.zero;
         for (int i = 0; i < myDirections.Count; i++)
         {
-            if (myDirSpeeds[i] == 0)
+            if (myDirSpeeds[i] <= 0)
             {
                 myDirections.Remove(myDirections[i]);
                 myDirSpeeds.Remove(myDirSpeeds[i]);
@@ -333,7 +335,7 @@ public class RealMovement : MonoBehaviour
         totalSpeedLeft = Vector3.zero;
         for (int i = 0; i < myDirectionsLeft.Count; i++)
         {
-            if (myDirSpeedLeft[i] == 0)
+            if (myDirSpeedLeft[i] <= 0)
             {
                 myDirectionsLeft.Remove(myDirectionsLeft[i]);
                 myDirSpeedLeft.Remove(myDirSpeedLeft[i]);
@@ -348,13 +350,13 @@ public class RealMovement : MonoBehaviour
         totalSpeedRight = Vector3.zero;
         for (int i = 0; i < myDirectionsRight.Count; i++)
         {
-            if (myDirSpeedRight[i] == 0)
+            if (myDirSpeedRight[i] <= 0)
             {
                 myDirectionsRight.Remove(myDirectionsRight[i]);
                 myDirSpeedRight.Remove(myDirSpeedRight[i]);
             }
             else
-                totalSpeedRight = (myDirectionsRight[i] * myDirSpeedRight[i]);
+                totalSpeedRight += (myDirectionsRight[i] * myDirSpeedRight[i]);
         }
         return totalSpeedRight;
     }

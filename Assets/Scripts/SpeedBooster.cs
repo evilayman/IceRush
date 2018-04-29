@@ -10,7 +10,7 @@ public class SpeedBooster : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponentInParent<RealMovement>().baseSpeed += boostSpeed;
+            other.gameObject.GetComponentInParent<Movement>().baseSpeed += boostSpeed;
         }
     }
 
@@ -18,7 +18,7 @@ public class SpeedBooster : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponentInParent<RealMovement>().baseSpeed -= boostSpeed;
+            other.gameObject.GetComponentInParent<Movement>().baseSpeed -= boostSpeed;
         }
     }
 }
