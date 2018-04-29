@@ -1,46 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
-    public HandScript leftHandScript, rightHandScript;
+    private Stats myStats;
+
     private Rigidbody playerRB;
 
-    public Transform LeftHandTrigger, RightHandTrigger, Player;
-
-    public float HandPushSpeed, baseSpeed, AccSpeed, DecSpeed, AccTime;
-    private float CurrentbaseSpeed, CurrentLeftSpeed, CurrentRightSpeed, LeftHandSpeed, RightHandSpeed;
+    private float CurrentbaseSpeed, CurrentLeftSpeed, CurrentRightSpeed;
 
     private Vector3 LeftHandDirection, RightHandDirection;
 
-    private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
-        GameStarted = true, Died = false;
+    private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false;
+    public bool GameStarted = true;
 
     public ParticleSystem emissionLeft, emissionRight;
 
     void Start()
     {
+        myStats = GetComponent<Stats>();
         playerRB = GetComponent<Rigidbody>();
-        FadeFromBlack(0.2f);
-
     }
 
     void Update()
     {
-        if (leftHandScript.IsTriggerPressed)
+        BaseSpeedCheck();
+        LeftHandCheck();
+        RightHandCheck();
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameStarted)
+            playerRB.velocity = ((transform.forward * CurrentbaseSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
+    }
+
+    void BaseSpeedCheck()
+    {
+        if (!isAccelerating)
+        {
+            isAccelerating = true;
+
+            if (CurrentbaseSpeed < myStats.baseSpeed)
+            {
+                CurrentbaseSpeed += myStats.accRate;
+            }
+            else if (CurrentbaseSpeed > myStats.baseSpeed)
+            {
+                CurrentbaseSpeed -= myStats.decRate;
+            }
+
+            StartCoroutine(Accelerate(myStats.accTime));
+        }
+    }
+    void LeftHandCheck()
+    {
+        if (myStats.leftHandScript.IsTriggerPressed)
         {
             if (!emissionLeft.isPlaying)
                 emissionLeft.Play();
 
-            LeftHandDirection = LeftHandTrigger.forward;
-            LeftHandSpeed = HandPushSpeed;
+            LeftHandDirection = myStats.leftHandTrigger.forward;
 
-            if (!isAcceleratingLeft && CurrentLeftSpeed < LeftHandSpeed)
+            if (!isAcceleratingLeft && CurrentLeftSpeed < myStats.handSpeed)
             {
                 isAcceleratingLeft = true;
-                StartCoroutine(AccelerateLeft());
+
+                CurrentLeftSpeed += myStats.accRateHand;
+
+                StartCoroutine(AccelerateLeft(myStats.accTimeHand));
             }
 
             if (!GameStarted)
@@ -51,26 +80,32 @@ public class Movement : MonoBehaviour
             if (emissionLeft.isPlaying)
                 emissionLeft.Stop();
 
-            LeftHandSpeed = 0;
-            if (!isAcceleratingLeft && CurrentLeftSpeed > LeftHandSpeed)
+            if (!isAcceleratingLeft && CurrentLeftSpeed > 0)
             {
                 isAcceleratingLeft = true;
-                StartCoroutine(AccelerateLeft());
+
+                CurrentLeftSpeed -= myStats.decRateHand;
+
+                StartCoroutine(AccelerateLeft(myStats.accTimeHand));
             }
         }
-
-        if (rightHandScript.IsTriggerPressed)
+    }
+    void RightHandCheck()
+    {
+        if (myStats.rightHandScript.IsTriggerPressed)
         {
             if (!emissionRight.isPlaying)
                 emissionRight.Play();
 
-            RightHandDirection = RightHandTrigger.forward;
-            RightHandSpeed = HandPushSpeed;
+            RightHandDirection = myStats.rightHandTrigger.forward;
 
-            if (!isAcceleratingRight && CurrentRightSpeed < RightHandSpeed)
+            if (!isAcceleratingRight && CurrentRightSpeed < myStats.handSpeed)
             {
                 isAcceleratingRight = true;
-                StartCoroutine(AccelerateRight());
+
+                CurrentRightSpeed += myStats.accRateHand;
+
+                StartCoroutine(AccelerateRight(myStats.accTimeHand));
             }
 
             if (!GameStarted)
@@ -81,110 +116,34 @@ public class Movement : MonoBehaviour
             if (emissionRight.isPlaying)
                 emissionRight.Stop();
 
-            RightHandSpeed = 0;
-            if (!isAcceleratingRight && CurrentRightSpeed > RightHandSpeed)
+            if (!isAcceleratingRight && CurrentRightSpeed > 0)
             {
                 isAcceleratingRight = true;
-                StartCoroutine(AccelerateRight());
+
+                CurrentRightSpeed -= myStats.decRateHand;
+
+                StartCoroutine(AccelerateRight(myStats.accTimeHand));
             }
         }
-
-        if (!isAccelerating)
-        {
-            isAccelerating = true;
-            StartCoroutine(Accelerate());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            baseSpeed += 100;
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            baseSpeed -= 100;
-        }
     }
 
-    IEnumerator Accelerate()
+    IEnumerator Accelerate(float time)
     {
-        yield return new WaitForSeconds(AccTime);
-
-        if (CurrentbaseSpeed < baseSpeed)
-        {
-            CurrentbaseSpeed += AccSpeed;
-        }
-        else if (CurrentbaseSpeed > baseSpeed)
-        {
-            CurrentbaseSpeed -= DecSpeed;
-        }
+        yield return new WaitForSeconds(time);
         isAccelerating = false;
     }
-
-    IEnumerator AccelerateLeft()
+    IEnumerator AccelerateLeft(float time)
     {
-        yield return new WaitForSeconds(AccTime);
-
-        if (CurrentLeftSpeed < LeftHandSpeed)
-        {
-            CurrentLeftSpeed += AccSpeed;
-        }
-        else if (CurrentLeftSpeed > LeftHandSpeed)
-        {
-            CurrentLeftSpeed -= AccSpeed;
-        }
+        yield return new WaitForSeconds(time);
         isAcceleratingLeft = false;
     }
-
-    IEnumerator AccelerateRight()
+    IEnumerator AccelerateRight(float time)
     {
-        yield return new WaitForSeconds(AccTime);
-
-        if (CurrentRightSpeed < RightHandSpeed)
-        {
-            CurrentRightSpeed += AccSpeed;
-        }
-        else if (CurrentRightSpeed > RightHandSpeed)
-        {
-            CurrentRightSpeed -= AccSpeed;
-        }
+        yield return new WaitForSeconds(time);
         isAcceleratingRight = false;
     }
 
-    private void FadeToBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.clear, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.black, time);
-    }
-    private void FadeFromBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.black, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.clear, time);
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!Died)
-        {
-            Died = true;
-            FadeToBlack(0.2f);
-            StartCoroutine(resetScene(1f));
-        }
-    }
-    IEnumerator resetScene(float time)
-    {
-        yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("Main");
-    }
 
-    private void FixedUpdate()
-    {
-        if (GameStarted)
-        {
-            playerRB.velocity = ((Player.forward * CurrentbaseSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
-        }
-    }
+
 }

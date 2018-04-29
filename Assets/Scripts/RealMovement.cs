@@ -1,49 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RealMovement : MonoBehaviour
 {
-    
-    public HandScript leftHandScript, rightHandScript;
+
+    private Stats myStats;
 
     private Rigidbody playerRB;
 
-    public Transform leftHandTrigger, rightHandTrigger;
-
-    public float baseSpeed, handSpeed, accTime, accRate, decRate, accTimeHand, accRateHand, decRateHand, dirThreshold;
-    private float currentBaseSpeed;
+    private float currentBaseSpeed, availableSpeedLeft, availableSpeedRight;
 
     private Vector3 leftHandDirection, rightHandDirection, totalSpeedLeft, totalSpeedRight;
 
     public bool gameStarted = false;
+
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false, Died = false;
     
-    public List<Vector3> myDirectionsLeft, myDirectionsRight;
-    public List<float> myDirSpeedLeft, myDirSpeedRight;
+    private List<Vector3> myDirectionsLeft, myDirectionsRight;
+    private List<float> myDirSpeedLeft, myDirSpeedRight;
 
     public ParticleSystem emissionLeft, emissionRight;
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!Died)
-        {
-            Died = true;
-            FadeToBlack(0.2f);
-            StartCoroutine(ResetScene(1f));
-        }
-    }
 
     void Start()
     {
         init();
-        FadeFromBlack(0.2f);
     }
 
-    void init()
+    private void init()
     {
+        myStats = gameObject.GetComponent<Stats>();
         playerRB = GetComponent<Rigidbody>();
+
         myDirectionsLeft = myDirectionsRight = new List<Vector3>();
         myDirSpeedLeft = myDirSpeedRight = new List<float>();
     }
@@ -67,15 +55,15 @@ public class RealMovement : MonoBehaviour
 
     void CheckbaseSpeed()
     {
-        if (!isAccelerating && currentBaseSpeed < baseSpeed)
+        if (!isAccelerating && currentBaseSpeed < myStats.baseSpeed)
         {
             isAccelerating = true;
-            StartCoroutine(Accelerate(accTime));
+            StartCoroutine(Accelerate(myStats.accTime));
         }
-        else if (!isAccelerating && currentBaseSpeed > baseSpeed)
+        else if (!isAccelerating && currentBaseSpeed > myStats.baseSpeed)
         {
             isAccelerating = true;
-            StartCoroutine(Accelerate(accTime));
+            StartCoroutine(Accelerate(myStats.accTime));
         }
     }
     void CheckHand(bool isTriggerPressed, Vector3 handDirection, Transform HandTrigger, ref List<Vector3> myDirections, ref List<float> myDirSpeeds, bool isHandAcc, System.Action<bool> myAction)
@@ -90,16 +78,16 @@ public class RealMovement : MonoBehaviour
                 isHandAcc = true;
                 for (int i = 0; i < myDirSpeeds.Count; i++)
                 {
-                    if (i == myDirSpeeds.Count - 1 && myDirSpeeds[i] < handSpeed)
+                    if (i == myDirSpeeds.Count - 1 && myDirSpeeds[i] < myStats.handSpeed)
                     {
-                        myDirSpeeds[i] += accRateHand;
+                        myDirSpeeds[i] += myStats.accRateHand;
                     }
                     else if(myDirSpeeds[i] > 0)
                     {
-                        myDirSpeeds[i] -= decRateHand;
+                        myDirSpeeds[i] -= myStats.decRateHand;
                     }
                 }
-                StartCoroutine(AccelerateHand(myAction, accTimeHand));
+                StartCoroutine(AccelerateHand(myAction, myStats.accTimeHand));
             }
 
             if (!gameStarted)
@@ -114,21 +102,29 @@ public class RealMovement : MonoBehaviour
                 {
                     if (myDirSpeeds[i] > 0)
                     {
-                        myDirSpeeds[i] -= decRateHand;
+                        myDirSpeeds[i] -= myStats.decRateHand;
                     }
                 }
-                StartCoroutine(AccelerateHand(myAction, accTimeHand));
+                StartCoroutine(AccelerateHand(myAction, myStats.accTimeHand));
             }
         }
     }
     void CheckLeftHand()
     {
-        if (leftHandScript.IsTriggerPressed)
+        if (myStats.leftHandScript.IsTriggerPressed)
         {
             if (!emissionLeft.isPlaying)
                 emissionLeft.Play();
 
-            leftHandDirection = leftHandTrigger.forward;
+            leftHandDirection = myStats.leftHandTrigger.forward;
+
+            for (int i = 0; i < myDirSpeedLeft.Count; i++)
+            {
+                availableSpeedLeft += myDirSpeedLeft[i];
+            }
+
+            availableSpeedLeft = myStats.handSpeed - availableSpeedLeft;
+
             GetDirsLeft();
 
             if (!isAcceleratingLeft)
@@ -137,17 +133,17 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedLeft.Count; i++)
                 {
-                    if (i == myDirSpeedLeft.Count - 1 && myDirSpeedLeft[i] < handSpeed)
+                    if (i == myDirSpeedLeft.Count - 1 && myDirSpeedLeft[i] < availableSpeedLeft)
                     {
-                        myDirSpeedLeft[i] += accRateHand;
+                        myDirSpeedLeft[i] += myStats.accRateHand;
                     }
                     else if (myDirSpeedLeft[i] > 0)
                     {
-                        myDirSpeedLeft[i] -= decRateHand;
+                        myDirSpeedLeft[i] -= myStats.decRateHand;
                     }
                 }
 
-                StartCoroutine(AccelerateLeft(accTimeHand));
+                StartCoroutine(AccelerateLeft(myStats.accTimeHand));
             }
 
             if (!gameStarted)
@@ -165,21 +161,29 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedLeft.Count; i++)
                 {
-                    myDirSpeedLeft[i] -= decRateHand;
+                    myDirSpeedLeft[i] -= myStats.decRateHand;
                 }
 
-                StartCoroutine(AccelerateLeft(accTimeHand));
+                StartCoroutine(AccelerateLeft(myStats.accTimeHand));
             }
         }
     }
     void CheckRightHand()
     {
-        if (rightHandScript.IsTriggerPressed)
+        if (myStats.rightHandScript.IsTriggerPressed)
         {
             if (!emissionRight.isPlaying)
                 emissionRight.Play();
 
-            rightHandDirection = rightHandTrigger.forward;
+            rightHandDirection = myStats.rightHandTrigger.forward;
+
+            for (int i = 0; i < myDirSpeedRight.Count; i++)
+            {
+                availableSpeedRight += myDirSpeedRight[i];
+            }
+
+            availableSpeedRight = myStats.handSpeed - availableSpeedRight;
+
             GetDirsRight();
 
             if (!isAcceleratingRight)
@@ -188,17 +192,17 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedRight.Count; i++)
                 {
-                    if (i == myDirSpeedRight.Count - 1 && myDirSpeedRight[i] < handSpeed)
+                    if (i == myDirSpeedRight.Count - 1 && myDirSpeedRight[i] < availableSpeedRight)
                     {
-                        myDirSpeedRight[i] += accRateHand;
+                        myDirSpeedRight[i] += myStats.accRateHand;
                     }
                     else if (myDirSpeedRight[i] > 0)
                     {
-                        myDirSpeedRight[i] -= decRateHand;
+                        myDirSpeedRight[i] -= myStats.decRateHand;
                     }
                 }
 
-                StartCoroutine(AccelerateRight(accTimeHand));
+                StartCoroutine(AccelerateRight(myStats.accTimeHand));
 
             }
 
@@ -216,10 +220,10 @@ public class RealMovement : MonoBehaviour
 
                 for (int i = 0; i < myDirSpeedRight.Count; i++)
                 {
-                    myDirSpeedRight[i] -= decRateHand;
+                    myDirSpeedRight[i] -= myStats.decRateHand;
                 }
 
-                StartCoroutine(AccelerateRight(accTimeHand));
+                StartCoroutine(AccelerateRight(myStats.accTimeHand));
             }
         }
     }
@@ -234,13 +238,12 @@ public class RealMovement : MonoBehaviour
 
         var temp = (MyDirections[MyDirections.Count - 1] - handDirection).magnitude;
 
-        if (temp >= dirThreshold)
+        if (temp >= myStats.dirThreshold)
         {
             MyDirections.Add(handDirection);
             myDirSpeeds.Add(0);
         }
     }
-
     void GetDirsLeft()
     {
         if(myDirectionsLeft.Count == 0)
@@ -251,7 +254,7 @@ public class RealMovement : MonoBehaviour
         
         float temp = (myDirectionsLeft[myDirectionsLeft.Count - 1] - leftHandDirection).magnitude;
 
-        if (temp >= dirThreshold)
+        if (temp >= myStats.dirThreshold)
         {
             myDirectionsLeft.Add(leftHandDirection);
             myDirSpeedLeft.Add(myDirSpeedLeft[myDirectionsLeft.Count]);
@@ -267,7 +270,7 @@ public class RealMovement : MonoBehaviour
 
         float temp = (myDirectionsRight[myDirectionsRight.Count - 1] - rightHandDirection).magnitude;
 
-        if (temp >= dirThreshold)
+        if (temp >= myStats.dirThreshold)
         {
             myDirectionsRight.Add(rightHandDirection);
             myDirSpeedRight.Add(myDirSpeedRight[myDirectionsRight.Count]);
@@ -278,13 +281,13 @@ public class RealMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        if (currentBaseSpeed < baseSpeed)
+        if (currentBaseSpeed < myStats.baseSpeed)
         {
-            currentBaseSpeed += accRate;
+            currentBaseSpeed += myStats.accRate;
         }
-        else if (currentBaseSpeed > baseSpeed)
+        else if (currentBaseSpeed > myStats.baseSpeed)
         {
-            currentBaseSpeed -= decRate;
+            currentBaseSpeed -= myStats.decRate;
         }
         isAccelerating = false;
     }
@@ -359,25 +362,5 @@ public class RealMovement : MonoBehaviour
                 totalSpeedRight += (myDirectionsRight[i] * myDirSpeedRight[i]);
         }
         return totalSpeedRight;
-    }
-
-    private void FadeToBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.clear, 0f);
-        //set and start fade tos
-        SteamVR_Fade.Start(Color.black, time);
-    }
-    private void FadeFromBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.black, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.clear, time);
-    }
-    IEnumerator ResetScene(float time)
-    {
-        yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("Main");
     }
 }
