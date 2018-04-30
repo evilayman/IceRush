@@ -11,7 +11,6 @@ public class CollisionScript : MonoBehaviour
     private void Start()
     {
         myStats = gameObject.GetComponent<Stats>();
-
         FadeFromBlack(0.2f);
     }
 

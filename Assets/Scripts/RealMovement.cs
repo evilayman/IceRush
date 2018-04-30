@@ -17,8 +17,8 @@ public class RealMovement : MonoBehaviour
 
     private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false, Died = false;
     
-    private List<Vector3> myDirectionsLeft, myDirectionsRight;
-    private List<float> myDirSpeedLeft, myDirSpeedRight;
+    public List<Vector3> myDirectionsLeft, myDirectionsRight;
+    public List<float> myDirSpeedLeft, myDirSpeedRight;
 
     public ParticleSystem emissionLeft, emissionRight;
 
@@ -117,6 +117,7 @@ public class RealMovement : MonoBehaviour
                 emissionLeft.Play();
 
             leftHandDirection = myStats.leftHandTrigger.forward;
+            availableSpeedLeft = 0;
 
             for (int i = 0; i < myDirSpeedLeft.Count; i++)
             {
@@ -124,7 +125,6 @@ public class RealMovement : MonoBehaviour
             }
 
             availableSpeedLeft = myStats.handSpeed - availableSpeedLeft;
-
             GetDirsLeft();
 
             if (!isAcceleratingLeft)
@@ -176,6 +176,7 @@ public class RealMovement : MonoBehaviour
                 emissionRight.Play();
 
             rightHandDirection = myStats.rightHandTrigger.forward;
+            availableSpeedRight = 0;
 
             for (int i = 0; i < myDirSpeedRight.Count; i++)
             {
@@ -244,6 +245,7 @@ public class RealMovement : MonoBehaviour
             myDirSpeeds.Add(0);
         }
     }
+
     void GetDirsLeft()
     {
         if(myDirectionsLeft.Count == 0)
@@ -257,7 +259,7 @@ public class RealMovement : MonoBehaviour
         if (temp >= myStats.dirThreshold)
         {
             myDirectionsLeft.Add(leftHandDirection);
-            myDirSpeedLeft.Add(myDirSpeedLeft[myDirectionsLeft.Count]);
+            myDirSpeedLeft.Add(myDirSpeedLeft[myDirSpeedLeft.Count - 1]);
         }
     }
     void GetDirsRight()
@@ -273,7 +275,7 @@ public class RealMovement : MonoBehaviour
         if (temp >= myStats.dirThreshold)
         {
             myDirectionsRight.Add(rightHandDirection);
-            myDirSpeedRight.Add(myDirSpeedRight[myDirectionsRight.Count]);
+            myDirSpeedRight.Add(myDirSpeedRight[myDirSpeedRight.Count - 1]);
         }
     }
 
@@ -315,7 +317,6 @@ public class RealMovement : MonoBehaviour
 
         playerRB.velocity = LeftVelocity() + RightVelocity() + (transform.forward * currentBaseSpeed);
         //playerRB.velocity = HandVelocity(myDirectionsLeft, myDirSpeedLeft, totalSpeedLeft) + HandVelocity(myDirectionsRight, myDirSpeedRight, totalSpeedRight);
-
     }
 
     Vector3 HandVelocity(List<Vector3> myDirections, List<float> myDirSpeeds, Vector3 totalSpeed)

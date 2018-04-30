@@ -3698,15 +3698,15 @@ MonoBehaviour:
   leftHandTrigger: {fileID: 4163285755532344}
   rightHandTrigger: {fileID: 4352886427650126}
   baseSpeed: 0
+  boostSpeed: 50
   handSpeed: 30
   accTime: 0.2
   accRate: 15
   decRate: 0.5
   accTimeHand: 0.2
   accRateHand: 3
-  decRateHand: 0.5
-  dirThreshold: 0.2
-  boostSpeed: 50
+  decRateHand: 1
+  dirThreshold: 0
 --- !u!114 &114181115218202776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3849,28 +3849,26 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726186283623912}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 054c7d74ee8a837439e71c5f6fb2d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStarted: 1
-  emissionLeft: {fileID: 198646434132402736, guid: 6c637864c2ed4a5449ef612783312380,
-    type: 2}
-  emissionRight: {fileID: 198165189059049284, guid: 6c637864c2ed4a5449ef612783312380,
-    type: 2}
+  gameStarted: 0
+  emissionLeft: {fileID: 198307585998287160}
+  emissionRight: {fileID: 198093766417303468}
 --- !u!114 &114223404966267766
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726186283623912}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fc26c34a20e85b41a28d7d400e7d81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameStarted: 1
+  GameStarted: 0
   emissionLeft: {fileID: 198307585998287160}
   emissionRight: {fileID: 198093766417303468}
 --- !u!114 &114250788175304278
@@ -4094,7 +4092,7 @@ MonoBehaviour:
   maximumRotation: 45
   minimumSpeed: 0
   maximumSpeed: 70
-  effectColor: {r: 1, g: 1, b: 1, a: 1}
+  effectColor: {r: 0, g: 0, b: 0, a: 1}
   effectSkybox: {fileID: 0}
   initialEffectSize: 0
   maximumEffectSize: 0.65
