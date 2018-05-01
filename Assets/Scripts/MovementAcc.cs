@@ -45,9 +45,6 @@ public class MovementAcc : MonoBehaviour
         if (myStats.leftHand.AnyButtonPressed() || myStats.rightHand.AnyButtonPressed())
             gameStarted = true;
 
-        print(playerRB.velocity);
-        print(currentbaseSpeed);
-
         BoostSpeedCheck();
         HandCheck(myStats.leftHand.triggerPressed, ref leftHandDirection, myStats.leftHandTransform.forward, emissionLeft, canAccLeft, canDecLeft, ref currentLeftSpeed);
         HandCheck(myStats.rightHand.triggerPressed, ref rightHandDirection, myStats.rightHandTransform.forward, emissionRight, canAccRight, canDecRight, ref currentRightSpeed);
