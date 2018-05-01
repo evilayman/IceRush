@@ -8,142 +8,94 @@ public class Movement : MonoBehaviour
 
     private Rigidbody playerRB;
 
-    private float CurrentbaseSpeed, CurrentLeftSpeed, CurrentRightSpeed;
+    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed;
 
-    private Vector3 LeftHandDirection, RightHandDirection;
+    private Vector3 leftHandDirection, rightHandDirection;
 
-    private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false;
-    public bool GameStarted = true;
+    private CooldownTimer canAccBoost, canDecBoost, canAccLeft, canAccRight, canDecLeft, canDecRight;
+
+    private bool gameStarted;
 
     public ParticleSystem emissionLeft, emissionRight;
 
     void Start()
     {
+        init();
+    }
+
+    void init()
+    {
         myStats = GetComponent<Stats>();
         playerRB = GetComponent<Rigidbody>();
+
+        canAccBoost = new CooldownTimer(myStats.accTimeBoost);
+        canDecBoost = new CooldownTimer(myStats.decTimeBoost);
+
+        canAccLeft = new CooldownTimer(myStats.accTimeHand);
+        canDecLeft = new CooldownTimer(myStats.decTimeHand);
+
+        canAccRight = new CooldownTimer(myStats.accTimeHand);
+        canDecRight = new CooldownTimer(myStats.decTimeHand);
     }
 
     void Update()
     {
-        BaseSpeedCheck();
-        LeftHandCheck();
-        RightHandCheck();
+        if (myStats.leftHand.AnyButtonPressed() || myStats.rightHand.AnyButtonPressed())
+            gameStarted = true;
+
+        BoostSpeedCheck();
+        HandCheck(myStats.leftHand.triggerPressed, ref leftHandDirection, myStats.leftHandTransform.forward, emissionLeft, canAccLeft, canDecLeft, ref currentLeftSpeed);
+        HandCheck(myStats.rightHand.triggerPressed, ref rightHandDirection, myStats.rightHandTransform.forward, emissionRight, canAccRight, canDecRight, ref currentRightSpeed);
     }
 
     private void FixedUpdate()
     {
-        if (GameStarted)
-            playerRB.velocity = ((transform.forward * CurrentbaseSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
+        if (gameStarted)
+            playerRB.velocity = ((transform.forward * currentbaseSpeed) +
+                (leftHandDirection * currentLeftSpeed) +
+                (rightHandDirection * currentRightSpeed));
     }
 
-    void BaseSpeedCheck()
+    void BoostSpeedCheck()
     {
-        if (!isAccelerating)
+        if (currentbaseSpeed < myStats.baseSpeed && canAccBoost.IsReady())
         {
-            isAccelerating = true;
-
-            if (CurrentbaseSpeed < myStats.baseSpeed)
-            {
-                CurrentbaseSpeed += myStats.accRate;
-            }
-            else if (CurrentbaseSpeed > myStats.baseSpeed)
-            {
-                CurrentbaseSpeed -= myStats.decRate;
-            }
-
-            StartCoroutine(Accelerate(myStats.accTime));
+            canAccBoost.Reset();
+            currentbaseSpeed += myStats.accRateBoost;
+        }
+        else if (currentbaseSpeed > myStats.baseSpeed && canDecBoost.IsReady())
+        {
+            canDecBoost.Reset();
+            currentbaseSpeed -= myStats.decRateBoost;
         }
     }
-    void LeftHandCheck()
+
+    void HandCheck(bool triggerPressed, ref Vector3 handDirection, Vector3 handTransform, ParticleSystem emission, CooldownTimer canAccHand, CooldownTimer canDecHand, ref float currentHandSpeed)
     {
-        if (myStats.leftHandScript.IsTriggerPressed)
+        if (triggerPressed)
         {
-            if (!emissionLeft.isPlaying)
-                emissionLeft.Play();
+            if (!emission.isPlaying)
+                emission.Play();
 
-            LeftHandDirection = myStats.leftHandTrigger.forward;
+            handDirection = handTransform;
 
-            if (!isAcceleratingLeft && CurrentLeftSpeed < myStats.handSpeed)
+            if (canAccHand.IsReady() && currentHandSpeed < myStats.handSpeed)
             {
-                isAcceleratingLeft = true;
-
-                CurrentLeftSpeed += myStats.accRateHand;
-
-                StartCoroutine(AccelerateLeft(myStats.accTimeHand));
+                canAccHand.Reset();
+                currentHandSpeed += myStats.accRateHand;
             }
-
-            if (!GameStarted)
-                GameStarted = true;
         }
         else
         {
-            if (emissionLeft.isPlaying)
-                emissionLeft.Stop();
+            if (emission.isPlaying)
+                emission.Stop();
 
-            if (!isAcceleratingLeft && CurrentLeftSpeed > 0)
+            if (canDecHand.IsReady() && currentHandSpeed > 0)
             {
-                isAcceleratingLeft = true;
-
-                CurrentLeftSpeed -= myStats.decRateHand;
-
-                StartCoroutine(AccelerateLeft(myStats.accTimeHand));
+                canDecHand.Reset();
+                currentHandSpeed -= myStats.decRateHand;
             }
         }
     }
-    void RightHandCheck()
-    {
-        if (myStats.rightHandScript.IsTriggerPressed)
-        {
-            if (!emissionRight.isPlaying)
-                emissionRight.Play();
-
-            RightHandDirection = myStats.rightHandTrigger.forward;
-
-            if (!isAcceleratingRight && CurrentRightSpeed < myStats.handSpeed)
-            {
-                isAcceleratingRight = true;
-
-                CurrentRightSpeed += myStats.accRateHand;
-
-                StartCoroutine(AccelerateRight(myStats.accTimeHand));
-            }
-
-            if (!GameStarted)
-                GameStarted = true;
-        }
-        else
-        {
-            if (emissionRight.isPlaying)
-                emissionRight.Stop();
-
-            if (!isAcceleratingRight && CurrentRightSpeed > 0)
-            {
-                isAcceleratingRight = true;
-
-                CurrentRightSpeed -= myStats.decRateHand;
-
-                StartCoroutine(AccelerateRight(myStats.accTimeHand));
-            }
-        }
-    }
-
-    IEnumerator Accelerate(float time)
-    {
-        yield return new WaitForSeconds(time);
-        isAccelerating = false;
-    }
-    IEnumerator AccelerateLeft(float time)
-    {
-        yield return new WaitForSeconds(time);
-        isAcceleratingLeft = false;
-    }
-    IEnumerator AccelerateRight(float time)
-    {
-        yield return new WaitForSeconds(time);
-        isAcceleratingRight = false;
-    }
-
-
-
 
 }

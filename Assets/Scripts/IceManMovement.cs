@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IceManMovement : MonoBehaviour
 {
-    public HandScript leftHandScript, rightHandScript;
+    public Stats myStats;
     public Transform leftHandPosition, rightHandPosition;
     public float AccTime, AccSpeed, baseSpeed, handSpeed;
 
@@ -17,6 +17,7 @@ public class IceManMovement : MonoBehaviour
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
+        myStats = GetComponent<Stats>();
         firstPressLeft = false;
     }
 
@@ -27,7 +28,7 @@ public class IceManMovement : MonoBehaviour
 
     void Move()
     {
-        if (leftHandScript.IsTriggerPressed)
+        if (myStats.leftHand.triggerPressed)
         {
             leftHandSpeed = handSpeed;
             if (!firstPressLeft)
@@ -56,7 +57,7 @@ public class IceManMovement : MonoBehaviour
             }
         }
 
-        if (rightHandScript.IsTriggerPressed)
+        if (myStats.rightHand.triggerPressed)
         {
             rightHandSpeed = handSpeed;
             if (!firstPressRight)
