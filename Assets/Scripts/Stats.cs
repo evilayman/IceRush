@@ -19,6 +19,4 @@ public class Stats : MonoBehaviour
     [Space(10)]
     public float accTimeHand;
     public float accRateHand, decTimeHand, decRateHand;
-
-
 }
