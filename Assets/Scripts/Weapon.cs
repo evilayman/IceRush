@@ -5,6 +5,12 @@ using VRTK;
 
 public class Weapon : VRTK_InteractableObject
 {
+    private Transform parent;
+
+    public void Start()
+    {
+        parent = GetComponentInParent<Transform>();
+    }
 
     public override void StartTouching(VRTK_InteractTouch currentTouchingObject = null)
     {
@@ -13,8 +19,9 @@ public class Weapon : VRTK_InteractableObject
         myGrab.AttemptGrab();
     }
 
-
-
-
+    protected override void Update()
+    {
+        base.Update();
+    }
 
 }
