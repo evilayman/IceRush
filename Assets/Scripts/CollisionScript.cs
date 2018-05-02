@@ -16,7 +16,7 @@ public class CollisionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!Died)
+        if (!Died && collision.gameObject.tag == "Area")
         {
             Died = true;
             FadeToBlack(0.2f);
