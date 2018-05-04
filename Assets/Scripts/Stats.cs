@@ -1,22 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
 
-public class Stats : MonoBehaviour
+[CreateAssetMenu(fileName = "New Stats", menuName = "Stats")]
+public class Stats : ScriptableObject
 {
-    public VRTK_ControllerEvents leftHand, rightHand; 
-    public Transform leftHandTransform, rightHandTransform;
+    [Header("Common Stats")]
     [Space(10)]
     public float baseSpeed;
-    public float handSpeed, boostSpeed, maxSpeed;
+    public float maxSpeed;
     [Space(10)]
     public float decTime;
     public float decRate;
     [Space(10)]
-    public float accTimeBoost;
-    public float accRateBoost, decTimeBoost, decRateBoost;
+    public float boostSpeed;
+    public float accTimeBoost, accRateBoost, decTimeBoost, decRateBoost;
     [Space(10)]
-    public float accTimeHand;
-    public float accRateHand, decTimeHand, decRateHand;
+    [Header("Hand Stats")]
+    [Space(10)]
+    public float handSpeed;
+    public float accTimeHand, accRateHand, decTimeHand, decRateHand;
+    [Space(10)]
+    [Header("Lever Stats")]
+    [Space(10)]
+    public float leverStepSpeed;
+    public float accTimeLever, accRateLever, decTimeLever, decRateLever;
 }

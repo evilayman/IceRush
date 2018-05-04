@@ -1,10 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class MovementAcc : MonoBehaviour
 {
+    private PlayerManager playerManager;
+
     private Stats myStats;
+
+    private VRTK_ControllerEvents leftHandController, rightHandController;
+
+    private Transform leftHandTransform, rightHandTransform;
+
+    private ParticleSystem leftHandParticles, rightHandParticles;
 
     private Rigidbody playerRB;
 
@@ -16,8 +25,6 @@ public class MovementAcc : MonoBehaviour
 
     private bool gameStarted;
 
-    public ParticleSystem emissionLeft, emissionRight;
-
     void Start()
     {
         init();
@@ -25,8 +32,20 @@ public class MovementAcc : MonoBehaviour
 
     void init()
     {
-        myStats = GetComponent<Stats>();
+        playerManager = GetComponent<PlayerManager>();
+
+        myStats = playerManager.myStats;
+
         playerRB = GetComponent<Rigidbody>();
+
+        leftHandController = playerManager.leftHand.GetComponent<VRTK_ControllerEvents>();
+        rightHandController = playerManager.rightHand.GetComponent<VRTK_ControllerEvents>();
+
+        leftHandTransform = playerManager.leftHand.GetComponent<Transform>();
+        rightHandTransform = playerManager.rightHand.GetComponent<Transform>();
+
+        leftHandParticles = playerManager.leftHand.GetComponentInChildren<ParticleSystem>();
+        rightHandParticles = playerManager.rightHand.GetComponentInChildren<ParticleSystem>();
 
         canDec = new CooldownTimer(myStats.decTime);
 
@@ -42,12 +61,12 @@ public class MovementAcc : MonoBehaviour
 
     void Update()
     {
-        if (myStats.leftHand.AnyButtonPressed() || myStats.rightHand.AnyButtonPressed())
+        if (leftHandController.AnyButtonPressed() || rightHandController.AnyButtonPressed())
             gameStarted = true;
 
-        BoostSpeedCheck();
-        HandCheck(myStats.leftHand.triggerPressed, ref leftHandDirection, myStats.leftHandTransform.forward, emissionLeft, canAccLeft, canDecLeft, ref currentLeftSpeed);
-        HandCheck(myStats.rightHand.triggerPressed, ref rightHandDirection, myStats.rightHandTransform.forward, emissionRight, canAccRight, canDecRight, ref currentRightSpeed);
+        AccDecRate(ref currentbaseSpeed, myStats.baseSpeed, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
+        HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
+        HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
     }
 
     private void FixedUpdate()
@@ -112,25 +131,25 @@ public class MovementAcc : MonoBehaviour
         playerRB.velocity = tempV;
     }
 
-    void BoostSpeedCheck()
+    void AccDecRate(ref float current, float target, CooldownTimer canAcc, CooldownTimer canDec, float accRate, float decRate)
     {
-        if (currentbaseSpeed < myStats.baseSpeed && canAccBoost.IsReady())
+        if (current < target && canAcc.IsReady())
         {
-            canAccBoost.Reset();
-            currentbaseSpeed += myStats.accRateBoost;
+            canAcc.Reset();
+            current += accRate;
         }
-        else if (currentbaseSpeed > myStats.baseSpeed && canDecBoost.IsReady() && !(Mathf.Abs(currentbaseSpeed) < myStats.decRateBoost))
+        else if (current > target && canDec.IsReady())
         {
-            canDecBoost.Reset();
-            currentbaseSpeed -= myStats.decRateBoost;
+            canDec.Reset();
+            current -= decRate;
         }
-        else if(Mathf.Abs(currentbaseSpeed) < myStats.decRateBoost)
+        if (Mathf.Abs(current) < decRate)
         {
-            currentbaseSpeed = 0;
+            current = 0;
         }
     }
 
-    void HandCheck(bool triggerPressed, ref Vector3 handDirection, Vector3 handTransform, ParticleSystem emission, CooldownTimer canAccHand, CooldownTimer canDecHand, ref float currentHandSpeed)
+    void HandRate(bool triggerPressed, ref Vector3 handDirection, Vector3 handTransform, ParticleSystem emission, CooldownTimer canAccHand, CooldownTimer canDecHand, ref float currentHandSpeed)
     {
         if (triggerPressed)
         {
@@ -151,12 +170,6 @@ public class MovementAcc : MonoBehaviour
                 emission.Stop();
 
             currentHandSpeed = 0;
-
-            //if (canDecHand.IsReady() && currentHandSpeed > 0)
-            //{
-            //    canDecHand.Reset();
-            //    currentHandSpeed -= myStats.decRateHand;
-            //}
         }
     }
 }

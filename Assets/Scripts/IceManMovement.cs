@@ -1,10 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class IceManMovement : MonoBehaviour
 {
-    public Stats myStats;
+    private PlayerManager playerManager;
+
+    private Stats myStats;
+
+    private VRTK_ControllerEvents leftHandController, rightHandController;
+
+    private Transform leftHandTransform, rightHandTransform;
+
+    private ParticleSystem leftHandParticles, rightHandParticles;
+
     public Transform leftHandPosition, rightHandPosition;
     public float AccTime, AccSpeed, baseSpeed, handSpeed;
 
@@ -16,8 +26,21 @@ public class IceManMovement : MonoBehaviour
 
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
+
+        myStats = playerManager.myStats;
+
         playerRB = GetComponent<Rigidbody>();
-        myStats = GetComponent<Stats>();
+
+        leftHandController = playerManager.leftHand.GetComponent<VRTK_ControllerEvents>();
+        rightHandController = playerManager.rightHand.GetComponent<VRTK_ControllerEvents>();
+
+        leftHandTransform = playerManager.leftHand.GetComponent<Transform>();
+        rightHandTransform = playerManager.rightHand.GetComponent<Transform>();
+
+        leftHandParticles = playerManager.leftHand.GetComponentInChildren<ParticleSystem>();
+        rightHandParticles = playerManager.rightHand.GetComponentInChildren<ParticleSystem>();
+
         firstPressLeft = false;
     }
 
@@ -28,7 +51,7 @@ public class IceManMovement : MonoBehaviour
 
     void Move()
     {
-        if (myStats.leftHand.triggerPressed)
+        if (leftHandController.triggerPressed)
         {
             leftHandSpeed = handSpeed;
             if (!firstPressLeft)
@@ -57,7 +80,7 @@ public class IceManMovement : MonoBehaviour
             }
         }
 
-        if (myStats.rightHand.triggerPressed)
+        if (rightHandController.triggerPressed)
         {
             rightHandSpeed = handSpeed;
             if (!firstPressRight)
