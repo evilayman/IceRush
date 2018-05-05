@@ -9,6 +9,7 @@ public class MyClient : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         ConnectToMaster();
     }
 
@@ -19,12 +20,22 @@ public class MyClient : MonoBehaviour
 
     private void OnConnectedToMaster()
     {
+
+        string playerName = "Player" + Random.Range(0, 1000);
+        PhotonNetwork.automaticallySyncScene = true;
+        PhotonNetwork.playerName = playerName;
         PhotonNetwork.JoinLobby(TypedLobby.Default);
     }
 
     private void OnJoinedLobby()
     {
-        ConnectPanel.SetActive(true);
+        //ConnectPanel.SetActive(true);
+        print("joined lobby");
+        if (!PhotonNetwork.inRoom)
+        {
+            MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
+        }
+        
     }
 
     private void OnDisconnectedFromPhoton()
