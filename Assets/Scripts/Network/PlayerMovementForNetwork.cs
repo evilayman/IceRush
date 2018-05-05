@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VRTK;
+
 
 public class PlayerMovementForNetwork : Photon.MonoBehaviour
 {
     private Vector3 targetPos;
     private float lag;
-    public HandScript leftHandScript, rightHandScript;
+    public VRTK_ControllerEvents leftHandScript, rightHandScript;
     private Rigidbody playerRB;
 
     public Transform LeftHandTrigger, RightHandTrigger, Player;
@@ -34,7 +36,7 @@ public class PlayerMovementForNetwork : Photon.MonoBehaviour
 
         if (photonView.isMine)
         {
-            if (leftHandScript.IsTriggerPressed)
+            if (leftHandScript.triggerPressed)
             {
                 if (!emissionLeft.isPlaying)
                     emissionLeft.Play();
@@ -64,7 +66,7 @@ public class PlayerMovementForNetwork : Photon.MonoBehaviour
                 }
             }
 
-            if (rightHandScript.IsTriggerPressed)
+            if (rightHandScript.triggerPressed)
             {
                 if (!emissionRight.isPlaying)
                     emissionRight.Play();
