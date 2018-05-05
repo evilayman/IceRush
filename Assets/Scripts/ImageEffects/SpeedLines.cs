@@ -4,35 +4,49 @@ using UnityEngine;
 
 public class SpeedLines : MonoBehaviour
 {
+    public Transform speedLines;
 
     public ParticleSystem speedLineParticles;
-    public float minRBSpeed, maxRBSpeed, minLineRate, maxLineRate, minRadius, maxRadius;
-    private Rigidbody playerRigidBody;
+
+    private Rigidbody playerRB;
+
+    public float minRBSpeed, maxRBSpeed, minLineRate, maxLineRate, minRadius, maxRadius, rotationSpeed;
+    private float rbVelocity;
+
+    private Vector3 newDir;
+
+
 
 
     void Start()
     {
-        playerRigidBody = GetComponent<Rigidbody>();
+        playerRB = GetComponent<Rigidbody>();
     }
 
 
     void Update()
     {
-        if (playerRigidBody.velocity.z + 1 >= minRBSpeed)
+
+        newDir = Vector3.RotateTowards(speedLines.forward, playerRB.velocity.normalized, rotationSpeed, 0f);
+        speedLines.rotation = Quaternion.LookRotation(newDir);
+
+        rbVelocity = playerRB.velocity.magnitude;
+
+        if (rbVelocity + 1 >= minRBSpeed)
         {
-            if(!speedLineParticles.isPlaying)
+            if (!speedLineParticles.isPlaying)
                 speedLineParticles.Play();
 
-            float rot = (playerRigidBody.velocity.z - minRBSpeed) * ((maxLineRate - minLineRate) / (maxRBSpeed - minRBSpeed)) + minLineRate;
+            float rot = (rbVelocity - minRBSpeed) * ((maxLineRate - minLineRate) / (maxRBSpeed - minRBSpeed)) + minLineRate;
             var emission = speedLineParticles.emission;
 
             if (rot <= maxLineRate)
                 emission.rateOverTime = rot;
 
-            var rad = (playerRigidBody.velocity.z - minRBSpeed) * ((maxRadius - minRadius) / (maxRBSpeed - minRBSpeed)) + minRadius;
+            var rad = (rbVelocity - minRBSpeed) * ((maxRadius - minRadius) / (maxRBSpeed - minRBSpeed)) + minRadius;
             var shape = speedLineParticles.shape;
 
-            if(rad >= maxRadius)
+            if (rad >= maxRadius)
                 shape.radius = rad;
 
         }

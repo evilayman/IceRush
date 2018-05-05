@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589fa408d7240ab4595283ed3cecdfab, type: 3}
+  m_Name: LeverStats
+  m_EditorClassIdentifier: 
+  baseSpeed: 0
+  maxSpeed: 80
+  decTime: 0.2
+  decRate: 3
+  boostSpeed: 5
+  accTimeBoost: 0.2
+  accRateBoost: 0.5
+  decTimeBoost: 0.2
+  decRateBoost: 0.25
+  handSpeed: 0
+  accTimeHand: 0
+  accRateHand: 0
+  decTimeHand: 0
+  decRateHand: 0
+  leverStepSpeed: 0.3
+  accTimeLever: 0.2
+  accRateLever: 0.2
+  decTimeLever: 0.2
+  decRateLever: 0.2
