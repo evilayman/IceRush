@@ -1,199 +1,180 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VRTK;
 
 public class MovementForNetwork : Photon.MonoBehaviour
 {
     private Vector3 targetPos;
     private float lag;
-    public VRTK_ControllerEvents leftHandScript, rightHandScript;
+    private PlayerManager playerManager;
+
+    private Stats myStats;
+
+    private VRTK_ControllerEvents leftHandController, rightHandController;
+
+    private Transform leftHandTransform, rightHandTransform;
+
+    private ParticleSystem leftHandParticles, rightHandParticles;
+
     private Rigidbody playerRB;
 
-    public Transform LeftHandTrigger, RightHandTrigger, Player;
+    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed;
 
-    public float HandPushSpeed, baseSpeed, AccSpeed, DecSpeed, AccTime;
-    private float CurrentbaseSpeed, CurrentLeftSpeed, CurrentRightSpeed, LeftHandSpeed, RightHandSpeed;
+    private Vector3 leftHandDirection, rightHandDirection;
 
-    private Vector3 LeftHandDirection, RightHandDirection;
-
-    private bool isAccelerating = false, isAcceleratingLeft = false, isAcceleratingRight = false,
-        GameStarted = true, Died = false;
-
-    public ParticleSystem emissionLeft, emissionRight;
+    private CooldownTimer canDec, canAccBoost, canDecBoost, canAccLeft, canDecLeft, canAccRight, canDecRight;
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
-        FadeFromBlack(0.2f);
 
+        if (photonView.isMine)
+            init();
+    }
+
+    void init()
+    {
+        playerManager = GetComponent<PlayerManager>();
+
+        myStats = playerManager.myStats;
+
+        leftHandController = playerManager.leftHand.GetComponent<VRTK_ControllerEvents>();
+        rightHandController = playerManager.rightHand.GetComponent<VRTK_ControllerEvents>();
+
+        leftHandTransform = playerManager.leftHand.GetComponent<Transform>();
+        rightHandTransform = playerManager.rightHand.GetComponent<Transform>();
+
+        leftHandParticles = playerManager.leftHand.GetComponentInChildren<ParticleSystem>();
+        rightHandParticles = playerManager.rightHand.GetComponentInChildren<ParticleSystem>();
+
+        canDec = new CooldownTimer(myStats.decTime);
+
+        canAccBoost = new CooldownTimer(myStats.accTimeBoost);
+        canDecBoost = new CooldownTimer(myStats.decTimeBoost);
+
+        canAccLeft = new CooldownTimer(myStats.accTimeHand);
+        canDecLeft = new CooldownTimer(myStats.decTimeHand);
+
+        canAccRight = new CooldownTimer(myStats.accTimeHand);
+        canDecRight = new CooldownTimer(myStats.decTimeHand);
     }
 
     void Update()
     {
-
         if (photonView.isMine)
         {
-            if (leftHandScript.triggerPressed)
-            {
-                if (!emissionLeft.isPlaying)
-                    emissionLeft.Play();
-
-                LeftHandDirection = LeftHandTrigger.forward;
-                LeftHandSpeed = HandPushSpeed;
-
-                if (!isAcceleratingLeft && CurrentLeftSpeed < LeftHandSpeed)
-                {
-                    isAcceleratingLeft = true;
-                    StartCoroutine(AccelerateLeft());
-                }
-
-                if (!GameStarted)
-                    GameStarted = true;
-            }
-            else
-            {
-                if (emissionLeft.isPlaying)
-                    emissionLeft.Stop();
-
-                LeftHandSpeed = 0;
-                if (!isAcceleratingLeft && CurrentLeftSpeed > LeftHandSpeed)
-                {
-                    isAcceleratingLeft = true;
-                    StartCoroutine(AccelerateLeft());
-                }
-            }
-
-            if (rightHandScript.triggerPressed)
-            {
-                if (!emissionRight.isPlaying)
-                    emissionRight.Play();
-
-                RightHandDirection = RightHandTrigger.forward;
-                RightHandSpeed = HandPushSpeed;
-
-                if (!isAcceleratingRight && CurrentRightSpeed < RightHandSpeed)
-                {
-                    isAcceleratingRight = true;
-                    StartCoroutine(AccelerateRight());
-                }
-
-                if (!GameStarted)
-                    GameStarted = true;
-            }
-            else
-            {
-                if (emissionRight.isPlaying)
-                    emissionRight.Stop();
-
-                RightHandSpeed = 0;
-                if (!isAcceleratingRight && CurrentRightSpeed > RightHandSpeed)
-                {
-                    isAcceleratingRight = true;
-                    StartCoroutine(AccelerateRight());
-                }
-            }
-
-            if (!isAccelerating)
-            {
-                isAccelerating = true;
-                StartCoroutine(Accelerate());
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                baseSpeed += 100;
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                baseSpeed -= 100;
-            }
+            AccDecRate(ref currentbaseSpeed, myStats.baseSpeed, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
+            HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
+            HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
         }
-    }
 
-    IEnumerator Accelerate()
-    {
-        yield return new WaitForSeconds(AccTime);
 
-        if (CurrentbaseSpeed < baseSpeed)
-        {
-            CurrentbaseSpeed += AccSpeed;
-        }
-        else if (CurrentbaseSpeed > baseSpeed)
-        {
-            CurrentbaseSpeed -= DecSpeed;
-        }
-        isAccelerating = false;
-    }
-
-    IEnumerator AccelerateLeft()
-    {
-        yield return new WaitForSeconds(AccTime);
-
-        if (CurrentLeftSpeed < LeftHandSpeed)
-        {
-            CurrentLeftSpeed += AccSpeed;
-        }
-        else if (CurrentLeftSpeed > LeftHandSpeed)
-        {
-            CurrentLeftSpeed -= AccSpeed;
-        }
-        isAcceleratingLeft = false;
-    }
-
-    IEnumerator AccelerateRight()
-    {
-        yield return new WaitForSeconds(AccTime);
-
-        if (CurrentRightSpeed < RightHandSpeed)
-        {
-            CurrentRightSpeed += AccSpeed;
-        }
-        else if (CurrentRightSpeed > RightHandSpeed)
-        {
-            CurrentRightSpeed -= AccSpeed;
-        }
-        isAcceleratingRight = false;
-    }
-
-    private void FadeToBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.clear, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.black, time);
-    }
-    private void FadeFromBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.black, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.clear, time);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!Died)
-        {
-            Died = true;
-            FadeToBlack(0.2f);
-            StartCoroutine(resetScene(1f));
-        }
-    }
-    IEnumerator resetScene(float time)
-    {
-        yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("Main");
     }
 
     private void FixedUpdate()
     {
-        if (!photonView.isMine)
-            SmoothNetMovement();
-        if (GameStarted)
+        if (photonView.isMine)
         {
-            playerRB.velocity = ((Player.forward * CurrentbaseSpeed) + (LeftHandDirection * CurrentLeftSpeed) + (RightHandDirection * CurrentRightSpeed));
+            playerRB.velocity += (transform.forward * currentbaseSpeed) + (leftHandDirection * currentLeftSpeed) + (rightHandDirection * currentRightSpeed);
+
+            Decelerate();
+            LimitSpeed(myStats.maxSpeed);
+        }
+        else
+            SmoothNetMovement();
+    }
+
+    void Decelerate()
+    {
+        if (canDec.IsReady())
+        {
+            canDec.Reset();
+
+            Vector3 tempV = playerRB.velocity;
+
+            if (tempV.x > 0 && tempV.x != 0 && !(Mathf.Abs(tempV.x) < myStats.decRate))
+                tempV.x -= myStats.decRate;
+            else if (tempV.x < 0 && tempV.x != 0 && !(Mathf.Abs(tempV.x) < myStats.decRate))
+                tempV.x += myStats.decRate;
+            else
+                tempV.x = 0;
+
+            if (tempV.y > 0 && tempV.y != 0 && !(Mathf.Abs(tempV.y) < myStats.decRate))
+                tempV.y -= myStats.decRate;
+            else if (tempV.y < 0 && tempV.y != 0 && !(Mathf.Abs(tempV.y) < myStats.decRate))
+                tempV.y += myStats.decRate;
+            else
+                tempV.y = 0;
+
+            if (tempV.z > 0 && tempV.z != 0 && !(Mathf.Abs(tempV.z) < myStats.decRate))
+                tempV.z -= myStats.decRate;
+            else if (tempV.z < 0 && tempV.z != 0 && !(Mathf.Abs(tempV.z) < myStats.decRate))
+                tempV.z += myStats.decRate;
+            else
+                tempV.z = 0;
+
+            playerRB.velocity = tempV;
+        }
+    }
+
+    void LimitSpeed(float maxSpeed)
+    {
+        Vector3 tempV = playerRB.velocity;
+        if (tempV.x > maxSpeed)
+            tempV.x = maxSpeed;
+        else if (tempV.x < -maxSpeed)
+            tempV.x = -maxSpeed;
+        if (tempV.y > maxSpeed)
+            tempV.y = maxSpeed;
+        else if (tempV.y < -maxSpeed)
+            tempV.y = -maxSpeed;
+        if (tempV.z > maxSpeed)
+            tempV.z = maxSpeed;
+        else if (tempV.z < -maxSpeed)
+            tempV.z = -maxSpeed;
+        playerRB.velocity = tempV;
+    }
+
+    void AccDecRate(ref float current, float target, CooldownTimer canAcc, CooldownTimer canDec, float accRate, float decRate)
+    {
+        if (current < target && canAcc.IsReady())
+        {
+            canAcc.Reset();
+            current += accRate;
+        }
+        else if (current > target && canDec.IsReady())
+        {
+            canDec.Reset();
+            current -= decRate;
+        }
+        if (Mathf.Abs(current) < decRate)
+        {
+            current = 0;
+        }
+    }
+
+    void HandRate(bool triggerPressed, ref Vector3 handDirection, Vector3 handTransform, ParticleSystem emission, CooldownTimer canAccHand, CooldownTimer canDecHand, ref float currentHandSpeed)
+    {
+        if (triggerPressed)
+        {
+            if (!emission.isPlaying)
+                emission.Play();
+
+            handDirection = handTransform;
+
+            if (canAccHand.IsReady() && currentHandSpeed < myStats.handSpeed)
+            {
+                canAccHand.Reset();
+                currentHandSpeed += myStats.accRateHand;
+            }
+        }
+        else
+        {
+            if (emission.isPlaying)
+                emission.Stop();
+
+            currentHandSpeed = 0;
         }
     }
 
@@ -204,18 +185,21 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.isWriting)
+        if (playerRB)
         {
-            stream.SendNext(playerRB.position);
-            stream.SendNext(playerRB.velocity);
-        }
-        else
-        {
-            targetPos = (Vector3)stream.ReceiveNext();
-            playerRB.velocity = (Vector3)stream.ReceiveNext();
+            if (stream.isWriting)
+            {
+                stream.SendNext(playerRB.position);
+                stream.SendNext(playerRB.velocity);
+            }
+            else
+            {
+                targetPos = (Vector3)stream.ReceiveNext();
+                playerRB.velocity = (Vector3)stream.ReceiveNext();
 
-            lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
-            targetPos += (this.playerRB.velocity * lag);
+                lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
+                targetPos += (this.playerRB.velocity * lag);
+            }
         }
     }
 }

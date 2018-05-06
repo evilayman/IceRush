@@ -30,7 +30,7 @@ public class MyClient : MonoBehaviour
     private void OnJoinedLobby()
     {
         //ConnectPanel.SetActive(true);
-        print("joined lobby");
+        //print("joined lobby");
         if (!PhotonNetwork.inRoom)
         {
             MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
@@ -40,6 +40,6 @@ public class MyClient : MonoBehaviour
 
     private void OnDisconnectedFromPhoton()
     {
-        Debug.Log("Disconnected from Server");
+        //Debug.Log("Disconnected from Server");
     }
 }
