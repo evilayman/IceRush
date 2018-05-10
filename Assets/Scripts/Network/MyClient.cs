@@ -21,9 +21,9 @@ public class MyClient : MonoBehaviour
     private void OnConnectedToMaster()
     {
 
-        string playerName = "Player" + Random.Range(0, 1000);
+        //string playerName = "Player" + Random.Range(0, 1000);
         PhotonNetwork.automaticallySyncScene = true;
-        PhotonNetwork.playerName = playerName;
+       
         PhotonNetwork.JoinLobby(TypedLobby.Default);
     }
 

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
+    
+    [SerializeField]
+    private Text playerName;
     [SerializeField]
     private Text _roomName;
     private Text RoomName
@@ -19,13 +22,17 @@ public class RoomManager : MonoBehaviour
         //PhotonNetwork.sendRate = 60;
         //PhotonNetwork.sendRateOnSerialize = 30;
     }
-
+    public void OnEndEditingPlayerName()
+    {
+        PhotonNetwork.playerName = playerName.text;
+    }
     public void OnClick_CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 3 }; 
         if (PhotonNetwork.CreateRoom(RoomName.text,roomOptions,TypedLobby.Default))
         {
             //print("created room succseffuly");
+               
         }
     }
 
