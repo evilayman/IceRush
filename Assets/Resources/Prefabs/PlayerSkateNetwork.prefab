@@ -1160,7 +1160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4998937339467298}
   - component: {fileID: 54549351753365494}
-  - component: {fileID: 114458396848484942}
+  - component: {fileID: 114889195677915372}
   - component: {fileID: 114548258275230662}
   - component: {fileID: 114928995083970790}
   - component: {fileID: 114132240446301604}
@@ -5038,20 +5038,6 @@ MonoBehaviour:
   smoothsScale: 0
   maxAllowedPerFrameSizeDifference: 0.003
   _moment: 2
---- !u!114 &114458396848484942
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1519298155083464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70458cea91ad67b48a08ead0ddbce8ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myStats: {fileID: 11400000, guid: d1fdca676eb050547afb6c44bd232ec1, type: 2}
-  leftHand: {fileID: 1713756776158916}
-  rightHand: {fileID: 1385832255506150}
 --- !u!114 &114475620543655222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5650,6 +5636,20 @@ MonoBehaviour:
     fallbackTypeName: VRTK.SDK_FallbackController
     typeName: VRTK.SDK_SteamVRController
     descriptionIndex: 0
+--- !u!114 &114889195677915372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519298155083464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e72d7ace5e26347aaec66b5ea17386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStats: {fileID: 11400000, guid: d1fdca676eb050547afb6c44bd232ec1, type: 2}
+  leftHand: {fileID: 1713756776158916}
+  rightHand: {fileID: 1385832255506150}
 --- !u!114 &114928995083970790
 MonoBehaviour:
   m_ObjectHideFlags: 1

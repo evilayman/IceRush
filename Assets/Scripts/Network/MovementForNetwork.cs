@@ -7,7 +7,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 {
     private Vector3 targetPos;
     private float lag;
-    private PlayerManager playerManager;
+    private PlayerManagerForNetwork playerManager;
 
     private Stats myStats;
 
@@ -35,7 +35,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     void init()
     {
-        playerManager = GetComponent<PlayerManager>();
+        playerManager = GetComponent<PlayerManagerForNetwork>();
 
         myStats = playerManager.myStats;
 
@@ -180,7 +180,15 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void SmoothNetMovement()
     {
-        playerRB.position = Vector3.MoveTowards(playerRB.position, targetPos, Time.fixedDeltaTime);
+       
+        if (Vector3.Distance(playerRB.position, targetPos)>10)
+        {
+            playerRB.position = targetPos;
+        }
+        else
+        {
+            playerRB.position = Vector3.MoveTowards(playerRB.position, targetPos, Time.fixedDeltaTime);
+        }
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
