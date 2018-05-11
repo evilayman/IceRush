@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 114483643025123502}
   - component: {fileID: 114475620543655222}
   - component: {fileID: 114337252667166756}
-  - component: {fileID: 114375042481814648}
+  - component: {fileID: 114281827090264240}
   m_Layer: 0
   m_Name: RightController
   m_TagString: Untagged
@@ -1161,10 +1161,10 @@ GameObject:
   - component: {fileID: 4998937339467298}
   - component: {fileID: 54549351753365494}
   - component: {fileID: 114889195677915372}
-  - component: {fileID: 114548258275230662}
-  - component: {fileID: 114928995083970790}
   - component: {fileID: 114132240446301604}
   - component: {fileID: 114874604763716216}
+  - component: {fileID: 114928995083970790}
+  - component: {fileID: 114548258275230662}
   m_Layer: 0
   m_Name: PlayerSkateNetwork
   m_TagString: Player
@@ -1501,7 +1501,7 @@ GameObject:
   - component: {fileID: 114359542866263716}
   - component: {fileID: 114730223009122922}
   - component: {fileID: 114030888905870176}
-  - component: {fileID: 114868000686209022}
+  - component: {fileID: 114116653928084470}
   m_Layer: 0
   m_Name: LeftController
   m_TagString: Untagged
@@ -4405,7 +4405,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &65195808689048518
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4614,6 +4614,32 @@ MonoBehaviour:
   - {x: 1.65, y: 0.01, z: -1.275}
   - {x: -1.65, y: 0.01, z: -1.275}
   - {x: -1.65, y: 0.01, z: 1.275}
+--- !u!114 &114116653928084470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713756776158916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 4731605237075004}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 2
+  instantiationId: 2
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114132240446301604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4720,6 +4746,32 @@ MonoBehaviour:
   startMenuAlias: 102
   touchModifier: 116
   hairTouchModifier: 104
+--- !u!114 &114281827090264240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1385832255506150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 4875953675093012}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 3
+  instantiationId: 3
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114289797549983368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4868,27 +4920,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customColliderContainer: {fileID: 1766952452513640}
---- !u!114 &114375042481814648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1385832255506150}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58cdac96da703d7488a11cc3bde08cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToGrab: {fileID: 114791601055671722, guid: e4c8bb5eacaa6644cb8b49a71a1f2dc0,
-    type: 2}
-  objectIsPrefab: 1
-  cloneGrabbedObject: 0
-  alwaysCloneOnEnable: 0
-  attemptSecondaryGrab: 0
-  interactTouch: {fileID: 0}
-  interactGrab: {fileID: 0}
-  secondaryInteractTouch: {fileID: 0}
-  secondaryInteractGrab: {fileID: 0}
 --- !u!114 &114382021535167830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5538,27 +5569,6 @@ MonoBehaviour:
   smoothsScale: 0
   maxAllowedPerFrameSizeDifference: 0.003
   _moment: 2
---- !u!114 &114868000686209022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1713756776158916}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58cdac96da703d7488a11cc3bde08cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToGrab: {fileID: 114791601055671722, guid: e4c8bb5eacaa6644cb8b49a71a1f2dc0,
-    type: 2}
-  objectIsPrefab: 1
-  cloneGrabbedObject: 0
-  alwaysCloneOnEnable: 0
-  attemptSecondaryGrab: 0
-  interactTouch: {fileID: 0}
-  interactGrab: {fileID: 0}
-  secondaryInteractTouch: {fileID: 0}
-  secondaryInteractGrab: {fileID: 0}
 --- !u!114 &114874604763716216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5581,8 +5591,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114132240446301604}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114877638065171152

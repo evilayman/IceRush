@@ -25,10 +25,11 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private CooldownTimer canDec, canAccBoost, canDecBoost, canAccLeft, canDecLeft, canAccRight, canDecRight;
 
+    private bool pressedRight, pressedLeft;
+
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
-
         if (photonView.isMine)
             init();
     }
@@ -64,12 +65,23 @@ public class MovementForNetwork : Photon.MonoBehaviour
     {
         if (photonView.isMine)
         {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+                pressedRight = true;
+            else if(Input.GetKeyUp(KeyCode.Mouse1))
+                pressedRight = false;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                pressedLeft = true;
+            else if (Input.GetKeyUp(KeyCode.Mouse0))
+                pressedLeft = false;
+
             AccDecRate(ref currentbaseSpeed, myStats.baseSpeed, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
-            HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
-            HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
+            HandRate(pressedLeft, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
+            HandRate(pressedRight, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
+
+            //HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
+            //HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
         }
-
-
     }
 
     private void FixedUpdate()
@@ -180,8 +192,8 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void SmoothNetMovement()
     {
-       
-        if (Vector3.Distance(playerRB.position, targetPos)>10)
+
+        if (Vector3.Distance(playerRB.position, targetPos) > 10)
         {
             playerRB.position = targetPos;
         }
