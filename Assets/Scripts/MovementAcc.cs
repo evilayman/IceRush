@@ -64,7 +64,8 @@ public class MovementAcc : MonoBehaviour
         if (leftHandController.AnyButtonPressed() || rightHandController.AnyButtonPressed())
             gameStarted = true;
 
-        AccDecRate(ref currentbaseSpeed, myStats.baseSpeed, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
+        BoostRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
+
         HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
         HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
     }
@@ -131,7 +132,7 @@ public class MovementAcc : MonoBehaviour
         playerRB.velocity = tempV;
     }
 
-    void AccDecRate(ref float current, float target, CooldownTimer canAcc, CooldownTimer canDec, float accRate, float decRate)
+    void BoostRate(ref float current, float target, CooldownTimer canAcc, CooldownTimer canDec, float accRate, float decRate)
     {
         if (current < target && canAcc.IsReady())
         {
@@ -147,6 +148,7 @@ public class MovementAcc : MonoBehaviour
         {
             current = 0;
         }
+        print(current);
     }
 
     void HandRate(bool triggerPressed, ref Vector3 handDirection, Vector3 handTransform, ParticleSystem emission, CooldownTimer canAccHand, CooldownTimer canDecHand, ref float currentHandSpeed)

@@ -226,7 +226,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865469893781462}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9995046, w: -0.031474035}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9035602, w: -0.4284612}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -613,7 +613,7 @@ MonoBehaviour:
   endPoint: {x: 0, y: 0, z: 0}
   Speed: 0
   rotate: 1
-  rotateSpeed: 5
+  rotateSpeed: 20
   axisX: 0
   axisY: 0
   axisZ: 1
@@ -875,8 +875,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.8875027, y: 25.059433, z: 50}
-  - {x: -29.94057, y: 53.11249, z: 50}
+  - {x: 23.05077, y: 35.799423, z: 50}
+  - {x: -19.200577, y: 31.949224, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -967,8 +967,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -1.8875029, y: 84.94057, z: 50}
-  - {x: 29.94057, y: 56.88751, z: 50}
+  - {x: -23.050774, y: 74.20058, z: 50}
+  - {x: 19.200577, y: 78.05077, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -1060,7 +1060,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 55, z: 50}
-  - {x: -1.8875029, y: 84.94057, z: 50}
+  - {x: -23.050774, y: 74.20058, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -1152,7 +1152,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 55, z: 50}
-  - {x: 1.8875027, y: 25.059433, z: 50}
+  - {x: 23.05077, y: 35.799423, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -1243,8 +1243,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 29.94057, y: 56.88751, z: 50}
-  - {x: 1.8875027, y: 25.059433, z: 50}
+  - {x: 19.200577, y: 78.05077, z: 50}
+  - {x: 23.05077, y: 35.799423, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -1335,8 +1335,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -29.94057, y: 53.11249, z: 50}
-  - {x: -1.8875029, y: 84.94057, z: 50}
+  - {x: -19.200577, y: 31.949224, z: 50}
+  - {x: -23.050774, y: 74.20058, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -1428,7 +1428,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 55, z: 50}
-  - {x: 29.94057, y: 56.88751, z: 50}
+  - {x: 19.200577, y: 78.05077, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -1520,7 +1520,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 55, z: 50}
-  - {x: -29.94057, y: 53.11249, z: 50}
+  - {x: -19.200577, y: 31.949224, z: 50}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
