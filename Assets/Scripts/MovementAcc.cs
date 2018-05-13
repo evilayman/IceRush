@@ -148,7 +148,7 @@ public class MovementAcc : MonoBehaviour
         {
             current = 0;
         }
-        print(current);
+
     }
 
     void HandRate(bool triggerPressed, ref Vector3 handDirection, Vector3 handTransform, ParticleSystem emission, CooldownTimer canAccHand, CooldownTimer canDecHand, ref float currentHandSpeed)

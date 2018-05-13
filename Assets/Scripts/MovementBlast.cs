@@ -63,7 +63,7 @@ public class MovementBlast : MonoBehaviour
         if (leftHandController.AnyButtonPressed() || rightHandController.AnyButtonPressed())
             gameStarted = true;
 
-        AccDecRate(ref currentbaseSpeed, myStats.baseSpeed, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
+        AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
         HandRate(leftHandController.triggerTouched, ref leftPressState, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
         HandRate(rightHandController.triggerTouched, ref rightPressState, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
     }

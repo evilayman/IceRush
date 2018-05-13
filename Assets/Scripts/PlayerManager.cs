@@ -8,9 +8,7 @@ public class PlayerManager : MonoBehaviour
     public Stats myStats;
     public GameObject leftHand, rightHand;
 
-    private bool inBoostRegion;
-
-    private bool Died = false;
+    private bool inBoostRegion, Died = false;
 
     public bool InBoostRegion
     {
