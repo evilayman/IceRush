@@ -8,17 +8,17 @@ public class PlayerManagerForNetwork : MonoBehaviour
     PhotonView photonView;
     public Stats myStats;
     public GameObject leftHand, rightHand;
-
+    private WaitForSeconds wait;
     private bool Died = false;
 
     private void Start()
     {
+        wait = new WaitForSeconds(1f);
         photonView = GetComponent<PhotonView>();
         if (photonView.isMine)
         {
             FadeFromBlack(0.2f);
         }
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -27,12 +27,12 @@ public class PlayerManagerForNetwork : MonoBehaviour
         {
             if (!Died && collision.gameObject.tag == "Area")
             {
+                Debug.Log("HIT");
                 Died = true;
                 FadeToBlack(0.2f);
-                StartCoroutine(ReturnTOLastRespawnPoint(1f));
+                StartCoroutine(ReturnTOLastRespawnPoint());
             }
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,7 +44,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 myStats.baseSpeed += myStats.boostSpeed;
             }
         }
-        
     }
 
     private void OnTriggerExit(Collider other)
@@ -56,7 +55,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 myStats.baseSpeed -= myStats.boostSpeed;
             }
         }
-        
     }
 
     private void FadeToBlack(float time)
@@ -66,6 +64,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         //set and start fade to
         SteamVR_Fade.Start(Color.black, time);
     }
+
     private void FadeFromBlack(float time)
     {
         //set start color
@@ -74,16 +73,10 @@ public class PlayerManagerForNetwork : MonoBehaviour
         SteamVR_Fade.Start(Color.clear, time);
     }
 
-    IEnumerator resetScene(float time)
+    IEnumerator ReturnTOLastRespawnPoint()
     {
-        yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("Main");
-       
-    }
-    IEnumerator ReturnTOLastRespawnPoint(float time)
-    {
-       
-        yield return new WaitForSeconds(time);
+        yield return wait;
         this.transform.position = new Vector3(0, 50, 0);
+        Died = false;
     }
 }
