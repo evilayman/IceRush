@@ -75,7 +75,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
             else if (Input.GetKeyUp(KeyCode.Mouse0))
                 pressedLeft = false;
 
-            AccDecRate(ref currentbaseSpeed, myStats.baseSpeed, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
+            AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
             HandRate(pressedLeft, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
             HandRate(pressedRight, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
 
