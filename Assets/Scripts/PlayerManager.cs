@@ -8,7 +8,20 @@ public class PlayerManager : MonoBehaviour
     public Stats myStats;
     public GameObject leftHand, rightHand;
 
-    private bool Died = false;
+    private bool inBoostRegion, Died = false;
+
+    public bool InBoostRegion
+    {
+        get
+        {
+            return inBoostRegion;
+        }
+
+        set
+        {
+            inBoostRegion = value;
+        }
+    }
 
     private void Start()
     {
@@ -29,7 +42,7 @@ public class PlayerManager : MonoBehaviour
     {
         if(other.gameObject.name == "BoostRegion")
         {
-            myStats.baseSpeed += myStats.boostSpeed;
+            InBoostRegion = true;
         }
     }
 
@@ -37,7 +50,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.gameObject.name == "BoostRegion")
         {
-            myStats.baseSpeed -= myStats.boostSpeed;
+            InBoostRegion = false;
         }
     }
 

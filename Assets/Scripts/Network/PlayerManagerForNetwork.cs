@@ -6,10 +6,27 @@ using UnityEngine.SceneManagement;
 public class PlayerManagerForNetwork : MonoBehaviour
 {
     PhotonView photonView;
+
     public Stats myStats;
+    
     public GameObject leftHand, rightHand;
+
     private WaitForSeconds wait;
-    private bool Died = false;
+
+    private bool inBoostRegion, Died = false;
+
+    public bool InBoostRegion
+    {
+        get
+        {
+            return inBoostRegion;
+        }
+
+        set
+        {
+            inBoostRegion = value;
+        }
+    }
 
     private void Start()
     {
@@ -41,7 +58,8 @@ public class PlayerManagerForNetwork : MonoBehaviour
         {
             if (other.gameObject.name == "BoostRegion")
             {
-                myStats.baseSpeed += myStats.boostSpeed;
+                InBoostRegion = true;
+
             }
         }
     }
@@ -52,7 +70,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         {
             if (other.gameObject.name == "BoostRegion")
             {
-                myStats.baseSpeed -= myStats.boostSpeed;
+                InBoostRegion = false;
             }
         }
     }
