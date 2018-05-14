@@ -51,9 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 082ff53e1c3bf9048b0227945033da96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
-  myObjsTime: []
-  myObjsDisableTime: []
-  startPosition: 0
-  speed: 50
-  areaSize: 500
+  gameRegion: {fileID: 0}
+  enviroment: {fileID: 0}

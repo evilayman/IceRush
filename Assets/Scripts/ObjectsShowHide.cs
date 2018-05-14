@@ -4,84 +4,78 @@ using UnityEngine;
 
 public class ObjectsShowHide : MonoBehaviour
 {
-    public Transform Parent;
-    private List<Transform> myObjs, myObjsDisable;
-    public List<float> myObjsTime, myObjsDisableTime;
-    public float startPosition, speed, areaSize;
+    public Transform gameRegion, enviroment;
 
+    private List<Transform> myObjs;
+    private List<float> myObjsTime;
+
+    private GameRegion regionScript;
+    
     void Start()
     {
-        myObjs = myObjsDisable = new List<Transform>();
-        myObjsTime = myObjsDisableTime = new List<float>();
+        regionScript = gameRegion.GetComponent<GameRegion>();
+        myObjs = new List<Transform>();
+        myObjsTime = new List<float>();
 
         GetAllObjects();
     }
 
     void GetAllObjects()
     {
-        for (int i = 0; i < Parent.childCount; i++)
+        for (int i = 0; i < enviroment.childCount; i++)
         {
-            GetChildren((Parent.GetChild(i).transform));
+            GetChildren((enviroment.GetChild(i).transform));
         }
 
         myObjs.Sort(CompareTransform);
         myObjsTime = SetActiveTime(myObjs);
     }
 
-    void GetChildren(Transform Parent)
+    void GetChildren(Transform parent)
     {
-        for (int i = 0; i < Parent.childCount; i++)
+        for (int i = 0; i < parent.childCount; i++)
         {
-            myObjs.Add(Parent.GetChild(i).transform);
-            Parent.GetChild(i).transform.gameObject.SetActive(false);
+            myObjs.Add(parent.GetChild(i).transform);
+            parent.GetChild(i).transform.gameObject.SetActive(false);
         }
     }
 
     void Update()
     {
-        CheckTimeActive(0);
-        //CheckTimeInActive(0);
+        CheckToEnable(0);
     }
 
-    void CheckTimeActive(int index)
+    void CheckToEnable(int index)
     {
         if (index < myObjsTime.Count && myObjsTime.Count > 0 && Time.time >= myObjsTime[index])
         {
             myObjs[index].gameObject.SetActive(true);
 
-            StartCoroutine(DeActivateObj(myObjs[index], (areaSize / speed) + Time.time));
-
-            //myObjsDisable.Add(myObjs[index].transform);
-            //myObjsDisableTime.Add((areaSize / speed) + Time.time);
+            StartCoroutine(DeActivateObj(myObjs[index], (regionScript.regionSize / regionScript.speed)));
 
             myObjs.RemoveAt(index);
             myObjsTime.RemoveAt(index);
 
-            CheckTimeActive(index + 1);
+            CheckToEnable(index + 1);
         }
     }
 
-    //void CheckTimeInActive(int index)
-    //{
-    //    if (index < myObjsDisableTime.Count && myObjsDisableTime.Count > 0 && Time.time >= myObjsDisableTime[index])
-    //    {
-    //        myObjsDisable[index].gameObject.SetActive(false);
-
-    //        myObjsDisable.RemoveAt(index);
-    //        myObjsDisableTime.RemoveAt(index);
-
-    //        CheckTimeInActive(index + 1);
-    //    }
-    //}
+    IEnumerator DeActivateObj(Transform Obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        Obj.gameObject.SetActive(false);
+    }
 
     private List<float> SetActiveTime(List<Transform> myObjs)
     {
         List<float> temp = new List<float>();
+
         float time;
+        float regionStartPosition = gameRegion.position.z + (regionScript.regionSize / 2);
 
         for (int i = 0; i < myObjs.Count; i++)
         {
-            time = (myObjs[i].transform.position.z - startPosition) / speed; // Make Time Calculation Here
+            time = (myObjs[i].transform.position.z - regionStartPosition) / regionScript.speed;
             temp.Add(time);
         }
 
@@ -93,9 +87,4 @@ public class ObjectsShowHide : MonoBehaviour
         return A.transform.position.z.CompareTo(B.transform.position.z);
     }
 
-    IEnumerator DeActivateObj(Transform Obj, float time)
-    {
-        yield return new WaitForSeconds(time);
-        Obj.gameObject.SetActive(false);
-    }
 }
