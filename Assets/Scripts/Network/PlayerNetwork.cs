@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 
 public class PlayerNetwork : MonoBehaviour
-{
-
+{   
     public static PlayerNetwork instance;
     public string playerName { get; private set; }
     private PhotonView photonView;
     private int playersInGame;
+    private GameObject instantiatedPlayer;
     private void Awake()
     {
         instance = this;
         photonView = GetComponent<PhotonView>();
-        playerName = "Player" + Random.Range(0, 1000);
+        //playerName = "Player" + Random.Range(0, 1000);
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
     }
 
@@ -24,7 +25,7 @@ public class PlayerNetwork : MonoBehaviour
         if (scene.name == "Main")
         {
             if (PhotonNetwork.isMasterClient)
-            { 
+            {
                 MasterLoadedGame();
                 NonMasterLoadedGame();
 
@@ -67,7 +68,9 @@ public class PlayerNetwork : MonoBehaviour
     private void RPC_CreatePlayer()
     {
         float randomValue = Random.Range(0f, 50f);
-        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
+        instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
+        instantiatedPlayer.GetComponentInChildren<Text>().text=PhotonNetwork.playerName;
+
     }
 
 }
