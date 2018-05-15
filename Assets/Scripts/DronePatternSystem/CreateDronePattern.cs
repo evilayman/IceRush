@@ -7,6 +7,8 @@ public class CreateDronePattern : MonoBehaviour
     [Header("Drone Properties")]
     public GameObject drone;
     public Material myMatSlow, myMatRespwan, myMatDeath;
+    public float lineWidth;
+    public bool enableRayCast;
     [Header("Pattern Movement")]
     public bool move;
     public Vector3 direction;
@@ -41,6 +43,7 @@ public class CreateDronePattern : MonoBehaviour
         {
             transform.position += (direction * Time.deltaTime);
         }
+
     }
 
     public void AddLine()
@@ -111,7 +114,7 @@ public class CreateDronePattern : MonoBehaviour
         foreach (Transform child in transform)
         {
             AlldroneGO.Add(child.gameObject);
-            shapeTransforms.Add(new ShapeTransform(Vector3.zero, Vector3.zero));
+            shapeTransforms.Add(new ShapeTransform(child.position, child.eulerAngles));
         }
     }
 }
