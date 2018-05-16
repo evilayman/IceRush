@@ -32,8 +32,20 @@ public class CreateDroneObjectEditor : Editor
             myScript.ResetPosition();
         }
 
+        if (GUILayout.Button("Apply All"))
+        {
+            for (int i = 0; i < myScript.AlldroneGO.Count; i++)
+            {
+                if (myScript.AlldroneGO[i].name == "Line")
+                    myScript.AlldroneGO[i].GetComponent<DroneLineScript>().Apply();
+                else
+                    myScript.AlldroneGO[i].GetComponent<DroneCircleScript>().Apply();
+
+            }
+        }
+
         serializedObject.ApplyModifiedProperties();
-    }   
+    }
 
     public void OnSceneGUI()
     {
