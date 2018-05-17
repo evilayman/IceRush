@@ -69,8 +69,6 @@ public class PlayerNetwork : MonoBehaviour
     {
         float randomValue = Random.Range(0f, 50f);
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
-        instantiatedPlayer.GetComponentInChildren<Text>().text=PhotonNetwork.playerName;
-
     }
 
 }
