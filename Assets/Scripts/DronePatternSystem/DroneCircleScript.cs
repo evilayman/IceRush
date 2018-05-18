@@ -6,8 +6,6 @@ public class DroneCircleScript : MonoBehaviour
 {
     private GameObject drone;
     private Material myMat;
-    public float lineWidth = 1f;
-
 
     public MyDangerLevel danger;
 
@@ -28,7 +26,6 @@ public class DroneCircleScript : MonoBehaviour
     private List<GameObject> centerDroneGOList = new List<GameObject>();
 
     private RaycastHit hit;
-    private CreateDronePattern pattern;
 
     public List<GameObject> DroneList
     {
@@ -45,8 +42,6 @@ public class DroneCircleScript : MonoBehaviour
     public void Start()
     {
         AddDrones();
-        pattern = GetComponentInParent<CreateDronePattern>();
-
         //drone = gameObject.GetComponentInParent<CreateDronePattern>().drone;
         //myMat = gameObject.GetComponentInParent<CreateDronePattern>().lineRendererMaterial;
     }
@@ -81,7 +76,6 @@ public class DroneCircleScript : MonoBehaviour
             GameObject go = new GameObject();
             go.transform.SetParent(DroneList[0].transform);
             go.AddComponent<LineRenderer>().material = myMat;
-            go.GetComponent<LineRenderer>().startWidth = lineWidth;
             centerDroneGOList.Add(go);
         }
     }
@@ -94,10 +88,7 @@ public class DroneCircleScript : MonoBehaviour
         go.name = i + "";
 
         if (hasEdges && i != 0)
-        {
-            go.GetComponent<LineRenderer>().material = myMat;
-            go.GetComponent<LineRenderer>().startWidth = lineWidth;
-        }
+            go.AddComponent<LineRenderer>().material = myMat;
 
         else if (!hasCenter && i == 0)
             droneList[i].SetActive(false);
@@ -178,19 +169,13 @@ public class DroneCircleScript : MonoBehaviour
         {
             DroneList[i].GetComponent<LineRenderer>().SetPosition(0, DroneList[i].transform.position);
             DroneList[i].GetComponent<LineRenderer>().SetPosition(1, DroneList[i + 1].transform.position);
-            if (pattern && pattern.enableRayCast)
-            {
-                DroneRay(DroneList[i].transform.position, DroneList[i + 1].transform.position);
-            }
+            DroneRay(DroneList[i].transform.position, DroneList[i + 1].transform.position);
         }
         else if (DroneList[i].GetComponent<LineRenderer>())
         {
             DroneList[i].GetComponent<LineRenderer>().SetPosition(0, DroneList[i].transform.position);
             DroneList[i].GetComponent<LineRenderer>().SetPosition(1, DroneList[1].transform.position);
-            if (pattern && pattern.enableRayCast)
-            {
-                DroneRay(DroneList[i].transform.position, DroneList[1].transform.position);
-            }
+            DroneRay(DroneList[i].transform.position, DroneList[1].transform.position);
         }
     }
 
@@ -198,10 +183,7 @@ public class DroneCircleScript : MonoBehaviour
     {
         centerDroneGOList[i - 1].GetComponent<LineRenderer>().SetPosition(0, DroneList[0].transform.position);
         centerDroneGOList[i - 1].GetComponent<LineRenderer>().SetPosition(1, DroneList[i].transform.position);
-        if (pattern && pattern.enableRayCast)
-        {
-            DroneRay(DroneList[0].transform.position, DroneList[i].transform.position);
-        }
+        DroneRay(DroneList[0].transform.position, DroneList[i].transform.position);
     }
 
     private void DroneRay(Vector3 start, Vector3 end)

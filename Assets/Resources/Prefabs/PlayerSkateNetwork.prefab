@@ -1184,7 +1184,7 @@ GameObject:
   - component: {fileID: 114548258275230662}
   m_Layer: 0
   m_Name: PlayerSkateNetwork
-  m_TagString: Player
+  m_TagString: PlayerParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5766,6 +5766,9 @@ MonoBehaviour:
   myStats: {fileID: 11400000, guid: d1fdca676eb050547afb6c44bd232ec1, type: 2}
   leftHand: {fileID: 1713756776158916}
   rightHand: {fileID: 1385832255506150}
+  thisClientHead: {fileID: 1494322088643188}
+  playerName: {fileID: 114146752289553394}
+  rotationSpeed: 10
 --- !u!114 &114928995083970790
 MonoBehaviour:
   m_ObjectHideFlags: 1
