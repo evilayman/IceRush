@@ -1,17 +1,28 @@
 fileFormatVersion: 2
-guid: cd6d06065d5eed44887d3da3112b0361
+guid: 8c8c8dfe53d99e7459d80f6ff4932df6
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Object001
+    100002: Box001.001
+    100004: Object002
+    100006: Object003
     400000: //RootNode
-    400002: Object001
-    2100000: Object001Mat
-    2300000: Object001
-    3300000: Object001
-    4300000: Object001
-    2186277476908879412: ImportLogs
+    400002: Box001.001
+    400004: Object002
+    400006: Object003
+    2100000: wire_027177148
+    2300000: Box001.001
+    2300002: Object002
+    2300004: Object003
+    3300000: Box001.001
+    3300002: Object002
+    3300004: Object003
+    4300000: Box001.001
+    4300002: Object003
+    4300004: Object002
+    7400000: Take 001
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -87,7 +98,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
