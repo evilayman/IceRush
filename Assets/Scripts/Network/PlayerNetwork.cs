@@ -59,8 +59,8 @@ public class PlayerNetwork : MonoBehaviour
         playersInGame++;
         if (playersInGame == PhotonNetwork.playerList.Length)
         {
-            //print("All players are in game");
             photonView.RPC("RPC_CreatePlayer", PhotonTargets.All);
+            GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.preGame;
         }
     }
 

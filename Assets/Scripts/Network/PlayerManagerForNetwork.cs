@@ -1,20 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerManagerForNetwork : MonoBehaviour
 {
+    public Stats myStats;
+    public GameObject leftHand, rightHand;
+    public TextMeshPro playerName;
+
     private PhotonView photonView;
-    private GameObject[] players;
-    [SerializeField]
-    private Text playerName;
-    private WaitForSeconds wait, waitForPlayersList;
-    [SerializeField]
-    private float rotationSpeed;
-    private Vector3 newDir;
-    private Vector3[] otherPlayersForward;
+
     private bool inBoostRegion, Died = false;
 
     public bool InBoostRegion
@@ -32,43 +29,31 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void Start()
     {
-        wait = new WaitForSeconds(1f);
-        waitForPlayersList = new WaitForSeconds(3f);
         photonView = GetComponent<PhotonView>();
 
         if (photonView.isMine)
         {
             FadeFromBlack(0.2f);
-            StartCoroutine(MakePlayersList());
         }
 
         if (!photonView.isMine)
         {
-            playerName.text = photonView.owner.NickName;
+            playerName.SetText(photonView.owner.NickName);
         }
 
     }
 
     private void Update()
     {
-        if (photonView.isMine)
-            RotateOtherPlayersNames();
+        if (!photonView.isMine)
+        {
+            rotateText();
+        }
     }
 
-    private void RotateOtherPlayersNames()
+    private void rotateText()
     {
-        if (players != null)
-        {
-            for (int i = 0; i < players.Length; i++)
-            {
-                //players[i].GetComponent<PlayerManagerForNetwork>().playerName.color = Color.red;
-                var current = otherPlayersForward[i];
-                var target = (players[i].transform.position - transform.position).normalized;
-                newDir = Vector3.RotateTowards(current, target, rotationSpeed, 0.0f);
-                players[i].GetComponentInChildren<Text>().rectTransform.rotation = Quaternion.LookRotation(newDir);
-            }
-        }
-
+        playerName.transform.rotation = Camera.main.transform.rotation;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -79,7 +64,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
             {
                 Died = true;
                 FadeToBlack(0.2f);
-                StartCoroutine(ReturnTOLastRespawnPoint());
+                StartCoroutine(ReturnToLastRespawnPoint());
             }
         }
     }
@@ -123,19 +108,11 @@ public class PlayerManagerForNetwork : MonoBehaviour
         SteamVR_Fade.Start(Color.clear, time);
     }
 
-    IEnumerator ReturnTOLastRespawnPoint()
+    IEnumerator ReturnToLastRespawnPoint()
     {
-        yield return wait;
+        yield return new WaitForSeconds(1f);
         this.transform.position = new Vector3(0, 50, 0);
         Died = false;
     }
-    IEnumerator MakePlayersList()
-    {
-        yield return waitForPlayersList;
-        players = GameObject.FindGameObjectsWithTag("PlayerParent");
-        for (int i = 0; i < players.Length; i++)
-        {
-            otherPlayersForward[i] = players[i].GetComponent<PlayerManagerForNetwork>().playerName.rectTransform.forward;
-        }
-    }
+
 }
