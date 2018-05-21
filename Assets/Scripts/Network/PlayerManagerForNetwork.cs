@@ -14,10 +14,9 @@ public class PlayerManagerForNetwork : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
     private Vector3 newDir;
+    private Vector3[] otherPlayersForward;
     private bool inBoostRegion, Died = false;
 
-    public Stats myStats;
-    public GameObject leftHand, rightHand, thisClientHead;
     public bool InBoostRegion
     {
         get
@@ -58,12 +57,12 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void RotateOtherPlayersNames()
     {
-        if (players!=null)
+        if (players != null)
         {
             for (int i = 0; i < players.Length; i++)
             {
                 //players[i].GetComponent<PlayerManagerForNetwork>().playerName.color = Color.red;
-                var current = players[i].GetComponent<PlayerManagerForNetwork>().playerName.rectTransform.forward;
+                var current = otherPlayersForward[i];
                 var target = (players[i].transform.position - transform.position).normalized;
                 newDir = Vector3.RotateTowards(current, target, rotationSpeed, 0.0f);
                 players[i].GetComponentInChildren<Text>().rectTransform.rotation = Quaternion.LookRotation(newDir);
@@ -134,5 +133,9 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         yield return waitForPlayersList;
         players = GameObject.FindGameObjectsWithTag("PlayerParent");
+        for (int i = 0; i < players.Length; i++)
+        {
+            otherPlayersForward[i] = players[i].GetComponent<PlayerManagerForNetwork>().playerName.rectTransform.forward;
+        }
     }
 }
