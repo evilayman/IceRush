@@ -10,7 +10,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     public Stats myStats;
     public GameObject leftHand, rightHand;
     public TextMeshPro playerName, playerRank;
-
+    internal Transform spawnPoint;
     private PhotonView photonView;
     private bool inBoostRegion, Died = false;
 
@@ -118,7 +118,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     IEnumerator ReturnToLastRespawnPoint()
     {
         yield return new WaitForSeconds(1f);
-        this.transform.position = new Vector3(0, 50, 0);
+        this.transform.position = spawnPoint.position;
         Died = false;
     }
 
