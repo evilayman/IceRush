@@ -1,20 +1,34 @@
 fileFormatVersion: 2
-guid: d5670a76ceac5564c973ac39c0a7ac0a
+guid: 7aa05686015dd424cb047b06758f5bf3
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Box001
     400000: //RootNode
-    2100000: wire_086086086
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Box002
+    400002: Box001
+    2100000: 'Material #37'
+    2100002: 'Material #36'
+    2100004: 'Material #38'
+    2300000: Box001
+    3300000: Box001
+    4300000: Box001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: wire_086086086
-    second: {fileID: 2100000, guid: 7275b0cbcb12e224db93746313fc2470, type: 2}
+      name: 'Material #36'
+    second: {fileID: 2100000, guid: 13295d8531e485d4ca88c5493c5c6cf0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #37'
+    second: {fileID: 2100000, guid: c4bc40c8bc43a1a459a88e6dcf782ee1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #38'
+    second: {fileID: 2100000, guid: 3e64492167c60c34997d1ac0d947a836, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
