@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
     {
         countDownTimer = new CooldownTimer(timerCD, false);
         MyPlayersSorted = new List<GameObject>();
-        AddPlayers();
-
     }
 
     void AddPlayers()
@@ -104,6 +102,8 @@ public class GameManager : MonoBehaviour
         {
             countDownTimeText.gameObject.SetActive(false);
             currentState = GameState.inGame;
+            Debug.Log("Hey");
+            AddPlayers();
         }
     }
 

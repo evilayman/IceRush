@@ -10,8 +10,10 @@ public class PlayerManagerForNetwork : MonoBehaviour
     public Stats myStats;
     public GameObject leftHand, rightHand;
     public TextMeshPro playerName, playerRank;
-    internal Transform spawnPoint;
+
+    private Vector3 spawnPoint;
     private PhotonView photonView;
+
     private bool inBoostRegion, Died = false;
 
     public bool InBoostRegion
@@ -24,6 +26,19 @@ public class PlayerManagerForNetwork : MonoBehaviour
         set
         {
             inBoostRegion = value;
+        }
+    }
+
+    public Vector3 SpawnPoint
+    {
+        get
+        {
+            return spawnPoint;
+        }
+
+        set
+        {
+            spawnPoint = value;
         }
     }
 
@@ -118,7 +133,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     IEnumerator ReturnToLastRespawnPoint()
     {
         yield return new WaitForSeconds(1f);
-        this.transform.position = spawnPoint.position;
+        transform.position = SpawnPoint;
         Died = false;
     }
 
@@ -142,5 +157,4 @@ public class PlayerManagerForNetwork : MonoBehaviour
         }
         return rank;
     }
-
 }

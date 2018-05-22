@@ -60,7 +60,6 @@ public class PlayerNetwork : MonoBehaviour
         if (playersInGame == PhotonNetwork.playerList.Length)
         {
             photonView.RPC("RPC_CreatePlayer", PhotonTargets.All);
-            GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.preGame;
         }
     }
 
@@ -69,6 +68,7 @@ public class PlayerNetwork : MonoBehaviour
     {
         float randomValue = Random.Range(0f, 50f);
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
+        GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.preGame;
     }
 
 }

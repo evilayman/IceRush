@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    private Transform spawnPoint;
-    // Use this for initialization
+    private Vector3 spawnPoint;
+
     void Start()
     {
-        spawnPoint = GetComponent<Transform>().GetChild(0);
+        spawnPoint = GetComponent<Transform>().GetChild(0).position;
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        print(other.tag);
         if (other.tag=="Player")
         {
-            other.GetComponent<PlayerManagerForNetwork>().spawnPoint = spawnPoint;
-            print("done" + other.GetComponent<PlayerManagerForNetwork>().spawnPoint);
+            other.GetComponentInParent<PlayerManagerForNetwork>().SpawnPoint = spawnPoint;
         }
     }
 }
