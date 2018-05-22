@@ -66,7 +66,7 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_CreatePlayer()
     {
-        float randomValue = Random.Range(0f, 50f);
+        float randomValue = Random.Range(-5f, 5f);
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
         GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.preGame;
     }

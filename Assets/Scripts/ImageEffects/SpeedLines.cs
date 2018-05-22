@@ -10,25 +10,20 @@ public class SpeedLines : MonoBehaviour
 
     private Rigidbody playerRB;
 
-    public float minRBSpeed, maxRBSpeed, minLineRate, maxLineRate, minRadius, maxRadius, rotationSpeed;
+    public float minRBSpeed, maxRBSpeed, minLineRate, maxLineRate, minRadius, maxRadius;
     private float rbVelocity;
 
     private Vector3 newDir;
-
-
-
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
     }
 
-
     void Update()
     {
-
-        newDir = Vector3.RotateTowards(speedLines.forward, playerRB.velocity.normalized, rotationSpeed, 0f);
-        speedLines.rotation = Quaternion.LookRotation(newDir);
+        if(playerRB.velocity != Vector3.zero)
+            speedLines.rotation = Quaternion.LookRotation(playerRB.velocity);
 
         rbVelocity = playerRB.velocity.magnitude;
 
@@ -48,14 +43,11 @@ public class SpeedLines : MonoBehaviour
 
             if (rad >= maxRadius)
                 shape.radius = rad;
-
         }
         else
         {
             if (speedLineParticles.isPlaying)
                 speedLineParticles.Stop();
         }
-
-
     }
 }

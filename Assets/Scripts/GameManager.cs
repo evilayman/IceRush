@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public Transform finishLine;
 
     private CooldownTimer countDownTimer;
-    private List<GameObject> myPlayersSorted;
+    private List<GameObject> myPlayersSorted, finishedPlayers;
 
     public List<GameObject> MyPlayersSorted
     {
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         countDownTimer = new CooldownTimer(timerCD, false);
         MyPlayersSorted = new List<GameObject>();
+        finishedPlayers = new List<GameObject>();
     }
 
     void AddPlayers()
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
         var players = GameObject.FindGameObjectsWithTag("PlayerParent");
         for (int i = 0; i < players.Length; i++)
         {
+            players[i].GetComponent<Rigidbody>().isKinematic = false;
             MyPlayersSorted.Add(players[i]);
         }
     }
@@ -62,7 +64,8 @@ public class GameManager : MonoBehaviour
                 CountDown();
                 break;
             case GameState.inGame:
-                RankPlayers();
+                MyPlayersSorted.Sort(SortByDistance);
+                CheckFinishLine();
                 break;
             case GameState.endGame:
                 break;
@@ -73,11 +76,11 @@ public class GameManager : MonoBehaviour
 
     private void CountDown()
     {
-        if (countDownTime > -2)
+        if (countDownTime > -1)
         {
             if (countDownTime <= 0)
             {
-                countDownTimeText.text = "Go Noobs!";
+                countDownTimeText.text = "Go!";
             }
             else
             {
@@ -102,14 +105,17 @@ public class GameManager : MonoBehaviour
         {
             countDownTimeText.gameObject.SetActive(false);
             currentState = GameState.inGame;
-            Debug.Log("Hey");
             AddPlayers();
         }
     }
 
-    private void RankPlayers()
+    private void CheckFinishLine()
     {
-        MyPlayersSorted.Sort(SortByDistance);
+        if(MyPlayersSorted.Count > 0 && (myPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
+        {
+            finishedPlayers.Add(myPlayersSorted[0]);
+            myPlayersSorted.RemoveAt(0);
+        }
     }
 
     private int SortByDistance(GameObject A, GameObject B)
