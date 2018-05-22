@@ -6,6 +6,7 @@ public class DroneLineScript : MonoBehaviour
 {
     private GameObject drone;
     private Material myMat;
+    public float lineWidth = 1f;
 
     public MyDangerLevel danger;
 
@@ -25,7 +26,8 @@ public class DroneLineScript : MonoBehaviour
     private Vector3 Position;
     private float xPos;
     private RaycastHit hit;
-
+    private bool rayCastT;
+    private CreateDronePattern pattern;
     public List<GameObject> DroneList
     {
         get
@@ -40,6 +42,7 @@ public class DroneLineScript : MonoBehaviour
 
     public void Start()
     {
+        pattern = GetComponentInParent<CreateDronePattern>();
         AddDrones();
     }
 
@@ -65,7 +68,8 @@ public class DroneLineScript : MonoBehaviour
 
         for (int j = 0; j < (DroneList.Count - 1); j++)
         {
-            DroneList[j].AddComponent<LineRenderer>().material = myMat;
+            DroneList[j].GetComponent<LineRenderer>().material = myMat;
+            DroneList[j].GetComponent<LineRenderer>().startWidth = lineWidth;
 
         }
 
@@ -110,8 +114,10 @@ public class DroneLineScript : MonoBehaviour
                 {
                     DroneList[i].GetComponent<LineRenderer>().SetPosition(0, DroneList[i].transform.position);
                     DroneList[i].GetComponent<LineRenderer>().SetPosition(1, DroneList[i + 1].transform.position);
-
-                    DroneRay(DroneList[i].transform.position, DroneList[i + 1].transform.position);
+                    if (pattern && pattern.enableRayCast)
+                    {
+                        DroneRay(DroneList[i].transform.position, DroneList[i + 1].transform.position);
+                    }
                 }
                 DroneList[i].GetComponent<DroneVarScript>().myDronVar = myDroneVarList[i];
             }
@@ -133,6 +139,7 @@ public class DroneLineScript : MonoBehaviour
         }
         Debug.DrawRay(start, dir * distance, Color.blue);
     }
+
 
     private void RayHit(GameObject player)
     {
