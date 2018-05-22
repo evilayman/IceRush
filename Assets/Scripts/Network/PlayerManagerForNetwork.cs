@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
+//using TMPro;
 
 public class PlayerManagerForNetwork : MonoBehaviour
 {
-    private GameManager GM;
     public Stats myStats;
     public GameObject leftHand, rightHand;
-    public TextMeshPro playerName, playerRank;
 
     private Vector3 spawnPoint;
     private PhotonView photonView;
@@ -28,7 +26,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
             inBoostRegion = value;
         }
     }
-
     public Vector3 SpawnPoint
     {
         get
@@ -45,38 +42,11 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if (photonView.isMine)
         {
             FadeFromBlack(0.5f);
         }
-
-        if (!photonView.isMine)
-        {
-            playerName.SetText(photonView.owner.NickName);
-        }
-    }
-
-    private void Update()
-    {
-        if (!photonView.isMine)
-        {
-            setRankText();
-            rotateText();
-        }
-    }
-
-    private void rotateText()
-    {
-        if(Camera.main)
-            playerName.transform.rotation = playerRank.transform.rotation = Camera.main.transform.rotation;
-    }
-
-    private void setRankText()
-    {
-        var i = GM.MyPlayersSorted.FindIndex(x => x == gameObject);
-        playerRank.SetText(GetRankString(i));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -114,6 +84,13 @@ public class PlayerManagerForNetwork : MonoBehaviour
         }
     }
 
+    IEnumerator ReturnToLastRespawnPoint()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = SpawnPoint;
+        Died = false;
+    }
+
     private void FadeToBlack(float time)
     {
         //set start color
@@ -130,31 +107,4 @@ public class PlayerManagerForNetwork : MonoBehaviour
         SteamVR_Fade.Start(Color.clear, time);
     }
 
-    IEnumerator ReturnToLastRespawnPoint()
-    {
-        yield return new WaitForSeconds(1f);
-        transform.position = SpawnPoint;
-        Died = false;
-    }
-
-    private string GetRankString(int index)
-    {
-        string rank;
-        switch (index)
-        {
-            case 0:
-                rank = "1st";
-                break;
-            case 1:
-                rank = "2nd";
-                break;
-            case 2:
-                rank = "3rd";
-                break;
-            default:
-                rank = "";
-                break;
-        }
-        return rank;
-    }
 }

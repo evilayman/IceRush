@@ -10,20 +10,16 @@ public class GameManager : MonoBehaviour
         none,
         preGame,
         inGame,
+        goalReached,
         endGame
     }
 
     public GameState currentState;
 
-    public float countDownTime, timerCD;
-    public int fontSize, maxFontSize, fontSizeIncrementSpeed;
-
-    public TextMeshPro countDownTimeText;
     public Transform finishLine;
 
-    private CooldownTimer countDownTimer;
     private List<GameObject> myPlayersSorted, finishedPlayers;
-
+    private List<float> finishTime;
     public List<GameObject> MyPlayersSorted
     {
         get
@@ -37,11 +33,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool inGameFirstTime, endGameFirstTime;
+
     private void Start()
     {
-        countDownTimer = new CooldownTimer(timerCD, false);
         MyPlayersSorted = new List<GameObject>();
         finishedPlayers = new List<GameObject>();
+        finishTime = new List<float>();
     }
 
     void AddPlayers()
@@ -61,59 +59,62 @@ public class GameManager : MonoBehaviour
             case GameState.none:
                 break;
             case GameState.preGame:
-                CountDown();
                 break;
             case GameState.inGame:
+                if (!inGameFirstTime)
+                {
+                    inGameFirstTime = true;
+                    AddPlayers();
+                }
+                MyPlayersSorted.Sort(SortByDistance);
+                CheckFinishLine();
+                break;
+            case GameState.goalReached:
                 MyPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
             case GameState.endGame:
+                if (!endGameFirstTime)
+                {
+                    endGameFirstTime = true;
+                    CompleteFinishList();
+                    FinalScreen();
+                }
                 break;
             default:
                 break;
         }
     }
 
-    private void CountDown()
+    private void CompleteFinishList()
     {
-        if (countDownTime > -1)
+        for (int i = 0; i < myPlayersSorted.Count; i++)
         {
-            if (countDownTime <= 0)
-            {
-                countDownTimeText.text = "Go!";
-            }
-            else
-            {
-                countDownTimeText.text = countDownTime.ToString();
-            }
-
-            if (countDownTime <= 3 && countDownTimeText.fontSize < maxFontSize)
-            {
-                countDownTimeText.fontSize += fontSizeIncrementSpeed;
-            }
-
-            if (countDownTimer.IsReady())
-            {
-                countDownTimer.Reset();
-                countDownTime -= timerCD;
-
-                if(countDownTime >= 0)
-                    countDownTimeText.fontSize = fontSize;
-            }
+            finishedPlayers.Add(myPlayersSorted[0]);
+            finishTime.Add(0);
         }
-        else
+    }
+
+    private void FinalScreen()
+    {
+        for (int i = 0; i < finishedPlayers.Count; i++)
         {
-            countDownTimeText.gameObject.SetActive(false);
-            currentState = GameState.inGame;
-            AddPlayers();
+            print(finishedPlayers[i].GetComponent<PhotonView>().owner.NickName + " - Time: " + finishTime[i]);
         }
     }
 
     private void CheckFinishLine()
     {
-        if(MyPlayersSorted.Count > 0 && (myPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
+        if (MyPlayersSorted.Count > 0 && (myPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
         {
+            if (currentState != GameState.goalReached)
+                currentState = GameState.goalReached;
+
+            myPlayersSorted[0].GetComponent<PlayerTextManager>().ReachGoal = true;
+
             finishedPlayers.Add(myPlayersSorted[0]);
+            finishTime.Add(Time.time);
+
             myPlayersSorted.RemoveAt(0);
         }
     }
@@ -122,5 +123,4 @@ public class GameManager : MonoBehaviour
     {
         return -(A.transform.position.z - finishLine.position.z).CompareTo(B.transform.position.z - finishLine.position.z);
     }
-
 }

@@ -192,7 +192,6 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void SmoothNetMovement()
     {
-
         if (Vector3.Distance(playerRB.position, targetPos) > 10)
         {
             playerRB.position = targetPos;
