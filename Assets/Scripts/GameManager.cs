@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
         var players = GameObject.FindGameObjectsWithTag("PlayerParent");
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].GetComponent<Rigidbody>().isKinematic = false;
             MyPlayersSorted.Add(players[i]);
         }
     }

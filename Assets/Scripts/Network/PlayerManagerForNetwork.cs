@@ -6,13 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManagerForNetwork : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        Stopped,
+        Normal,
+        Slowed, //Slow Player for time
+        Respwaned, //When Player Hit's Object and Respwans (Disable Collider, and Make Movement Slow for time)
+        SlowToStop
+    }
+
     public Stats myStats;
     public GameObject leftHand, rightHand;
+    public PlayerState currentPlayerState;
 
     private Vector3 spawnPoint;
     private PhotonView photonView;
+    private GameManager GM;
 
-    private bool inBoostRegion, Died = false;
+
+    private bool inBoostRegion, Died = false, inGameFirstTime;
 
     public bool InBoostRegion
     {
@@ -42,10 +54,27 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if (photonView.isMine)
         {
             FadeFromBlack(0.5f);
+        }
+    }
+
+    private void Update()
+    {
+        if(photonView.isMine)
+        {
+            if (!inGameFirstTime && GM.currentState == GameManager.GameState.inGame)
+            {
+                inGameFirstTime = true;
+                currentPlayerState = PlayerState.Normal;
+            }
+
+            if(currentPlayerState != PlayerState.Stopped && GetComponent<PlayerTextManager>().ReachGoal)
+                currentPlayerState = PlayerState.Stopped;
+            
         }
     }
 
@@ -55,6 +84,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         {
             if (!Died && collision.gameObject.tag == "Area")
             {
+                currentPlayerState = PlayerState.Stopped;
                 Died = true;
                 FadeToBlack(0.2f);
                 StartCoroutine(ReturnToLastRespawnPoint());
@@ -66,7 +96,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         if (photonView.isMine)
         {
-            if (other.gameObject.name == "BoostRegion")
+            if (other.gameObject.tag == "BoostRegion")
             {
                 InBoostRegion = true;
             }
@@ -77,7 +107,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         if (photonView.isMine)
         {
-            if (other.gameObject.name == "BoostRegion")
+            if (other.gameObject.tag == "BoostRegion")
             {
                 InBoostRegion = false;
             }
@@ -88,6 +118,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         transform.position = SpawnPoint;
+        currentPlayerState = PlayerState.Normal;
         Died = false;
     }
 

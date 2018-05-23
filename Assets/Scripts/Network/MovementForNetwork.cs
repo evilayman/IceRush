@@ -75,7 +75,6 @@ public class MovementForNetwork : Photon.MonoBehaviour
             else if (Input.GetKeyUp(KeyCode.Mouse0))
                 pressedLeft = false;
 
-            AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
             HandRate(pressedLeft, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
             HandRate(pressedRight, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
 
@@ -89,9 +88,29 @@ public class MovementForNetwork : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             playerRB.velocity += (transform.forward * currentbaseSpeed) + (leftHandDirection * currentLeftSpeed) + (rightHandDirection * currentRightSpeed);
+            AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
 
-            Decelerate();
-            LimitSpeed(myStats.maxSpeed);
+            switch (playerManager.currentPlayerState)
+            {
+                case PlayerManagerForNetwork.PlayerState.Stopped:
+                    if (!playerRB.isKinematic)
+                        playerRB.isKinematic = true;
+                    break;
+                case PlayerManagerForNetwork.PlayerState.Normal:
+                    if (playerRB.isKinematic)
+                        playerRB.isKinematic = false;
+                    Decelerate();
+                    LimitSpeed(myStats.maxSpeed);
+                    break;
+                case PlayerManagerForNetwork.PlayerState.Slowed:
+                    if (playerRB.isKinematic)
+                        playerRB.isKinematic = false;
+                    Decelerate();
+                    LimitSpeed( ((100 - myStats.slowPercent) * myStats.maxSpeed) / 100);
+                    break;
+                default:
+                    break;
+            }
         }
         else
             SmoothNetMovement();

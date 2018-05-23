@@ -8,7 +8,7 @@ public class Stats : ScriptableObject
     [Header("Common Stats")]
     [Space(10)]
     public float baseSpeed;
-    public float maxSpeed;
+    public float maxSpeed, slowPercent;
     [Space(10)]
     public float decTime;
     public float decRate;
