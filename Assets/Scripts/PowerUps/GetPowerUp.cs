@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GetPowerUp : MonoBehaviour
 {
-	void Start ()
+    private void OnTriggerEnter(Collider other)
     {
-		
-	}
-	
-	void Update ()
-    {
-		
-	}
+        if(other.gameObject.tag == "PlayerParent")
+        {
+            other.gameObject.GetComponent<UsePowerUp>().CurrentPower = UsePowerUp.PowerUpType.Rocket;
+        }
+    }
+
+
 }
