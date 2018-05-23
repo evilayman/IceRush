@@ -27,7 +27,7 @@ public class PlayerNetwork : MonoBehaviour
             if (PhotonNetwork.isMasterClient)
             {
                 MasterLoadedGame();
-                NonMasterLoadedGame();
+                RPC_LoadedGameScene();
 
             }
             else
@@ -70,5 +70,4 @@ public class PlayerNetwork : MonoBehaviour
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
         GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.preGame;
     }
-
 }
