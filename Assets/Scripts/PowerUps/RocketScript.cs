@@ -5,7 +5,7 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour
 {
     public Vector3 startPosition;
-    public float rocketSpeed, rocketTime;
+    public float rocketSpeed, rocketRotSpeed, rocketDestructTime;
 
     private Transform player, target, hitPlayer;
     private GameManager GM;
@@ -27,7 +27,8 @@ public class RocketScript : MonoBehaviour
         if (i != 0)
             target = GM.MyPlayersSorted[i - 1].transform;
 
-        StartCoroutine(AutoDestroyRocket(rocketTime));
+        if(photonView.isMine)
+            StartCoroutine(AutoDestroyRocket(rocketDestructTime));
     }
 
     void FindOwner()
@@ -76,7 +77,8 @@ public class RocketScript : MonoBehaviour
             dir = Vector3.forward;
         }
 
-        RB.velocity = dir * rocketSpeed;
+        RB.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, dir, rocketRotSpeed, 0.0f));
+        RB.velocity = transform.forward * rocketSpeed;
     }
 
     IEnumerator AutoDestroyRocket(float time)
