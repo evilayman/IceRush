@@ -29,11 +29,16 @@ public class UsePowerUp : MonoBehaviour
         }
     }
 
+    private PhotonView photonView;
     private GameObject myPower;
 
+    private void Start()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && photonView.isMine)
         {
             UsePower();
         }
@@ -44,8 +49,7 @@ public class UsePowerUp : MonoBehaviour
         switch (currentPower)
         {
             case PowerUpType.Rocket:
-                myPower = PhotonNetwork.Instantiate(Path.Combine("Prefab", "Rocket"), transform.position, Quaternion.identity, 0);
-                myPower.GetComponent<RocketScript>().Player = transform;
+                myPower = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Rocket"), transform.GetChild(0).position, Quaternion.identity, 0);
                 break;
             case PowerUpType.Sheild:
                 break;
@@ -58,7 +62,6 @@ public class UsePowerUp : MonoBehaviour
             default:
                 break;
         }
-
         currentPower = PowerUpType.None;
     }
 }

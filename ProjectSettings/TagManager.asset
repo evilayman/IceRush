@@ -4,9 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Area
-  - PlayerParent
+  - PlayerCollider
   - BoostRegion
+  - Ground
+  - Building
+  - Drone
+  - PowerUp
+  - Rocket
+  - GameManager
   layers:
   - Default
   - TransparentFX

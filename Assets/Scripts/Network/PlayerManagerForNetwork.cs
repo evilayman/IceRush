@@ -11,7 +11,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         Stopped,
         Normal,
         Slowed, //Slow Player for time
-        Respwaned, //When Player Hit's Object and Respwans (Disable Collider, and Make Movement Slow for time)
+        Respwaned, //When Player Hit's Object and Respwans (Disable Collider)
         SlowToStop
     }
 
@@ -22,7 +22,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private Vector3 spawnPoint;
     private PhotonView photonView;
     private GameManager GM;
-
 
     private bool inBoostRegion, Died = false, inGameFirstTime;
 
@@ -74,7 +73,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
             if(currentPlayerState != PlayerState.Stopped && GetComponent<PlayerTextManager>().ReachGoal)
                 currentPlayerState = PlayerState.Stopped;
-            
         }
     }
 
@@ -82,7 +80,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         if (photonView.isMine)
         {
-            if (!Died && collision.gameObject.tag == "Area")
+            if (!Died && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
                 currentPlayerState = PlayerState.Stopped;
                 Died = true;
@@ -114,7 +112,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         }
     }
 
-    IEnumerator ReturnToLastRespawnPoint()
+    public IEnumerator ReturnToLastRespawnPoint()
     {
         yield return new WaitForSeconds(1f);
         transform.position = SpawnPoint;

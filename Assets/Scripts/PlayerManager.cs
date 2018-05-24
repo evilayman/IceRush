@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!Died && collision.gameObject.tag == "Area")
+        if (!Died && collision.gameObject.tag == "Building")
         {
             Died = true;
             FadeToBlack(0.2f);

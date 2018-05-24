@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
 
     void AddPlayers()
     {
-        var players = GameObject.FindGameObjectsWithTag("PlayerParent");
+        var players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
-            MyPlayersSorted.Add(players[i]);
+            MyPlayersSorted.Add(players[i].transform.GetChild(0).gameObject);
         }
     }
 
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < finishedPlayers.Count; i++)
         {
-            print(finishedPlayers[i].GetComponent<PhotonView>().owner.NickName + " - Time: " + finishTime[i]);
+            print(finishedPlayers[i].GetComponentInParent<PhotonView>().owner.NickName + " - Time: " + finishTime[i]);
         }
     }
 
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
             if (currentState != GameState.goalReached)
                 currentState = GameState.goalReached;
 
-            myPlayersSorted[0].GetComponent<PlayerTextManager>().ReachGoal = true;
+            myPlayersSorted[0].GetComponentInParent<PlayerTextManager>().ReachGoal = true;
 
             finishedPlayers.Add(myPlayersSorted[0]);
             finishTime.Add(Time.time);
