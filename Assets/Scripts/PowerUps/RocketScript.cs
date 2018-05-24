@@ -5,7 +5,7 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour
 {
     public Vector3 startPosition;
-    public float rocketSpeed, rocketRotSpeed, rocketDestructTime;
+    public float rocketSpeed, rocketRotSpeed, rocketDestructTime, rockectCanColTime;
 
     private Transform player, target, hitPlayer;
     private GameManager GM;
@@ -29,6 +29,14 @@ public class RocketScript : MonoBehaviour
 
         if(photonView.isMine)
             StartCoroutine(AutoDestroyRocket(rocketDestructTime));
+
+        StartCoroutine(ActivateCollider(rockectCanColTime));
+    }
+
+    IEnumerator ActivateCollider(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GetComponentInChildren<Collider>().enabled = true;
     }
 
     void FindOwner()
