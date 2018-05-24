@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class RocketScript : MonoBehaviour
 {
-    private Transform player;
-
     public Vector3 startPosition;
     public float rocketSpeed, rocketTime;
 
-    private Transform target;
+    private Transform player, target, hitPlayer;
     private GameManager GM;
     private Rigidbody RB;
     private Vector3 dir;
-
+    private PhotonView photonView;
 
     void Start()
     {
         transform.position = transform.position + startPosition;
         RB = GetComponent<Rigidbody>();
+        photonView = gameObject.GetComponent<PhotonView>();
 
         FindOwner();
 
@@ -34,26 +33,30 @@ public class RocketScript : MonoBehaviour
     void FindOwner()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
+
         for (int i = 0; i < players.Length; i++)
         {
             if(gameObject.GetPhotonView().owner.ID == players[i].GetPhotonView().owner.ID)
             {
                 player = players[i].transform;
-                return;
+                break;
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "PlayerCollider")
+        if(photonView.isMine && collision.transform != player)
         {
-            PhotonNetwork.Destroy(gameObject);
-            StartCoroutine(player.transform.GetComponentInParent<PlayerManagerForNetwork>().ReturnToLastRespawnPoint());
-        }
-        else
-        {
-            PhotonNetwork.Destroy(gameObject);
+            if (collision.gameObject.tag == "Player")
+            {
+                PhotonNetwork.Destroy(gameObject);
+                collision.gameObject.GetPhotonView().RPC("RPC_Collision", PhotonTargets.All);
+            }
+            else
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
     }
 

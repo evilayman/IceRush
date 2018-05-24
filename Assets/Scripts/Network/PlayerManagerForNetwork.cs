@@ -82,12 +82,31 @@ public class PlayerManagerForNetwork : MonoBehaviour
         {
             if (!Died && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
-                currentPlayerState = PlayerState.Stopped;
-                Died = true;
-                FadeToBlack(0.2f);
-                StartCoroutine(ReturnToLastRespawnPoint());
+                Collided();
             }
         }
+    }
+
+    [PunRPC]
+    private void RPC_Collision()
+    {
+        Collided();
+    }
+
+    public void Collided()
+    {
+        Died = true;
+        currentPlayerState = PlayerState.Stopped;
+        FadeToBlack(0.2f);
+        StartCoroutine(ReturnToLastRespawnPoint());
+    }
+
+    private IEnumerator ReturnToLastRespawnPoint()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Died = false;
+        transform.position = SpawnPoint;
+        currentPlayerState = PlayerState.Normal;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,14 +129,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 InBoostRegion = false;
             }
         }
-    }
-
-    public IEnumerator ReturnToLastRespawnPoint()
-    {
-        yield return new WaitForSeconds(1f);
-        transform.position = SpawnPoint;
-        currentPlayerState = PlayerState.Normal;
-        Died = false;
     }
 
     private void FadeToBlack(float time)
