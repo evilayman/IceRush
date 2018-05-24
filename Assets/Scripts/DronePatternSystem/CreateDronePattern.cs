@@ -44,7 +44,17 @@ public class CreateDronePattern : MonoBehaviour
         }
 
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+            enableRayCast = true;
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+            enableRayCast = false;
+    }
     public void AddLine()
     {
         var go = new GameObject("Line");
