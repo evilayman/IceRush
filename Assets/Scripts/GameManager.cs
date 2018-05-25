@@ -15,11 +15,11 @@ public class GameManager : MonoBehaviour
     }
 
     public GameState currentState;
-
     public Transform finishLine;
 
     private List<GameObject> myPlayersSorted, finishedPlayers;
     private List<float> finishTime;
+    private bool stopCheck;
     public List<GameObject> MyPlayersSorted
     {
         get
@@ -42,6 +42,26 @@ public class GameManager : MonoBehaviour
         finishTime = new List<float>();
     }
 
+    private void CheckPlayersCount()
+    {
+        //if (PhotonNetwork.isMasterClient && !stopCheck)
+        if (!stopCheck)
+        {
+            if (GameObject.FindGameObjectsWithTag("Player").Length == PhotonNetwork.playerList.Length)
+            {
+                stopCheck = true;
+                RPC_InitiatePreState();
+                //gameObject.GetPhotonView().RPC("RPC_InitiatePreState", PhotonTargets.All);
+            }
+        }
+    }
+
+    //[PunRPC]
+    private void RPC_InitiatePreState()
+    {
+        currentState = GameState.preGame;
+    }
+
     void AddPlayers()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
@@ -53,6 +73,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        CheckPlayersCount();
+
         switch (currentState)
         {
             case GameState.none:
