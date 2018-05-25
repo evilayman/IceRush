@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient && !stopCheck)
         {
-            if (playersLoaded == playerList)
+            if (PlayersLoaded == playerList)
             {
                 stopCheck = true;
                 gameObject.GetPhotonView().RPC("RPC_InitPreState", PhotonTargets.AllViaServer, (int)(PhotonNetwork.ServerTimestamp + 2000));

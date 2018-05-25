@@ -54,17 +54,17 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
-        GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
 
         if (photonView.isMine)
         {
+            GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
             FadeFromBlack(0.5f);
         }
     }
 
     private void Update()
     {
-        if(photonView.isMine)
+        if (photonView.isMine)
         {
             if (!inGameFirstTime && GM.currentState == GameManager.GameState.inGame)
             {
@@ -72,7 +72,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 currentPlayerState = PlayerState.Normal;
             }
 
-            if(currentPlayerState != PlayerState.Stopped && GetComponent<PlayerTextManager>().ReachGoal)
+            if (currentPlayerState != PlayerState.Stopped && GetComponent<PlayerTextManager>().ReachGoal)
                 currentPlayerState = PlayerState.Stopped;
         }
     }
