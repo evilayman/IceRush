@@ -16,10 +16,15 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
     public Transform finishLine;
+    public TextMeshPro debugText;
 
     private List<GameObject> myPlayersSorted, finishedPlayers;
     private List<float> finishTime;
-    private bool stopCheck;
+
+    private int playersLoaded, playerList;
+    private float waitTime;
+    private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait;
+
     public List<GameObject> MyPlayersSorted
     {
         get
@@ -32,34 +37,51 @@ public class GameManager : MonoBehaviour
             myPlayersSorted = value;
         }
     }
+    public int PlayersLoaded
+    {
+        get
+        {
+            return playersLoaded;
+        }
 
-    private bool inGameFirstTime, endGameFirstTime;
+        set
+        {
+            playersLoaded = value;
+        }
+    }
+
 
     private void Start()
     {
         MyPlayersSorted = new List<GameObject>();
         finishedPlayers = new List<GameObject>();
         finishTime = new List<float>();
+        playerList = PhotonNetwork.playerList.Length;
+    }
+
+    [PunRPC]
+    void RPC_playerLoaded()
+    {
+        PlayersLoaded += 1;
     }
 
     private void CheckPlayersCount()
     {
-        //if (PhotonNetwork.isMasterClient && !stopCheck)
-        if (!stopCheck)
+        if (PhotonNetwork.isMasterClient && !stopCheck)
         {
-            if (GameObject.FindGameObjectsWithTag("Player").Length == PhotonNetwork.playerList.Length)
+            if (playersLoaded == playerList)
             {
                 stopCheck = true;
-                RPC_InitiatePreState();
-                //gameObject.GetPhotonView().RPC("RPC_InitiatePreState", PhotonTargets.All);
+                gameObject.GetPhotonView().RPC("RPC_InitPreState", PhotonTargets.AllViaServer, (int)(PhotonNetwork.ServerTimestamp + 2000));
             }
         }
     }
 
-    //[PunRPC]
-    private void RPC_InitiatePreState()
+    [PunRPC]
+    void RPC_InitPreState(int time)
     {
-        currentState = GameState.preGame;
+        waitTime = time;
+        startWait = true;
     }
 
     void AddPlayers()
@@ -71,9 +93,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void WaitStart()
+    {
+        if(startWait)
+        {
+            if (PhotonNetwork.ServerTimestamp >= waitTime)
+            {
+                currentState = GameState.preGame;
+                debugText.text = "";
+                startWait = false;
+            }
+        }
+    }
     private void Update()
     {
         CheckPlayersCount();
+        WaitStart();
 
         switch (currentState)
         {

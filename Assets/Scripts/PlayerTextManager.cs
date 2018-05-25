@@ -15,6 +15,8 @@ public class PlayerTextManager : MonoBehaviour
     private CooldownTimer countDownTimer;
     private bool reachGoal;
 
+    private bool once;
+
     public bool ReachGoal
     {
         get
@@ -47,6 +49,8 @@ public class PlayerTextManager : MonoBehaviour
 
     private void Update()
     {
+
+
         if (!photonView.isMine)
         {
             setRankText();
@@ -57,6 +61,11 @@ public class PlayerTextManager : MonoBehaviour
             if (GM.currentState == GameManager.GameState.preGame)
             {
                 CountDown(ref countDownTime, "Go!", GameManager.GameState.inGame);
+                //if (!once)
+                //{
+                //    GM.debugText.text = (PhotonNetwork.ServerTimestamp).ToString();
+                //    once = true;
+                //}
             }
             else if (GM.currentState == GameManager.GameState.goalReached)
             {

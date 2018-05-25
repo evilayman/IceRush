@@ -28,22 +28,17 @@ public class PlayerNetwork : MonoBehaviour
             {
                 MasterLoadedGame();
                 RPC_LoadedGameScene();
-
             }
             else
             {
                 NonMasterLoadedGame();
-
             }
-
-
         }
     }
 
     private void MasterLoadedGame()
     {
         //playersInGame = 1;
-
         photonView.RPC("RPC_LoadGameForOthers", PhotonTargets.Others);
     }
 

@@ -295,6 +295,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 33259278086982646, guid: c08ed0c3f872533489fccd7527d98876,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 114833072423662038, guid: c08ed0c3f872533489fccd7527d98876,
         type: 2}
       propertyPath: gameRegion
@@ -305,9 +310,15 @@ Prefab:
       propertyPath: enviroment
       value: 
       objectReference: {fileID: 1874517764}
-    - target: {fileID: 1288062374090742, guid: c08ed0c3f872533489fccd7527d98876, type: 2}
-      propertyPath: m_TagString
-      value: GameManager
+    - target: {fileID: 114786386210711670, guid: c08ed0c3f872533489fccd7527d98876,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114786386210711670, guid: c08ed0c3f872533489fccd7527d98876,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114412542184098346, guid: c08ed0c3f872533489fccd7527d98876,
         type: 2}

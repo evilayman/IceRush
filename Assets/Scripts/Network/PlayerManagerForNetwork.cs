@@ -54,6 +54,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
 
         if (photonView.isMine)
         {
