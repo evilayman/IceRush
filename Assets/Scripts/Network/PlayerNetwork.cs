@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 
 public class PlayerNetwork : MonoBehaviour
-{   
+{
     public static PlayerNetwork instance;
     public string playerName { get; private set; }
     private PhotonView photonView;
@@ -66,8 +66,10 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_CreatePlayer()
     {
+        GameObject.Find("GameManager").GetComponent<GameManager>().Offline = false;
+        GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.none;
+
         float randomValue = Random.Range(-5f, 5f);
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
-        GameObject.Find("GameManager").GetComponent<GameManager>().Offline = false;
     }
 }

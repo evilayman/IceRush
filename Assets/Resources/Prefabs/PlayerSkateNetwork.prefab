@@ -4781,12 +4781,12 @@ MonoBehaviour:
   playerName: {fileID: 114497672537144844}
   playerRank: {fileID: 114471872871772616}
   playerCounter: {fileID: 114428622261081314}
-  countDownTime: 6
+  countDownTimeStart: 6
   countDownTimeFinish: 11
   timerCD: 1
-  fontSize: 70
+  fontSize: 50
   maxFontSize: 100
-  fontSizeIncrementSpeed: 10
+  fontSizeIncrementSpeed: 5
 --- !u!114 &114051021032209764
 MonoBehaviour:
   m_ObjectHideFlags: 1

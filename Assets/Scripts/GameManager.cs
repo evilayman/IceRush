@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
         switch (currentState)
         {
             case GameState.none:
+                inGameFirstTime = false;
                 break;
             case GameState.preGame:
                 break;

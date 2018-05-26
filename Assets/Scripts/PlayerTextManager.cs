@@ -7,13 +7,13 @@ public class PlayerTextManager : MonoBehaviour
 {
     public TextMeshPro playerName, playerRank, playerCounter;
 
-    public float countDownTime, countDownTimeFinish, timerCD;
+    public float countDownTimeStart, countDownTimeFinish, timerCD;
     public int fontSize, maxFontSize, fontSizeIncrementSpeed;
 
     private GameManager GM;
     private PhotonView photonView;
     private CooldownTimer countDownTimer;
-    private bool reachGoal;
+    private bool reachGoal, countStartDone = true, countFinishDone = true;
 
     public bool ReachGoal
     {
@@ -56,17 +56,19 @@ public class PlayerTextManager : MonoBehaviour
         {
             if (GM.currentState == GameManager.GameState.preGame)
             {
-                CountDown(ref countDownTime, "Go!", GameManager.GameState.inGame);
-                //if (!once)
-                //{
-                //    GM.debugText.text = (PhotonNetwork.ServerTimestamp).ToString();
-                //    once = true;
-                //}
+                countStartDone = false;
             }
             else if (GM.currentState == GameManager.GameState.goalReached)
             {
-                CountDown(ref countDownTimeFinish, "Game Over", GameManager.GameState.endGame);
+                countFinishDone = false;
             }
+
+            if (!countStartDone)
+                CountDown(ref countDownTimeStart, "Go!", GameManager.GameState.inGame, ref countStartDone);
+
+            if (!countFinishDone)
+                CountDown(ref countDownTimeFinish, "Game Over", GameManager.GameState.endGame, ref countFinishDone);
+
 
             if (Camera.main && playerCounter)
                 playerCounter.transform.rotation = Camera.main.transform.rotation;
@@ -106,7 +108,7 @@ public class PlayerTextManager : MonoBehaviour
         return rank;
     }
 
-    private void CountDown(ref float countDownTime, string finalWord, GameManager.GameState nextState)
+    private void CountDown(ref float countDownTime, string finalWord, GameManager.GameState nextState, ref bool done)
     {
         if (countDownTime > -1)
         {
@@ -116,6 +118,9 @@ public class PlayerTextManager : MonoBehaviour
                     playerCounter.text = finalWord;
                 else
                     playerCounter.text = "";
+
+                if (GM.currentState != nextState)
+                    GM.currentState = nextState;
             }
             else
             {
@@ -142,7 +147,7 @@ public class PlayerTextManager : MonoBehaviour
         else
         {
             playerCounter.text = "";
-            GM.currentState = nextState;
+            done = true;
         }
     }
 }
