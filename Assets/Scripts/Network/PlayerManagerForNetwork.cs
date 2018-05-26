@@ -64,6 +64,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void Update()
     {
+
         if (photonView.isMine)
         {
             if (!inGameFirstTime && GM.currentState == GameManager.GameState.inGame)

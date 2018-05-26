@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 0
   maxSpeed: 80
-  slowPercent: 90
+  slowPercent: 80
   decTime: 0.2
   decRate: 2
   boostSpeed: 5
@@ -22,8 +22,8 @@ MonoBehaviour:
   decTimeBoost: 0.2
   decRateBoost: 0.25
   handSpeed: 1
-  accTimeHand: 0.2
-  accRateHand: 1
+  accTimeHand: 0.02
+  accRateHand: 0.05
   decTimeHand: 0
   decRateHand: 0
   leverStepSpeed: 0

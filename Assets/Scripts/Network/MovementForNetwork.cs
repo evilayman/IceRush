@@ -19,13 +19,15 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private Rigidbody playerRB;
 
-    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed;
+    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed, handSpeed;
 
     private Vector3 leftHandDirection, rightHandDirection;
 
     private CooldownTimer canDec, canAccBoost, canDecBoost, canAccLeft, canDecLeft, canAccRight, canDecRight;
 
     private bool pressedRight, pressedLeft;
+
+    private PlayerManagerForNetwork.PlayerState tempPlayerState;
 
     void Start()
     {
@@ -38,7 +40,10 @@ public class MovementForNetwork : Photon.MonoBehaviour
     {
         playerManager = GetComponent<PlayerManagerForNetwork>();
 
+        playerRB.isKinematic = true;
+
         myStats = playerManager.myStats;
+        handSpeed = myStats.handSpeed;
 
         leftHandController = playerManager.leftHand.GetComponent<VRTK_ControllerEvents>();
         rightHandController = playerManager.rightHand.GetComponent<VRTK_ControllerEvents>();
@@ -67,7 +72,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
                 pressedRight = true;
-            else if(Input.GetKeyUp(KeyCode.Mouse1))
+            else if (Input.GetKeyUp(KeyCode.Mouse1))
                 pressedRight = false;
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -75,11 +80,39 @@ public class MovementForNetwork : Photon.MonoBehaviour
             else if (Input.GetKeyUp(KeyCode.Mouse0))
                 pressedLeft = false;
 
+            CheckStateChange();
+
             HandRate(pressedLeft, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
             HandRate(pressedRight, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
+            AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
 
             //HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
             //HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
+        }
+    }
+
+    void CheckStateChange()
+    {
+        if (tempPlayerState != playerManager.currentPlayerState)
+        {
+            tempPlayerState = playerManager.currentPlayerState;
+
+            switch (playerManager.currentPlayerState)
+            {
+                case PlayerManagerForNetwork.PlayerState.Stopped:
+                        playerRB.isKinematic = true;
+                    break;
+                case PlayerManagerForNetwork.PlayerState.Normal:
+                        playerRB.isKinematic = false;
+                        handSpeed = myStats.handSpeed;
+                    break;
+                case PlayerManagerForNetwork.PlayerState.Slowed:
+                        playerRB.isKinematic = false;
+                        handSpeed = ((100 - myStats.slowPercent) * myStats.handSpeed) / 100;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -88,29 +121,8 @@ public class MovementForNetwork : Photon.MonoBehaviour
         if (photonView.isMine)
         {
             playerRB.velocity += (transform.forward * currentbaseSpeed) + (leftHandDirection * currentLeftSpeed) + (rightHandDirection * currentRightSpeed);
-            AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
-
-            switch (playerManager.currentPlayerState)
-            {
-                case PlayerManagerForNetwork.PlayerState.Stopped:
-                    if (!playerRB.isKinematic)
-                        playerRB.isKinematic = true;
-                    break;
-                case PlayerManagerForNetwork.PlayerState.Normal:
-                    if (playerRB.isKinematic)
-                        playerRB.isKinematic = false;
-                    Decelerate();
-                    LimitSpeed(myStats.maxSpeed);
-                    break;
-                case PlayerManagerForNetwork.PlayerState.Slowed:
-                    if (playerRB.isKinematic)
-                        playerRB.isKinematic = false;
-                    Decelerate();
-                    LimitSpeed( ((100 - myStats.slowPercent) * myStats.maxSpeed) / 100);
-                    break;
-                default:
-                    break;
-            }
+            Decelerate();
+            LimitSpeed(myStats.maxSpeed);
         }
         else
             SmoothNetMovement();
@@ -194,7 +206,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
             handDirection = handTransform;
 
-            if (canAccHand.IsReady() && currentHandSpeed < myStats.handSpeed)
+            if (canAccHand.IsReady() && currentHandSpeed < handSpeed)
             {
                 canAccHand.Reset();
                 currentHandSpeed += myStats.accRateHand;
