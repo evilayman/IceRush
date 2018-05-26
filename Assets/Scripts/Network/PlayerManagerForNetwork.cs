@@ -65,7 +65,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private void Update()
     {
 
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             if (!inGameFirstTime && GM.currentState == GameManager.GameState.inGame)
             {
@@ -80,7 +80,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             if (!Died && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
@@ -113,7 +113,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             if (other.gameObject.tag == "BoostRegion")
             {
@@ -124,7 +124,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             if (other.gameObject.tag == "BoostRegion")
             {

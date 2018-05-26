@@ -5,8 +5,8 @@ using VRTK;
 
 public class MovementForNetwork : Photon.MonoBehaviour
 {
-    private Vector3 targetPos;
-    private float lag;
+    private GameManager GM;
+
     private PlayerManagerForNetwork playerManager;
 
     private Stats myStats;
@@ -19,9 +19,9 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private Rigidbody playerRB;
 
-    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed, handSpeed;
+    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed, handSpeed, lag;
 
-    private Vector3 leftHandDirection, rightHandDirection;
+    private Vector3 leftHandDirection, rightHandDirection, targetPos;
 
     private CooldownTimer canDec, canAccBoost, canDecBoost, canAccLeft, canDecLeft, canAccRight, canDecRight;
 
@@ -32,7 +32,9 @@ public class MovementForNetwork : Photon.MonoBehaviour
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
-        if (photonView.isMine)
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        if (photonView.isMine || GM.Offline)
             init();
     }
 
@@ -68,7 +70,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     void Update()
     {
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
                 pressedRight = true;
@@ -100,15 +102,15 @@ public class MovementForNetwork : Photon.MonoBehaviour
             switch (playerManager.currentPlayerState)
             {
                 case PlayerManagerForNetwork.PlayerState.Stopped:
-                        playerRB.isKinematic = true;
+                    playerRB.isKinematic = true;
                     break;
                 case PlayerManagerForNetwork.PlayerState.Normal:
-                        playerRB.isKinematic = false;
-                        handSpeed = myStats.handSpeed;
+                    playerRB.isKinematic = false;
+                    handSpeed = myStats.handSpeed;
                     break;
                 case PlayerManagerForNetwork.PlayerState.Slowed:
-                        playerRB.isKinematic = false;
-                        handSpeed = ((100 - myStats.slowPercent) * myStats.handSpeed) / 100;
+                    playerRB.isKinematic = false;
+                    handSpeed = ((100 - myStats.slowPercent) * myStats.handSpeed) / 100;
                     break;
                 default:
                     break;
@@ -118,7 +120,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             playerRB.velocity += (transform.forward * currentbaseSpeed) + (leftHandDirection * currentLeftSpeed) + (rightHandDirection * currentRightSpeed);
             Decelerate();
@@ -248,7 +250,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
                 playerRB.velocity = (Vector3)stream.ReceiveNext();
 
                 lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
-                targetPos += (this.playerRB.velocity * lag);
+                targetPos += (playerRB.velocity * lag);
             }
         }
     }

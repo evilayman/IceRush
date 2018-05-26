@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private int playersLoaded, playerList;
     private float waitTime;
-    private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait;
+    private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait, offline = true;
 
     public List<GameObject> MyPlayersSorted
     {
@@ -50,6 +50,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool Offline
+    {
+        get
+        {
+            return offline;
+        }
+
+        set
+        {
+            offline = value;
+        }
+    }
 
     private void Start()
     {
@@ -57,6 +69,11 @@ public class GameManager : MonoBehaviour
         finishedPlayers = new List<GameObject>();
         finishTime = new List<float>();
         playerList = PhotonNetwork.playerList.Length;
+
+        if(Offline)
+        {
+            currentState = GameState.inGame;
+        }
     }
 
     [PunRPC]
@@ -72,7 +89,7 @@ public class GameManager : MonoBehaviour
             if (PlayersLoaded == playerList)
             {
                 stopCheck = true;
-                gameObject.GetPhotonView().RPC("RPC_InitPreState", PhotonTargets.AllViaServer, (int)(PhotonNetwork.ServerTimestamp + 2000));
+                gameObject.GetPhotonView().RPC("RPC_InitPreState", PhotonTargets.AllViaServer, (int)(PhotonNetwork.ServerTimestamp + 1000));
             }
         }
     }

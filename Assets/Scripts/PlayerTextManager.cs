@@ -15,8 +15,6 @@ public class PlayerTextManager : MonoBehaviour
     private CooldownTimer countDownTimer;
     private bool reachGoal;
 
-    private bool once;
-
     public bool ReachGoal
     {
         get
@@ -35,7 +33,7 @@ public class PlayerTextManager : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if (!photonView.isMine)
+        if (!photonView.isMine && !GM.Offline)
         {
             playerName.SetText(photonView.owner.NickName);
         }
@@ -49,9 +47,7 @@ public class PlayerTextManager : MonoBehaviour
 
     private void Update()
     {
-
-
-        if (!photonView.isMine)
+        if (!photonView.isMine && !GM.Offline)
         {
             setRankText();
             rotateText();

@@ -68,6 +68,6 @@ public class PlayerNetwork : MonoBehaviour
     {
         float randomValue = Random.Range(-5f, 5f);
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
-        //GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.preGame;
+        GameObject.Find("GameManager").GetComponent<GameManager>().Offline = false;
     }
 }
