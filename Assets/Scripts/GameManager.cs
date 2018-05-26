@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         finishTime = new List<float>();
         playerList = PhotonNetwork.playerList.Length;
 
-        if(Offline)
+        if (Offline)
         {
             currentState = GameState.inGame;
         }
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 
     private void WaitStart()
     {
-        if(startWait)
+        if (startWait)
         {
             if (PhotonNetwork.ServerTimestamp >= waitTime)
             {
@@ -164,7 +164,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < myPlayersSorted.Count; i++)
         {
-            finishedPlayers.Add(myPlayersSorted[0]);
+            myPlayersSorted[i].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
+            finishedPlayers.Add(myPlayersSorted[i]);
             finishTime.Add(0);
         }
     }
@@ -185,6 +186,7 @@ public class GameManager : MonoBehaviour
                 currentState = GameState.goalReached;
 
             myPlayersSorted[0].GetComponentInParent<PlayerTextManager>().ReachGoal = true;
+            myPlayersSorted[0].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
 
             finishedPlayers.Add(myPlayersSorted[0]);
             finishTime.Add(Time.time);

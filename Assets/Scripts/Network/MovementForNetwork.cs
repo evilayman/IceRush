@@ -112,6 +112,10 @@ public class MovementForNetwork : Photon.MonoBehaviour
                     playerRB.isKinematic = false;
                     handSpeed = ((100 - myStats.slowPercent) * myStats.handSpeed) / 100;
                     break;
+                case PlayerManagerForNetwork.PlayerState.SlowToStop:
+                    playerRB.isKinematic = false;
+                    handSpeed = 0;
+                    break;
                 default:
                     break;
             }
@@ -212,6 +216,11 @@ public class MovementForNetwork : Photon.MonoBehaviour
             {
                 canAccHand.Reset();
                 currentHandSpeed += myStats.accRateHand;
+            }
+            else if(canDecHand.IsReady() && currentHandSpeed > handSpeed)
+            {
+                canDecHand.Reset();
+                currentHandSpeed -= myStats.decRateHand;
             }
         }
         else

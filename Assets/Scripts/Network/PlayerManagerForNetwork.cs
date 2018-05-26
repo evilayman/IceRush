@@ -64,6 +64,10 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    currentPlayerState = PlayerState.SlowToStop;
+        //}
 
         if (photonView.isMine || GM.Offline)
         {
@@ -72,9 +76,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 inGameFirstTime = true;
                 currentPlayerState = PlayerState.Normal;
             }
-
-            if (currentPlayerState != PlayerState.Stopped && GetComponent<PlayerTextManager>().ReachGoal)
-                currentPlayerState = PlayerState.Stopped;
         }
     }
 
