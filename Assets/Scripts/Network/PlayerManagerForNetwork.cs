@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using TMPro;
 
 public class PlayerManagerForNetwork : MonoBehaviour
 {
@@ -10,20 +9,20 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         Stopped,
         Normal,
-        Slowed, //Slow Player for time
-        Respwaned, //When Player Hit's Object and Respwans (Disable Collider)
+        Slowed,
         SlowToStop
     }
 
     public Stats myStats;
     public GameObject leftHand, rightHand;
     public PlayerState currentPlayerState;
+    public float fadeTime, respwanTime;
 
     private Vector3 spawnPoint;
     private PhotonView photonView;
     private GameManager GM;
 
-    private bool inBoostRegion, Died = false, inGameFirstTime;
+    private bool inBoostRegion, Hit = false, inGameFirstTime;
 
     public bool InBoostRegion
     {
@@ -58,7 +57,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
         if (photonView.isMine)
         {
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
-            FadeFromBlack(0.5f);
         }
     }
 
@@ -83,9 +81,9 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         if (photonView.isMine || GM.Offline)
         {
-            if (!Died && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
+            if (!Hit && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
-                Collided();
+                Respwan(respwanTime);
             }
         }
     }
@@ -93,21 +91,22 @@ public class PlayerManagerForNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_Collision()
     {
-        Collided();
+        Respwan(respwanTime);
     }
 
-    public void Collided()
+    public void Respwan(float time)
     {
-        Died = true;
+        Hit = true;
         currentPlayerState = PlayerState.Stopped;
-        FadeToBlack(0.2f);
-        StartCoroutine(ReturnToLastRespawnPoint());
+        FadeToBlack(fadeTime);
+        StartCoroutine(ReturnToLastRespawnPoint(time));
     }
 
-    private IEnumerator ReturnToLastRespawnPoint()
+    private IEnumerator ReturnToLastRespawnPoint(float time)
     {
-        yield return new WaitForSeconds(0.2f);
-        Died = false;
+        yield return new WaitForSeconds(time);
+        FadeFromBlack(fadeTime);
+        Hit = false;
         transform.position = SpawnPoint;
         currentPlayerState = PlayerState.Normal;
     }

@@ -6,7 +6,7 @@ public class DroneLineScript : MonoBehaviour
 {
     private GameObject drone;
     private Material myMat;
-    public float lineWidth = 1f;
+    public float lineWidth = 10f;
 
     public MyDangerLevel danger;
 
