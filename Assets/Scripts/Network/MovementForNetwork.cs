@@ -26,7 +26,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private CooldownTimer canDec, canAccBoost, canDecBoost, canAccLeft, canDecLeft, canAccRight, canDecRight;
 
-    private bool pressedRight, pressedLeft;
+    private bool pressedRight, pressedLeft, mousePressedLeft, mousePressedRight;
 
     private PlayerManagerForNetwork.PlayerState tempPlayerState;
 
@@ -76,24 +76,19 @@ public class MovementForNetwork : Photon.MonoBehaviour
     {
         if (photonView.isMine || GM.Offline)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-                pressedRight = true;
-            else if (Input.GetKeyUp(KeyCode.Mouse1))
-                pressedRight = false;
+            //GM.debugText.text = (headTransform.position.ToString());
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-                pressedLeft = true;
-            else if (Input.GetKeyUp(KeyCode.Mouse0))
-                pressedLeft = false;
+            mousePressedLeft = Input.GetKey(KeyCode.Mouse0) ? true : false;
+            mousePressedRight = Input.GetKey(KeyCode.Mouse1) ? true : false;
+
+            pressedLeft = (mousePressedLeft || leftHandController.triggerPressed) ? true : false;
+            pressedRight = (mousePressedRight || rightHandController.triggerPressed) ? true : false;
 
             CheckStateChange();
 
             HandRate(pressedLeft, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
             HandRate(pressedRight, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
             AccDecRate(ref currentbaseSpeed, (playerManager.InBoostRegion) ? myStats.boostSpeed : 0, canAccBoost, canDecBoost, myStats.accRateBoost, myStats.decRateBoost);
-
-            //HandRate(leftHandController.triggerPressed, ref leftHandDirection, leftHandTransform.forward, leftHandParticles, canAccLeft, canDecLeft, ref currentLeftSpeed);
-            //HandRate(rightHandController.triggerPressed, ref rightHandDirection, rightHandTransform.forward, rightHandParticles, canAccRight, canDecRight, ref currentRightSpeed);
         }
     }
 
@@ -253,7 +248,6 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void SyncHeadHand()
     {
-        Debug.Log(targetHeadPos);
         headTransform.position = targetHeadPos;
 
         leftHandTransform.position = targetLHPos;

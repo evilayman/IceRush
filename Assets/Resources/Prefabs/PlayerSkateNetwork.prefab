@@ -66,7 +66,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4685849021513486}
-  - component: {fileID: 114793855778549774}
+  - component: {fileID: 114517845220315756}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -7999,6 +7999,22 @@ MonoBehaviour:
   interactTouch: {fileID: 0}
   interactGrab: {fileID: 0}
   interactUse: {fileID: 0}
+--- !u!114 &114517845220315756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1027543978046882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28bf51a2c76664c41b64fdb8f18698c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followPosition: 1
+  followRotation: 1
+  myTargets:
+  - {fileID: 4835634293701026}
+  - {fileID: 4120954940688394}
 --- !u!114 &114533141158741494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8241,18 +8257,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114793855778549774
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1027543978046882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc03ebe2fd9772247b83b71f42a1f33a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sdkObject: 1
 --- !u!114 &114800952170149846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8826,7 +8830,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 28bb0e600244c8a4181bcf69514c5716, type: 2}
+  - {fileID: 2100000, guid: f5a180e78cba3b64d9cffa9c458a391d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
