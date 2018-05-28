@@ -4,25 +4,51 @@ using UnityEngine;
 
 public class TunnelMovment : MonoBehaviour
 {
-    public float force;
-    private Collider col;
+    public float moveTowardsSpeed;
+    public float maxRaduisDelta;
+    public List<Transform> posList;
+    public float collisionCheckDistance;
+    public List<Transform> PosList
+    {
+        get
+        {
+            return posList;
+        }
+
+        set
+        {
+            posList = value;
+        }
+    }
+    private BoxCollider col;
+    private Rigidbody rb;
+
+
+
     // Use this for initialization
     void Start()
     {
-        if (gameObject.GetComponent<BoxCollider>() == null)
-            col = gameObject.AddComponent<BoxCollider>();
-
         col = gameObject.GetComponent<BoxCollider>();
-        col.isTrigger = true;
+        rb = GetComponent<Rigidbody>();
+
+    }
+   
+
+    private void Update()
+    {
+        RaycastHit hit;
+        if (rb.SweepTest(-transform.forward, out hit, collisionCheckDistance))
+        {
+            print("Collided");
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void AddPoint()
     {
-        if (other.tag == "Player")
-        {
-            other.transform.forward = gameObject.transform.forward;
-            
-                
-        }
+        var go = new GameObject("Point");
+        go.transform.SetParent(transform);
+        go.transform.position = new Vector3(0, 50, 0);
+        go.transform.localScale = new Vector3(0, 0, 0);
+        PosList.Add(go.transform);
     }
 }
