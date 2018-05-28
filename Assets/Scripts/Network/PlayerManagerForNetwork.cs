@@ -14,7 +14,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     }
 
     public Stats myStats;
-    public GameObject leftHand, rightHand;
+    public GameObject model, headTarget, leftHand, rightHand;
     public PlayerState currentPlayerState;
     public float fadeTime, respwanTime;
 
@@ -56,17 +56,13 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
         if (photonView.isMine)
         {
+            model.gameObject.SetActive(false);
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
         }
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    currentPlayerState = PlayerState.SlowToStop;
-        //}
-
         if (photonView.isMine || GM.Offline)
         {
             if (!inGameFirstTime && GM.currentState == GameManager.GameState.inGame)

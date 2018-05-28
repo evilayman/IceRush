@@ -13,7 +13,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private VRTK_ControllerEvents leftHandController, rightHandController;
 
-    private Transform leftHandTransform, rightHandTransform;
+    private Transform leftHandTransform, rightHandTransform, headTransform;
 
     private ParticleSystem leftHandParticles, rightHandParticles;
 
@@ -21,7 +21,8 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed, handSpeed, lag;
 
-    private Vector3 leftHandDirection, rightHandDirection, targetPos;
+    private Vector3 leftHandDirection, rightHandDirection, targetPos,
+        targetHeadPos, targetLHPos, targetLHRot, targetRHPos, targetRHRot;
 
     private CooldownTimer canDec, canAccBoost, canDecBoost, canAccLeft, canDecLeft, canAccRight, canDecRight;
 
@@ -34,13 +35,18 @@ public class MovementForNetwork : Photon.MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
+        playerManager = GetComponent<PlayerManagerForNetwork>();
+
+        headTransform = playerManager.headTarget.GetComponent<Transform>();
+        leftHandTransform = playerManager.leftHand.GetComponent<Transform>();
+        rightHandTransform = playerManager.rightHand.GetComponent<Transform>();
+
         if (photonView.isMine || GM.Offline)
             init();
     }
 
     void init()
     {
-        playerManager = GetComponent<PlayerManagerForNetwork>();
 
         playerRB.isKinematic = true;
 
@@ -49,9 +55,6 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
         leftHandController = playerManager.leftHand.GetComponent<VRTK_ControllerEvents>();
         rightHandController = playerManager.rightHand.GetComponent<VRTK_ControllerEvents>();
-
-        leftHandTransform = playerManager.leftHand.GetComponent<Transform>();
-        rightHandTransform = playerManager.rightHand.GetComponent<Transform>();
 
         leftHandParticles = playerManager.leftHand.GetComponentInChildren<ParticleSystem>();
         rightHandParticles = playerManager.rightHand.GetComponentInChildren<ParticleSystem>();
@@ -66,6 +69,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
         canAccRight = new CooldownTimer(myStats.accTimeHand);
         canDecRight = new CooldownTimer(myStats.decTimeHand);
+
     }
 
     void Update()
@@ -131,7 +135,10 @@ public class MovementForNetwork : Photon.MonoBehaviour
             LimitSpeed(myStats.maxSpeed);
         }
         else
+        {
             SmoothNetMovement();
+            SyncHeadHand();
+        }
     }
 
     void Decelerate()
@@ -217,7 +224,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
                 canAccHand.Reset();
                 currentHandSpeed += myStats.accRateHand;
             }
-            else if(canDecHand.IsReady() && currentHandSpeed > handSpeed)
+            else if (canDecHand.IsReady() && currentHandSpeed > handSpeed)
             {
                 canDecHand.Reset();
                 currentHandSpeed -= myStats.decRateHand;
@@ -244,6 +251,18 @@ public class MovementForNetwork : Photon.MonoBehaviour
         }
     }
 
+    private void SyncHeadHand()
+    {
+        Debug.Log(targetHeadPos);
+        headTransform.position = targetHeadPos;
+
+        leftHandTransform.position = targetLHPos;
+        leftHandTransform.rotation = Quaternion.Euler(targetLHRot);
+
+        rightHandTransform.position = targetRHPos;
+        rightHandTransform.rotation = Quaternion.Euler(targetRHRot);
+    }
+
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (playerRB)
@@ -252,11 +271,27 @@ public class MovementForNetwork : Photon.MonoBehaviour
             {
                 stream.SendNext(playerRB.position);
                 stream.SendNext(playerRB.velocity);
+
+                stream.SendNext(headTransform.position);
+
+                stream.SendNext(leftHandTransform.position);
+                stream.SendNext(leftHandTransform.rotation.eulerAngles);
+
+                stream.SendNext(rightHandTransform.position);
+                stream.SendNext(rightHandTransform.rotation.eulerAngles);
             }
             else
             {
                 targetPos = (Vector3)stream.ReceiveNext();
                 playerRB.velocity = (Vector3)stream.ReceiveNext();
+
+                targetHeadPos = (Vector3)stream.ReceiveNext();
+
+                targetLHPos = (Vector3)stream.ReceiveNext();
+                targetLHRot = (Vector3)stream.ReceiveNext();
+
+                targetRHPos = (Vector3)stream.ReceiveNext();
+                targetRHRot = (Vector3)stream.ReceiveNext();
 
                 lag = Mathf.Abs((float)(PhotonNetwork.time - info.timestamp));
                 targetPos += (playerRB.velocity * lag);

@@ -238,12 +238,12 @@ Prefab:
     - target: {fileID: 224806576226475508, guid: 41c5a027d34bb3947bc4c3dcf2201cd6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00000010334022
+      value: 0.000017008222
       objectReference: {fileID: 0}
     - target: {fileID: 224448961871594494, guid: 41c5a027d34bb3947bc4c3dcf2201cd6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000026714238
+      value: 0.0000008578493
       objectReference: {fileID: 0}
     - target: {fileID: 1482535866897146, guid: 41c5a027d34bb3947bc4c3dcf2201cd6, type: 2}
       propertyPath: m_IsActive
@@ -277,6 +277,16 @@ Prefab:
         type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 224539981624555982, guid: 41c5a027d34bb3947bc4c3dcf2201cd6,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.5000153
+      objectReference: {fileID: 0}
+    - target: {fileID: 224153285058463650, guid: 41c5a027d34bb3947bc4c3dcf2201cd6,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.5000153
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 41c5a027d34bb3947bc4c3dcf2201cd6, type: 2}
