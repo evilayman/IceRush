@@ -8451,9 +8451,13 @@ MonoBehaviour:
   headTarget: {fileID: 1787938072756614}
   leftHand: {fileID: 1713756776158916}
   rightHand: {fileID: 1385832255506150}
+  colliderObject: {fileID: 1882597093660920}
   currentPlayerState: 0
   fadeTime: 0.5
+  slowTime: 5
   respwanTime: 2
+  pauseColTime: 2
+  pauseSlowTime: 1
 --- !u!114 &114928995083970790
 MonoBehaviour:
   m_ObjectHideFlags: 1

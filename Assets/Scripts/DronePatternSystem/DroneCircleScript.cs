@@ -8,15 +8,7 @@ public class DroneCircleScript : MonoBehaviour
     private Material myMat;
     public float lineWidth = 1f;
 
-
-    public MyDangerLevel danger;
-
-    public enum MyDangerLevel
-    {
-        Slow,
-        Respwan,
-        Death
-    }
+    public CreateDronePattern.MyDangerLevel danger;
 
     [Header("Circle Stats")]
     public int numberOfDrones = 4;
@@ -139,13 +131,13 @@ public class DroneCircleScript : MonoBehaviour
 
         switch (danger)
         {
-            case MyDangerLevel.Slow:
+            case CreateDronePattern.MyDangerLevel.Slow:
                 myMat = gameObject.GetComponentInParent<CreateDronePattern>().myMatSlow;
                 break;
-            case MyDangerLevel.Respwan:
+            case CreateDronePattern.MyDangerLevel.Respwan:
                 myMat = gameObject.GetComponentInParent<CreateDronePattern>().myMatRespwan;
                 break;
-            case MyDangerLevel.Death:
+            case CreateDronePattern.MyDangerLevel.Death:
                 myMat = gameObject.GetComponentInParent<CreateDronePattern>().myMatDeath;
                 break;
             default:
@@ -212,27 +204,12 @@ public class DroneCircleScript : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, distance))
         {
-            if (hit.collider.tag == "Player")
+            if (hit.collider.tag == "PlayerCollider")
             {
-                RayHit(hit.collider.gameObject);
+                hit.collider.GetComponentInParent<PlayerManagerForNetwork>().DroneHit(danger);
             }
         }
         Debug.DrawRay(start, dir * distance, Color.blue);
-    }
-
-    private void RayHit(GameObject player)
-    {
-        switch (danger)
-        {
-            case MyDangerLevel.Slow:
-                break;
-            case MyDangerLevel.Respwan:
-                break;
-            case MyDangerLevel.Death:
-                break;
-            default:
-                break;
-        }
     }
 
     public void AddDrones()

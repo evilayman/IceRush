@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CreateDronePattern : MonoBehaviour
 {
+    public enum MyDangerLevel
+    {
+        Slow,
+        Respwan,
+        Death
+    }
+
     [Header("Drone Properties")]
     public GameObject drone;
     public Material myMatSlow, myMatRespwan, myMatDeath;
@@ -46,13 +53,13 @@ public class CreateDronePattern : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "PlayerCollider")
             enableRayCast = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "PlayerCollider")
             enableRayCast = false;
     }
     public void AddLine()

@@ -14,16 +14,16 @@ public class PlayerManagerForNetwork : MonoBehaviour
     }
 
     public Stats myStats;
-    public GameObject model, headTarget, leftHand, rightHand;
+    public GameObject model, headTarget, leftHand, rightHand, colliderObject;
     public PlayerState currentPlayerState;
-    public float fadeTime, respwanTime;
+    public float fadeTime, slowTime, respwanTime, pauseColTime, pauseSlowTime;
 
     private Vector3 spawnPoint;
     private PhotonView photonView;
     private GameManager GM;
 
-    private bool inBoostRegion, Hit = false, inGameFirstTime;
-
+    private bool inBoostRegion, inRespwan = false, inSlow = false, inGameFirstTime;
+    private bool canCol = true, canSlow = true;
     public bool InBoostRegion
     {
         get
@@ -83,9 +83,9 @@ public class PlayerManagerForNetwork : MonoBehaviour
         if (photonView.isMine || GM.Offline)
         {
             Debug.Log(collision.gameObject.name);
-            if (!Hit && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
+            if (!inRespwan && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
-                Respwan(respwanTime);
+                StartCoroutine(Respwan());
             }
         }
     }
@@ -93,24 +93,66 @@ public class PlayerManagerForNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_Collision()
     {
-        Respwan(respwanTime);
+        if (canCol && !inRespwan)
+            StartCoroutine(Respwan());
     }
 
-    public void Respwan(float time)
+    public void DroneHit(CreateDronePattern.MyDangerLevel danger)
     {
-        Hit = true;
-        currentPlayerState = PlayerState.Stopped;
+        switch (danger)
+        {
+            case CreateDronePattern.MyDangerLevel.Slow:
+                if (canSlow && !inSlow)
+                    StartCoroutine(Slow());
+                break;
+            case CreateDronePattern.MyDangerLevel.Respwan:
+                if (canCol && !inRespwan)
+                    StartCoroutine(Respwan());
+                break;
+            case CreateDronePattern.MyDangerLevel.Death:
+                Debug.Log("Death");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private IEnumerator Respwan()
+    {
+        inRespwan = true;
         FadeToBlack(fadeTime);
-        StartCoroutine(ReturnToLastRespawnPoint(time));
-    }
-
-    private IEnumerator ReturnToLastRespawnPoint(float time)
-    {
-        yield return new WaitForSeconds(time);
-        FadeFromBlack(fadeTime);
-        Hit = false;
+        currentPlayerState = PlayerState.Stopped;
+        yield return new WaitForSeconds(respwanTime);
+        inRespwan = false;
         transform.position = SpawnPoint;
         currentPlayerState = PlayerState.Normal;
+        FadeFromBlack(fadeTime);
+
+        canCol = false;
+        canSlow = false;
+        yield return new WaitForSeconds(pauseColTime);
+        canCol = true;
+        canSlow = true;
+    }
+
+    private IEnumerator Slow()
+    {
+        inSlow = true;
+        currentPlayerState = PlayerState.Slowed;
+        yield return new WaitForSeconds(slowTime);
+        inSlow = false;
+        currentPlayerState = PlayerState.Normal;
+
+        canSlow = false;
+        yield return new WaitForSeconds(pauseSlowTime);
+        canSlow = true;
+    }
+
+    private IEnumerator StopCollider(float time)
+    {
+        colliderObject.SetActive(false);
+        yield return new WaitForSeconds(time);
+        colliderObject.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
