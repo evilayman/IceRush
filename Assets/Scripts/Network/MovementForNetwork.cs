@@ -19,7 +19,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private Rigidbody playerRB;
 
-    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed, handSpeed, lag;
+    private float currentbaseSpeed, currentLeftSpeed, currentRightSpeed, handSpeed, lag, lerpSmooth = 0.5f;
 
     private Vector3 leftHandDirection, rightHandDirection, targetPos,
         targetHeadPos, targetLHPos, targetLHRot, targetRHPos, targetRHRot;
@@ -248,13 +248,13 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     private void SyncHeadHand()
     {
-        headTransform.position = targetHeadPos;
+        headTransform.position = Vector3.Lerp(headTransform.position, targetHeadPos, lerpSmooth);
 
-        leftHandTransform.position = targetLHPos;
-        leftHandTransform.rotation = Quaternion.Euler(targetLHRot);
+        leftHandTransform.position = Vector3.Lerp(leftHandTransform.position, targetLHPos, lerpSmooth);
+        leftHandTransform.rotation = Quaternion.Euler(Vector3.Lerp(leftHandTransform.rotation.eulerAngles, targetLHRot, lerpSmooth));
 
-        rightHandTransform.position = targetRHPos;
-        rightHandTransform.rotation = Quaternion.Euler(targetRHRot);
+        rightHandTransform.position = Vector3.Lerp(rightHandTransform.position, targetRHPos, lerpSmooth);
+        rightHandTransform.rotation = Quaternion.Euler(Vector3.Lerp(rightHandTransform.rotation.eulerAngles, targetRHRot, lerpSmooth));
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

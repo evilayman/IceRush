@@ -6,6 +6,7 @@ public class MoveIK : MonoBehaviour
 {
     public Transform leftHand, rightHand, head;
     Animator anim;
+    Vector3 dir;
 
     private void Start()
     {
@@ -26,5 +27,9 @@ public class MoveIK : MonoBehaviour
 
         anim.SetLookAtPosition(head.position);
         anim.SetLookAtWeight(1);
+
+        dir = (head.position - transform.position).normalized;
+        transform.forward = new Vector3(dir.x, transform.forward.y, dir.z);
+
     }
 }

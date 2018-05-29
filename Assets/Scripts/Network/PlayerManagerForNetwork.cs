@@ -59,6 +59,11 @@ public class PlayerManagerForNetwork : MonoBehaviour
             model.gameObject.SetActive(false);
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
         }
+        else
+        {
+            leftHand.transform.GetChild(0).gameObject.SetActive(false);
+            rightHand.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     private void Update()
@@ -77,6 +82,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         if (photonView.isMine || GM.Offline)
         {
+            Debug.Log(collision.gameObject.name);
             if (!Hit && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
                 Respwan(respwanTime);
