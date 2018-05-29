@@ -57,15 +57,26 @@ public class RocketScript : MonoBehaviour
     {
         if(photonView.isMine && collision.transform != player)
         {
-            if (collision.gameObject.tag == "Player")
+            
+            if (collision.gameObject.tag == "Player" )
             {
-                PhotonNetwork.Destroy(gameObject);
-                collision.gameObject.GetPhotonView().RPC("RPC_Collision", PhotonTargets.All);
+                        
+                    if (collision.gameObject.GetComponent<ShieldScript>().JustTurnedOn)
+                    {
+                        PhotonNetwork.Destroy(gameObject);
+                    }
+                    else
+                    {
+                        collision.gameObject.GetPhotonView().RPC("RPC_Collision", PhotonTargets.All);
+                        PhotonNetwork.Destroy(gameObject);
+                    }
+                                          
             }
             else
             {
                 PhotonNetwork.Destroy(gameObject);
             }
+            
         }
     }
 
@@ -96,4 +107,6 @@ public class RocketScript : MonoBehaviour
         if (gameObject)
             PhotonNetwork.Destroy(gameObject);
     }
+
+ 
 }
