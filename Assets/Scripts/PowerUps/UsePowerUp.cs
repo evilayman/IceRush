@@ -52,6 +52,8 @@ public class UsePowerUp : MonoBehaviour
                 myPower = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Rocket"), transform.GetChild(0).position, Quaternion.identity, 0);
                 break;
             case PowerUpType.Sheild:
+                print("used shield");
+                gameObject.transform.Find("ShieldInnerChild").gameObject.SetActive(true);
                 break;
             case PowerUpType.Boost:
                 break;

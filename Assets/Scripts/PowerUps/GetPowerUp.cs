@@ -16,7 +16,7 @@ public class GetPowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PlayerCollider")
+        if (other.gameObject.tag == "PlayerCollider")
         {
             CalculatePowerUpType(other.gameObject);
             photonView.RPC("RPC_ResetPowerUp", PhotonTargets.All);
@@ -25,7 +25,18 @@ public class GetPowerUp : MonoBehaviour
 
     private void CalculatePowerUpType(GameObject player)
     {
-        player.gameObject.GetComponentInParent<UsePowerUp>().CurrentPower = UsePowerUp.PowerUpType.Rocket;
+        int power = Random.Range(0, 2);
+        print(power);
+        if (power == 0)
+        {
+            print("got Rocket");
+            player.gameObject.GetComponentInParent<UsePowerUp>().CurrentPower = UsePowerUp.PowerUpType.Rocket;
+        }
+        else
+        {
+            player.gameObject.GetComponentInParent<UsePowerUp>().CurrentPower = UsePowerUp.PowerUpType.Sheild;
+            print("got Shield");
+        }
     }
 
     [PunRPC]
