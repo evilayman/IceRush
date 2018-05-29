@@ -82,7 +82,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
     {
         if (photonView.isMine || GM.Offline)
         {
-            Debug.Log(collision.gameObject.name);
             if (!inRespwan && (collision.gameObject.tag == "Building" || collision.gameObject.tag == "Ground"))
             {
                 StartCoroutine(Respwan());

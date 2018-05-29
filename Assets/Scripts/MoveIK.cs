@@ -6,7 +6,7 @@ public class MoveIK : MonoBehaviour
 {
     public Transform leftHand, rightHand, head;
     Animator anim;
-    Vector3 dir;
+    Vector3 dir, test;
 
     private void Start()
     {
