@@ -40,10 +40,6 @@
                 if (followPosition)
                     transform.position = target.position;
             }
-            //else
-            //{
-            //    VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.NOT_DEFINED, "target"));
-            //}
         }
     }
 }
