@@ -5,6 +5,9 @@ using System.IO;
 
 public class UsePowerUp : MonoBehaviour
 {
+    private TeleportScript teleport;
+    [SerializeField]
+    float teleportDistance;
     public enum PowerUpType
     {
         None,
@@ -34,6 +37,7 @@ public class UsePowerUp : MonoBehaviour
 
     private void Start()
     {
+        teleport = new TeleportScript();
         photonView = GetComponent<PhotonView>();
     }
     void Update()
@@ -61,6 +65,8 @@ public class UsePowerUp : MonoBehaviour
             case PowerUpType.Trap:
                 break;
             case PowerUpType.Teleport:
+                print("used teleport");
+                teleport.TeleportPlayer(gameObject, teleportDistance);
                 break;
             default:
                 break;
