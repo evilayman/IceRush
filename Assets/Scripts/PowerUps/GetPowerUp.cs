@@ -42,7 +42,6 @@ public class GetPowerUp : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         PowerUpTimer = new WaitForSeconds(resetTime);
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,7 +68,7 @@ public class GetPowerUp : MonoBehaviour
         {
             percList[i] += percList[i - 1];
             if (percList[i] == 100)
-                break;   
+                break;
         }
 
         var randomValue = Random.Range(0, 100f);

@@ -1463,18 +1463,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1843465340476264, guid: fc684230d9da4e24c99e5df18ff9fc35, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884885790370026, guid: fc684230d9da4e24c99e5df18ff9fc35, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4923436203347590, guid: fc684230d9da4e24c99e5df18ff9fc35, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc684230d9da4e24c99e5df18ff9fc35, type: 2}
   m_IsPrefabParent: 0
@@ -2204,51 +2192,6 @@ Prefab:
         type: 2}
       propertyPath: instantiationId
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: rocketPriorityFront
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: rocketPriorityEnd
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: rank
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: numPlayers
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: shieldPriorityFront
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: shieldPriorityEnd
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: teleportPriorityFront
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: boostPriorityFront
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412599984642378, guid: 09d87efaa9b349c438ccb4c19301216d,
-        type: 2}
-      propertyPath: trapPriorityFront
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09d87efaa9b349c438ccb4c19301216d, type: 2}
