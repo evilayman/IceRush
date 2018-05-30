@@ -5,9 +5,10 @@ using System.IO;
 
 public class UsePowerUp : MonoBehaviour
 {
+    private PlayerManagerForNetwork playerManager;
     private TeleportScript teleport;
     [SerializeField]
-    float teleportDistance;
+    float teleportDistance,boostTime;
     public enum PowerUpType
     {
         None,
@@ -37,6 +38,7 @@ public class UsePowerUp : MonoBehaviour
 
     private void Start()
     {
+        playerManager = GetComponent<PlayerManagerForNetwork>();
         teleport = new TeleportScript();
         photonView = GetComponent<PhotonView>();
     }
@@ -61,11 +63,11 @@ public class UsePowerUp : MonoBehaviour
                 gameObject.transform.Find("ShieldInnerChild").gameObject.SetActive(true);
                 break;
             case PowerUpType.Boost:
+                playerManager.StartCoroutine("BoostPlayer",new object[] { boostTime});
                 break;
             case PowerUpType.Trap:
                 break;
             case PowerUpType.Teleport:
-                print("used teleport");
                 teleport.TeleportPlayer(gameObject, teleportDistance);
                 break;
             default:

@@ -147,6 +147,14 @@ public class PlayerManagerForNetwork : MonoBehaviour
         canSlow = true;
     }
 
+    public IEnumerator BoostPlayer(object[] parms)
+    {
+        float boostTime = (float) parms[0];
+        inBoostRegion = true;
+        yield return new WaitForSeconds(boostTime);
+        InBoostRegion = false;
+    }
+
     private IEnumerator StopCollider(float time)
     {
         colliderObject.SetActive(false);

@@ -7897,6 +7897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportDistance: 30
+  boostTime: 3
 --- !u!114 &114485075965803706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8533,8 +8534,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114132240446301604}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114877638065171152
