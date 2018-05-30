@@ -7,10 +7,12 @@ public class GetPowerUp : MonoBehaviour
     public float resetTime;
     private PhotonView photonView;
     private WaitForSeconds PowerUpTimer;
+    private GameManager GM;
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         PowerUpTimer = new WaitForSeconds(resetTime);
     }
 
@@ -18,25 +20,22 @@ public class GetPowerUp : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerCollider")
         {
-            CalculatePowerUpType(other.gameObject);
+            SetPowerUp(other.gameObject);
             photonView.RPC("RPC_ResetPowerUp", PhotonTargets.All);
         }
     }
 
-    private void CalculatePowerUpType(GameObject player)
+    private void SetPowerUp(GameObject player)
     {
-        int power = Random.Range(0, 2);
-        print(power);
-        if (power == 0)
-        {
-            print("got Rocket");
-            player.gameObject.GetComponentInParent<UsePowerUp>().CurrentPower = UsePowerUp.PowerUpType.Rocket;
-        }
-        else
-        {
-            player.gameObject.GetComponentInParent<UsePowerUp>().CurrentPower = UsePowerUp.PowerUpType.Sheild;
-            print("got Shield");
-        }
+        var i = GM.GetRank(player.transform.GetChild(0).gameObject);
+        player.gameObject.GetComponentInParent<UsePowerUp>().CurrentPower = CalculatePowerUp(i);
+    }
+
+    private UsePowerUp.PowerUpType CalculatePowerUp(int index)
+    {
+        
+
+        return UsePowerUp.PowerUpType.Rocket;
     }
 
     [PunRPC]

@@ -83,8 +83,7 @@ public class PlayerTextManager : MonoBehaviour
 
     private void setRankText()
     {
-        var i = GM.MyPlayersSorted.FindIndex(x => x == transform.GetChild(0).gameObject);
-        playerRank.SetText(GetRankString(i));
+        playerRank.SetText(GetRankString(GM.GetRank(transform.GetChild(0).gameObject)));
     }
 
     private string GetRankString(int index)

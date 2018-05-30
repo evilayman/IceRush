@@ -25,18 +25,6 @@ public class GameManager : MonoBehaviour
     private float waitTime;
     private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait, offline = true;
 
-    public List<GameObject> MyPlayersSorted
-    {
-        get
-        {
-            return myPlayersSorted;
-        }
-
-        set
-        {
-            myPlayersSorted = value;
-        }
-    }
     public int PlayersLoaded
     {
         get
@@ -106,7 +94,7 @@ public class GameManager : MonoBehaviour
         var players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
-            MyPlayersSorted.Add(players[i].transform.GetChild(0).gameObject);
+            myPlayersSorted.Add(players[i].transform.GetChild(0).gameObject);
         }
     }
 
@@ -140,11 +128,11 @@ public class GameManager : MonoBehaviour
                     inGameFirstTime = true;
                     AddPlayers();
                 }
-                MyPlayersSorted.Sort(SortByDistance);
+                myPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
             case GameState.goalReached:
-                MyPlayersSorted.Sort(SortByDistance);
+                myPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
             case GameState.endGame:
@@ -180,7 +168,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckFinishLine()
     {
-        if (MyPlayersSorted.Count > 0 && (myPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
+        if (myPlayersSorted.Count > 0 && (myPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
         {
             if (currentState != GameState.goalReached)
                 currentState = GameState.goalReached;
@@ -193,6 +181,13 @@ public class GameManager : MonoBehaviour
 
             myPlayersSorted.RemoveAt(0);
         }
+    }
+
+    public int GetRank(GameObject GO)
+    {
+        myPlayersSorted.FindIndex(x => x == GO);
+
+        return myPlayersSorted.FindIndex(x => x == GO) + finishedPlayers.Count;
     }
 
     private int SortByDistance(GameObject A, GameObject B)
