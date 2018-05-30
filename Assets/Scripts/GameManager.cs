@@ -51,6 +51,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public List<GameObject> MyPlayersSorted
+    {
+        get
+        {
+            return myPlayersSorted;
+        }
+
+        set
+        {
+            myPlayersSorted = value;
+        }
+    }
+
     private void Start()
     {
         MyPlayersSorted = new List<GameObject>();
@@ -94,7 +107,7 @@ public class GameManager : MonoBehaviour
         var players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
-            myPlayersSorted.Add(players[i].transform.GetChild(0).gameObject);
+            MyPlayersSorted.Add(players[i].transform.GetChild(0).gameObject);
         }
     }
 
@@ -128,11 +141,11 @@ public class GameManager : MonoBehaviour
                     inGameFirstTime = true;
                     AddPlayers();
                 }
-                myPlayersSorted.Sort(SortByDistance);
+                MyPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
             case GameState.goalReached:
-                myPlayersSorted.Sort(SortByDistance);
+                MyPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
             case GameState.endGame:
@@ -150,10 +163,10 @@ public class GameManager : MonoBehaviour
 
     private void CompleteFinishList()
     {
-        for (int i = 0; i < myPlayersSorted.Count; i++)
+        for (int i = 0; i < MyPlayersSorted.Count; i++)
         {
-            myPlayersSorted[i].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
-            finishedPlayers.Add(myPlayersSorted[i]);
+            MyPlayersSorted[i].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
+            finishedPlayers.Add(MyPlayersSorted[i]);
             finishTime.Add(0);
         }
     }
@@ -168,26 +181,30 @@ public class GameManager : MonoBehaviour
 
     private void CheckFinishLine()
     {
-        if (myPlayersSorted.Count > 0 && (myPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
+        if (MyPlayersSorted.Count > 0 && (MyPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
         {
             if (currentState != GameState.goalReached)
                 currentState = GameState.goalReached;
 
-            myPlayersSorted[0].GetComponentInParent<PlayerTextManager>().ReachGoal = true;
-            myPlayersSorted[0].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
+            MyPlayersSorted[0].GetComponentInParent<PlayerTextManager>().ReachGoal = true;
+            MyPlayersSorted[0].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
 
-            finishedPlayers.Add(myPlayersSorted[0]);
+            finishedPlayers.Add(MyPlayersSorted[0]);
             finishTime.Add(Time.time);
 
-            myPlayersSorted.RemoveAt(0);
+            MyPlayersSorted.RemoveAt(0);
         }
     }
 
     public int GetRank(GameObject GO)
     {
-        myPlayersSorted.FindIndex(x => x == GO);
+        return MyPlayersSorted.FindIndex(x => x == GO) + finishedPlayers.Count;
+    }
 
-        return myPlayersSorted.FindIndex(x => x == GO) + finishedPlayers.Count;
+    public Transform GetTarget(GameObject GO)
+    {
+        int index = MyPlayersSorted.FindIndex(x => x == GO);
+        return (index == 0)? null : MyPlayersSorted[index + 1].transform;
     }
 
     private int SortByDistance(GameObject A, GameObject B)

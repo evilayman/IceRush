@@ -22,12 +22,9 @@ public class RocketScript : MonoBehaviour
         FindOwner();
 
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
-        var i = GM.MyPlayersSorted.FindIndex(x => x == player.GetChild(0).gameObject);
+        target = GM.GetTarget(player.GetChild(0).gameObject);
 
-        if (i != 0)
-            target = GM.MyPlayersSorted[i - 1].transform;
-
-        if(photonView.isMine)
+        if (photonView.isMine)
             StartCoroutine(AutoDestroyRocket(rocketDestructTime));
 
         StartCoroutine(ActivateCollider(rockectCanColTime));
@@ -45,7 +42,7 @@ public class RocketScript : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            if(gameObject.GetPhotonView().owner.ID == players[i].GetPhotonView().owner.ID)
+            if (gameObject.GetPhotonView().owner.ID == players[i].GetPhotonView().owner.ID)
             {
                 player = players[i].transform;
                 break;
@@ -55,28 +52,28 @@ public class RocketScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(photonView.isMine && collision.transform != player)
+        if (photonView.isMine && collision.transform != player)
         {
-            
-            if (collision.gameObject.tag == "Player" )
+
+            if (collision.gameObject.tag == "Player")
             {
-                        
-                    if (collision.gameObject.GetComponent<ShieldScript>().JustTurnedOn)
-                    {
-                        PhotonNetwork.Destroy(gameObject);
-                    }
-                    else
-                    {
-                        collision.gameObject.GetPhotonView().RPC("RPC_Collision", PhotonTargets.All);
-                        PhotonNetwork.Destroy(gameObject);
-                    }
-                                          
+
+                if (collision.gameObject.GetComponent<ShieldScript>().JustTurnedOn)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+                else
+                {
+                    collision.gameObject.GetPhotonView().RPC("RPC_Collision", PhotonTargets.All);
+                    PhotonNetwork.Destroy(gameObject);
+                }
+
             }
             else
             {
                 PhotonNetwork.Destroy(gameObject);
             }
-            
+
         }
     }
 
@@ -108,5 +105,5 @@ public class RocketScript : MonoBehaviour
             PhotonNetwork.Destroy(gameObject);
     }
 
- 
+
 }
