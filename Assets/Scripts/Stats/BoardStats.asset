@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Name: BoardStats
   m_EditorClassIdentifier: 
   baseSpeed: 0
-  maxSpeed: 80
+  maxSpeed: 100
   slowPercent: 80
   decTime: 0.2
-  decRate: 2
-  boostSpeed: 5
-  accTimeBoost: 0.2
-  accRateBoost: 0.5
+  decRate: 1
+  boostSpeed: 1.5
+  accTimeBoost: 1
+  accRateBoost: 0.7
   decTimeBoost: 0.2
-  decRateBoost: 0.25
-  handSpeed: 1
-  accTimeHand: 0.02
-  accRateHand: 0.05
-  decTimeHand: 0.02
-  decRateHand: 0.05
+  decRateBoost: 0.05
+  handSpeed: 0.7
+  accTimeHand: 0.2
+  accRateHand: 0.2
+  decTimeHand: 0.2
+  decRateHand: 0.2
   leverStepSpeed: 0
   accTimeLever: 0
   accRateLever: 0

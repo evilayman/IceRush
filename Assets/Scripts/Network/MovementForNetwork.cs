@@ -74,6 +74,7 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     void Update()
     {
+        //Debug.Log("Velocity" + playerRB.velocity + "\tBoostSpeed: " + currentbaseSpeed);
         if (photonView.isMine || GM.Offline)
         {
             //GM.debugText.text = (headTransform.position.ToString());
