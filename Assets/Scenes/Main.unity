@@ -1365,6 +1365,7 @@ MonoBehaviour:
     raAxisX: 0
     raAxisY: 0
     raAxisZ: 0
+<<<<<<< HEAD
 --- !u!1001 &432935461
 Prefab:
   m_ObjectHideFlags: 0
@@ -1466,6 +1467,8 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc684230d9da4e24c99e5df18ff9fc35, type: 2}
   m_IsPrefabParent: 0
+=======
+>>>>>>> 82a4e981631c1a6042cc180eed08fd300da17099
 --- !u!1 &451877642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,7 +2090,7 @@ Transform:
   - {fileID: 1425667689}
   - {fileID: 652205398}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &518076028
 BoxCollider:
@@ -3515,7 +3518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4790855297169846, guid: 244069e0ba949c94fabf8c38a8f295fd, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114174776010804664, guid: 244069e0ba949c94fabf8c38a8f295fd,
         type: 2}
@@ -6518,7 +6521,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549100874921762, guid: 1a7400f4595d32446b07e7f64067c1f3, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a7400f4595d32446b07e7f64067c1f3, type: 2}
@@ -7575,7 +7578,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4122610839717738, guid: 19004c41d964811489e2621afcabebd7, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4122610839717738, guid: 19004c41d964811489e2621afcabebd7, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
