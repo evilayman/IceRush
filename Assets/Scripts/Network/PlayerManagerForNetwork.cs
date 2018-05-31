@@ -22,8 +22,8 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private PhotonView photonView;
     private GameManager GM;
 
-    private bool inBoostRegion, inRespwan = false, inSlow = false, inGameFirstTime;
-    private bool canCol = true, canSlow = true;
+    private bool inBoostRegion, inRespwan = false, inSlow = false, inGameFirstTime,
+        canCol = true, canSlow = true, isDead;
     public bool InBoostRegion
     {
         get
@@ -46,6 +46,19 @@ public class PlayerManagerForNetwork : MonoBehaviour
         set
         {
             spawnPoint = value;
+        }
+    }
+
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+
+        set
+        {
+            isDead = value;
         }
     }
 
@@ -96,6 +109,13 @@ public class PlayerManagerForNetwork : MonoBehaviour
             StartCoroutine(Respwan());
     }
 
+    [PunRPC]
+    private void RPC_Death()
+    {
+        if (!isDead)
+            StartCoroutine(Death());
+    }
+
     public void DroneHit(CreateDronePattern.MyDangerLevel danger)
     {
         switch (danger)
@@ -109,7 +129,9 @@ public class PlayerManagerForNetwork : MonoBehaviour
                     StartCoroutine(Respwan());
                 break;
             case CreateDronePattern.MyDangerLevel.Death:
-                Debug.Log("Death");
+                //if (!isDead)
+                //StartCoroutine(Death());
+                gameObject.GetPhotonView().RPC("RPC_Death", PhotonTargets.All);
                 break;
             default:
                 break;
@@ -145,6 +167,18 @@ public class PlayerManagerForNetwork : MonoBehaviour
         canSlow = false;
         yield return new WaitForSeconds(pauseSlowTime);
         canSlow = true;
+    }
+
+    private IEnumerator Death()
+    {
+        FadeToBlack(fadeTime);
+        IsDead = true;
+        currentPlayerState = PlayerState.Stopped;
+        GM.DeathSwap(transform.GetChild(0).gameObject);
+        transform.position = GM.deadZone.position;
+        yield return new WaitForSeconds(respwanTime);
+        FadeFromBlack(fadeTime);
+        currentPlayerState = PlayerState.Normal;
     }
 
     private IEnumerator StopCollider(float time)

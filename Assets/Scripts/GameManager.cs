@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     }
 
     public GameState currentState;
-    public Transform finishLine;
+    public Transform finishLine, deadZone;
+    public GameObject deadPlayer;
     public TextMeshPro debugText;
 
     private List<GameObject> myPlayersSorted, finishedPlayers;
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     private void Update()
     {
         CheckPlayersCount();
@@ -165,9 +167,15 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < MyPlayersSorted.Count; i++)
         {
-            MyPlayersSorted[i].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
             finishedPlayers.Add(MyPlayersSorted[i]);
-            finishTime.Add(0);
+
+            if (MyPlayersSorted[i].transform.parent.tag == "Player")
+            {
+                MyPlayersSorted[i].GetComponentInParent<PlayerManagerForNetwork>().currentPlayerState = PlayerManagerForNetwork.PlayerState.SlowToStop;
+                finishTime.Add(0);
+            }
+            else
+                finishTime.Add(-1);
         }
     }
 
@@ -175,7 +183,10 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < finishedPlayers.Count; i++)
         {
-            print(finishedPlayers[i].GetComponentInParent<PhotonView>().owner.NickName + " - Time: " + finishTime[i]);
+            if (finishedPlayers[i].transform.parent.tag == "Player")
+                print(finishedPlayers[i].GetComponentInParent<PhotonView>().owner.NickName + " - Time: " + finishTime[i]);
+            else
+                print(finishedPlayers[i].GetComponentInParent<DeadTextManager>().playerName.text + " - Time: " + finishTime[i]);
         }
     }
 
@@ -198,13 +209,22 @@ public class GameManager : MonoBehaviour
 
     public int GetRank(GameObject GO)
     {
-        return MyPlayersSorted.FindIndex(x => x == GO) + finishedPlayers.Count;
+        return (myPlayersSorted.Count > 0) ? MyPlayersSorted.FindIndex(x => x == GO) + finishedPlayers.Count : -1;
+    }
+
+    public void DeathSwap(GameObject GO)
+    {
+        var index = MyPlayersSorted.FindIndex(x => x == GO);
+        var name = MyPlayersSorted[index].GetComponentInParent<PhotonView>().owner.NickName;
+        var go = Instantiate(deadPlayer, MyPlayersSorted[index].transform.position, Quaternion.identity);
+        go.GetComponent<DeadTextManager>().playerName.text = name;
+        MyPlayersSorted[index] = go.transform.GetChild(0).gameObject;
     }
 
     public Transform GetTarget(GameObject GO)
     {
         int index = MyPlayersSorted.FindIndex(x => x == GO);
-        return (index == 0)? null : MyPlayersSorted[index + 1].transform;
+        return (index == 0) ? null : MyPlayersSorted[index + 1].transform;
     }
 
     private int SortByDistance(GameObject A, GameObject B)

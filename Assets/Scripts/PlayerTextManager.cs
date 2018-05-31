@@ -85,10 +85,10 @@ public class PlayerTextManager : MonoBehaviour
             }
 
             if (!countStartDone)
-                CountDown(ref countDownTimeStart, "Go!", GameManager.GameState.inGame, ref countStartDone);
+                CountDown(ref countDownTimeStart, "Go!", "", GameManager.GameState.inGame, ref countStartDone);
 
             if (!countFinishDone)
-                CountDown(ref countDownTimeFinish, "Game Over", GameManager.GameState.endGame, ref countFinishDone);
+                CountDown(ref countDownTimeFinish, "Game Over", "Hurry Up\n", GameManager.GameState.endGame, ref countFinishDone);
 
 
             if (Camera.main && playerCounter)
@@ -139,26 +139,26 @@ public class PlayerTextManager : MonoBehaviour
         return rank;
     }
 
-    private void CountDown(ref float countDownTime, string finalWord, GameManager.GameState nextState, ref bool done)
+    private void CountDown(ref float countDownTime, string finalWord, string countDownWord, GameManager.GameState nextState, ref bool done)
     {
         if (countDownTime > -1)
         {
             if (countDownTime <= 0)
             {
-                if (!ReachGoal)
+                if (!ReachGoal && !gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
                     playerCounter.text = finalWord;
-                else
-                    playerCounter.text = "";
+                else if (!gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                    playerCounter.text = "Good Job";
 
                 if (GM.currentState != nextState)
                     GM.currentState = nextState;
             }
             else
             {
-                if (!ReachGoal)
-                    playerCounter.text = countDownTime.ToString();
-                else
-                    playerCounter.text = "";
+                if (!ReachGoal && !gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                    playerCounter.text = countDownWord + countDownTime.ToString();
+                else if (!gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                    playerCounter.text = "Wait others\n" + countDownTime.ToString();
             }
 
             if (countDownTime <= 3 && playerCounter.fontSize < maxFontSize)
