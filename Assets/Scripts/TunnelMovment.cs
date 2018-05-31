@@ -28,6 +28,11 @@ public class TunnelMovment : MonoBehaviour
     static int count = 0;
     private int index = 0;
 
+    private void Start()
+    {
+        posList = new List<Transform>();
+        count = 0;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -44,20 +49,14 @@ public class TunnelMovment : MonoBehaviour
         if (collided)
         {
             if (upOrDown)
-            {
                 player.position = Vector3.MoveTowards(player.position, posList[index].position, moveTowardsSpeed * Time.deltaTime);
-
-            }
             else
-            {
                 Move(index);
-            }
+
             if (player.position.z == posList[index].position.z)
             {
-                if (index != posList.Count-1)
-                {
+                if (index != posList.Count - 1)
                     index++;
-                }
             }
         }
 
@@ -76,9 +75,19 @@ public class TunnelMovment : MonoBehaviour
     {
         var go = new GameObject("" + count);
         go.transform.SetParent(transform);
-        go.transform.position = new Vector3(0, 50, 0);
-        go.transform.localScale = new Vector3(0, 0, 0);
+        go.transform.position = transform.position;
         PosList.Add(go.transform);
         count++;
+    }
+    private void OnDrawGizmos()
+    {
+        if (posList.Count > 0)
+        {
+            for (int i = 0; i < posList.Count - 1; i++)
+            {
+                Debug.DrawLine(posList[i].position, posList[i + 1].position, Color.red);
+            }
+        }
+
     }
 }
