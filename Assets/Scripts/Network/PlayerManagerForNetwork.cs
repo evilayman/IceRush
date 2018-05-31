@@ -169,7 +169,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         canSlow = true;
     }
 
-<<<<<<< HEAD
+
     private IEnumerator Death()
     {
         FadeToBlack(fadeTime);
@@ -180,14 +180,14 @@ public class PlayerManagerForNetwork : MonoBehaviour
         yield return new WaitForSeconds(respwanTime);
         FadeFromBlack(fadeTime);
         currentPlayerState = PlayerState.Normal;
-=======
+    }
+
     public IEnumerator BoostPlayer(object[] parms)
     {
         float boostTime = (float) parms[0];
         inBoostRegion = true;
         yield return new WaitForSeconds(boostTime);
         InBoostRegion = false;
->>>>>>> 82a4e981631c1a6042cc180eed08fd300da17099
     }
 
     private IEnumerator StopCollider(float time)
