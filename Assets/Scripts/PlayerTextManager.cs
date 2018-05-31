@@ -15,6 +15,7 @@ public class PlayerTextManager : MonoBehaviour
     public float maxDistance, minRankFontSize, maxRankFontSize;
 
     private GameManager GM;
+    private PlayerManagerForNetwork PM;
     private PhotonView photonView;
     private CooldownTimer countDownTimer;
     private bool reachGoal, countStartDone = true, countFinishDone = true;
@@ -38,6 +39,7 @@ public class PlayerTextManager : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        PM = gameObject.GetComponent<PlayerManagerForNetwork>();
 
         if (!photonView.isMine && !GM.Offline)
         {
@@ -70,8 +72,15 @@ public class PlayerTextManager : MonoBehaviour
     {
         if (!photonView.isMine && !GM.Offline)
         {
-            setRankText();
-            rotateText();
+            if(GM.currentState != GameManager.GameState.endGame && !PM.IsDead)
+            {
+                SetRankText();
+                RotateText();
+            }
+            else
+            {
+                playerRank.SetText("");
+            }
         }
         else
         {
@@ -90,19 +99,18 @@ public class PlayerTextManager : MonoBehaviour
             if (!countFinishDone)
                 CountDown(ref countDownTimeFinish, "Game Over", "Hurry Up\n", GameManager.GameState.endGame, ref countFinishDone);
 
-
             if (Camera.main && playerCounter)
                 playerCounter.transform.rotation = Camera.main.transform.rotation;
         }
     }
 
-    private void rotateText()
+    private void RotateText()
     {
         if (Camera.main)
             playerName.transform.rotation = playerRank.transform.rotation = Camera.main.transform.rotation;
     }
 
-    private void setRankText()
+    private void SetRankText()
     {
         playerRank.SetText(GetRankString(GM.GetRank(transform.GetChild(0).gameObject)));
 
@@ -145,9 +153,9 @@ public class PlayerTextManager : MonoBehaviour
         {
             if (countDownTime <= 0)
             {
-                if (!ReachGoal && !gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                if (!ReachGoal && !PM.IsDead)
                     playerCounter.text = finalWord;
-                else if (!gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                else if (!PM.IsDead)
                     playerCounter.text = "Good Job";
 
                 if (GM.currentState != nextState)
@@ -155,9 +163,9 @@ public class PlayerTextManager : MonoBehaviour
             }
             else
             {
-                if (!ReachGoal && !gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                if (!ReachGoal && !PM.IsDead)
                     playerCounter.text = countDownWord + countDownTime.ToString();
-                else if (!gameObject.GetComponent<PlayerManagerForNetwork>().IsDead)
+                else if(!PM.IsDead)
                     playerCounter.text = "Wait others\n" + countDownTime.ToString();
             }
 

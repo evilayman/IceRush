@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
         var index = MyPlayersSorted.FindIndex(x => x == GO);
         var name = MyPlayersSorted[index].GetComponentInParent<PhotonView>().owner.NickName;
         var go = Instantiate(deadPlayer, MyPlayersSorted[index].transform.position, Quaternion.identity);
-        go.GetComponent<DeadTextManager>().playerName.text = name;
+        MyPlayersSorted[index].GetComponentInParent<PlayerTextManager>().playerRank.SetText("");
         MyPlayersSorted[index] = go.transform.GetChild(0).gameObject;
     }
 

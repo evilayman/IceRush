@@ -55,17 +55,24 @@ public class DeadTextManager : MonoBehaviour
 
     private void Update()
     {
-        setRankText();
-        rotateText();
+        if (GM.currentState != GameManager.GameState.endGame)
+        {
+            SetRankText();
+            RotateText();
+        }
+        else
+        {
+            playerRank.SetText("");
+        }
     }
 
-    private void rotateText()
+    private void RotateText()
     {
         if (Camera.main)
             playerName.transform.rotation = playerRank.transform.rotation = Camera.main.transform.rotation;
     }
 
-    private void setRankText()
+    private void SetRankText()
     {
         playerRank.SetText(GetRankString(GM.GetRank(transform.GetChild(0).gameObject)));
 
