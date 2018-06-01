@@ -5,8 +5,10 @@ using UnityEngine;
 public class TunnelMovment : MonoBehaviour
 {
     public float moveTowardsSpeed;
-    public float maxRaduisDelta;
+    public float rotateSpeed;
     public bool upOrDown;
+    public bool drawPath;
+
     public List<Transform> posList;
     public List<Transform> PosList
     {
@@ -64,7 +66,7 @@ public class TunnelMovment : MonoBehaviour
     public void Move(int i)
     {
         targetDir = posList[i].position - player.position;
-        float step = maxRaduisDelta * Time.deltaTime;
+        float step = rotateSpeed * Time.deltaTime;
         newDir = Vector3.RotateTowards(player.forward, targetDir, step, 0.0f);
         player.rotation = Quaternion.LookRotation(newDir);
 
@@ -81,13 +83,15 @@ public class TunnelMovment : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if (posList.Count > 0)
+        if (drawPath)
         {
-            for (int i = 0; i < posList.Count - 1; i++)
+            if (posList.Count > 0)
             {
-                Debug.DrawLine(posList[i].position, posList[i + 1].position, Color.red);
+                for (int i = 0; i < posList.Count - 1; i++)
+                    Debug.DrawLine(posList[i].position, posList[i + 1].position, Color.red);
             }
         }
+        
 
     }
 }
