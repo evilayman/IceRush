@@ -18,9 +18,9 @@ public class CreateDronePattern : MonoBehaviour
     [Header("Pattern Movement")]
     public bool move;
     public Vector3 direction;
-    [Space(20)]
-    public Vector3 startPosition;
-    public Vector3 startRotation;
+    //[Space(20)]
+    //public Vector3 startPosition;
+    //public Vector3 startRotation;
 
     private List<GameObject> alldroneGO = new List<GameObject>();
     public List<ShapeTransform> shapeTransforms = new List<ShapeTransform>();
@@ -90,8 +90,8 @@ public class CreateDronePattern : MonoBehaviour
     public void ResetPosition()
     {
 
-        transform.position = startPosition;
-        transform.localEulerAngles = startRotation;
+        //transform.position = startPosition;
+        //transform.localEulerAngles = startRotation;
 
         if (AlldroneGO != null)
         {

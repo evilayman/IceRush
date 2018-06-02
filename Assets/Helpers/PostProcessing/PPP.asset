@@ -27,11 +27,11 @@ MonoBehaviour:
   fog:
     m_Enabled: 1
     m_Settings:
-      excludeSkybox: 1
+      excludeSkybox: 0
   antialiasing:
     m_Enabled: 1
     m_Settings:
-      method: 1
+      method: 0
       fxaaSettings:
         preset: 2
       taaSettings:
@@ -85,17 +85,17 @@ MonoBehaviour:
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
-      lowPercent: 45
-      highPercent: 95
-      minLuminance: -5
-      maxLuminance: 1
+      lowPercent: 1
+      highPercent: 23.446928
+      minLuminance: -12.32
+      maxLuminance: 33.99
       keyValue: 0.25
       dynamicKeyValue: 1
       adaptationType: 0
-      speedUp: 2
-      speedDown: 1
-      logMin: -8
-      logMax: 4
+      speedUp: 3.96
+      speedDown: 2.5
+      logMin: -4
+      logMax: 10
   bloom:
     m_Enabled: 0
     m_Settings:
@@ -317,7 +317,7 @@ MonoBehaviour:
       size: 3
       luminanceContribution: 1
   vignette:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}

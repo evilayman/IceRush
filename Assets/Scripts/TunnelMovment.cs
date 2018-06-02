@@ -40,6 +40,7 @@ public class TunnelMovment : MonoBehaviour
         if (other.tag == "PlayerCollider" && !collided)
         {
             player = other.GetComponent<Transform>();
+            other.gameObject.GetComponentInParent<Rigidbody>().detectCollisions = false;
             collided = true;
         }
     }
@@ -51,28 +52,36 @@ public class TunnelMovment : MonoBehaviour
         {
             if (upOrDown)
             {
-                player.position = Vector3.MoveTowards(player.position, posList[index].position, moveTowardsSpeed * Time.deltaTime);
+                player.parent.transform.position = Vector3.MoveTowards(player.parent.transform.position, posList[index].position,
+                 moveTowardsSpeed * Time.deltaTime);
             }
             else
             {
                 Move(index);
             }
 
+
             if (player.position.z == posList[index].position.z)
             {
                 if (index != posList.Count - 1)
                     index++;
             }
+            if (player.position.z == posList[index].position.z && index == PosList.Count - 1)
+            {
+                player.gameObject.GetComponentInParent<Rigidbody>().detectCollisions = true;
+                collided = false;
+            }
         }
+
 
     }
 
     public void Move(int i)
     {
-        targetDir = posList[i].position - player.position;
+        targetDir = posList[i].position - player.parent.transform.position;
         float step = rotateSpeed * Time.deltaTime;
-        newDir = Vector3.RotateTowards(player.forward, targetDir, step, 0.0f);
-        player.rotation = Quaternion.LookRotation(newDir);
+        newDir = Vector3.RotateTowards(player.parent.transform.forward, targetDir, step, 0.0f);
+        player.parent.transform.rotation = Quaternion.LookRotation(newDir);
 
         player.parent.transform.position = Vector3.MoveTowards(player.parent.transform.position, posList[i].position,
             moveTowardsSpeed * Time.deltaTime);
@@ -91,7 +100,6 @@ public class TunnelMovment : MonoBehaviour
         if (posList != null)
         {
             posList.Clear();
-
         }
         for (int i = 3; i < transform.childCount; i++)
         {

@@ -50,7 +50,7 @@ public class CreateDroneObjectEditor : Editor
     public void OnSceneGUI()
     {
         myScript = (CreateDronePattern)target;
-        myScript.Update();
+        //myScript.Update();
 
         if (myScript.AlldroneGO != null)
         {
