@@ -13,6 +13,7 @@ public class NewBehaviourScript : Editor {
         serializedObject.Update();
 
         TunnelMovment myScript = (TunnelMovment)target;
+        myScript.AddChildren();
         if (GUILayout.Button("Add New Point"))
         {
             myScript.AddPoint();

@@ -33,11 +33,11 @@ public class TunnelMovment : MonoBehaviour
     private void Start()
     {
         posList = new List<Transform>();
-        count = 0;
+        AddChildren();
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "PlayerCollider" && !collided)
         {
             player = other.GetComponent<Transform>();
             collided = true;
@@ -47,13 +47,16 @@ public class TunnelMovment : MonoBehaviour
 
     private void Update()
     {
-
         if (collided)
         {
             if (upOrDown)
+            {
                 player.position = Vector3.MoveTowards(player.position, posList[index].position, moveTowardsSpeed * Time.deltaTime);
+            }
             else
+            {
                 Move(index);
+            }
 
             if (player.position.z == posList[index].position.z)
             {
@@ -63,6 +66,7 @@ public class TunnelMovment : MonoBehaviour
         }
 
     }
+
     public void Move(int i)
     {
         targetDir = posList[i].position - player.position;
@@ -70,9 +74,10 @@ public class TunnelMovment : MonoBehaviour
         newDir = Vector3.RotateTowards(player.forward, targetDir, step, 0.0f);
         player.rotation = Quaternion.LookRotation(newDir);
 
-        player.position = Vector3.MoveTowards(player.position, posList[i].position, moveTowardsSpeed * Time.deltaTime);
-
+        player.parent.transform.position = Vector3.MoveTowards(player.parent.transform.position, posList[i].position,
+            moveTowardsSpeed * Time.deltaTime);
     }
+
     public void AddPoint()
     {
         var go = new GameObject("" + count);
@@ -81,6 +86,20 @@ public class TunnelMovment : MonoBehaviour
         PosList.Add(go.transform);
         count++;
     }
+    public void AddChildren()
+    {
+        if (posList != null)
+        {
+            posList.Clear();
+
+        }
+        for (int i = 3; i < transform.childCount; i++)
+        {
+            posList.Add(transform.GetChild(i));
+        }
+
+    }
+
     private void OnDrawGizmos()
     {
         if (drawPath)
@@ -91,7 +110,7 @@ public class TunnelMovment : MonoBehaviour
                     Debug.DrawLine(posList[i].position, posList[i + 1].position, Color.red);
             }
         }
-        
+
 
     }
 }

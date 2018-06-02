@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4676092909428846}
+  - component: {fileID: 114181468650045276}
   m_Layer: 0
   m_Name: TUNNEL
   m_TagString: Untagged
@@ -261,3 +262,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623592641947458}
   m_Mesh: {fileID: 4300000, guid: 25f26a5c22306b14eba418204f753d9d, type: 3}
+--- !u!114 &114181468650045276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1049099400519874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbd537ad8fb54d44aa7631d5feef4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTowardsSpeed: 0
+  rotateSpeed: 0
+  upOrDown: 0
+  drawPath: 1
+  posList: []
