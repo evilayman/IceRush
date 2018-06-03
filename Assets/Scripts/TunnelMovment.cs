@@ -27,7 +27,7 @@ public class TunnelMovment : MonoBehaviour
     private Transform player;
     private Vector3 targetDir;
     private Vector3 newDir;
-    static int count = 0;
+    private int count = 0;
     private int index = 0;
 
     private void Start()
@@ -101,7 +101,7 @@ public class TunnelMovment : MonoBehaviour
         {
             posList.Clear();
         }
-        for (int i = 3; i < transform.childCount; i++)
+        for (int i =1; i < transform.childCount; i++)
         {
             posList.Add(transform.GetChild(i));
         }
@@ -118,7 +118,5 @@ public class TunnelMovment : MonoBehaviour
                     Debug.DrawLine(posList[i].position, posList[i + 1].position, Color.red);
             }
         }
-
-
     }
 }
