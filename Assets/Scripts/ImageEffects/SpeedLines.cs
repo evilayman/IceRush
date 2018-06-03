@@ -9,6 +9,8 @@ public class SpeedLines : MonoBehaviour
     public ParticleSystem speedLineParticles;
 
     private Rigidbody playerRB;
+    private PhotonView photonView;
+
 
     public float minRBSpeed, maxRBSpeed, minLineRate, maxLineRate, minRadius, maxRadius;
     private float rbVelocity;
@@ -17,37 +19,43 @@ public class SpeedLines : MonoBehaviour
 
     void Start()
     {
-        playerRB = GetComponent<Rigidbody>();
+        photonView = GetComponent<PhotonView>();
+
+        if (photonView.isMine)
+            playerRB = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        if(playerRB.velocity != Vector3.zero)
-            speedLines.rotation = Quaternion.LookRotation(playerRB.velocity);
-
-        rbVelocity = playerRB.velocity.magnitude;
-
-        if (rbVelocity + 1 >= minRBSpeed)
+        if (photonView.isMine)
         {
-            if (!speedLineParticles.isPlaying)
-                speedLineParticles.Play();
+            if (playerRB.velocity != Vector3.zero)
+                speedLines.rotation = Quaternion.LookRotation(playerRB.velocity);
 
-            float rot = (rbVelocity - minRBSpeed) * ((maxLineRate - minLineRate) / (maxRBSpeed - minRBSpeed)) + minLineRate;
-            var emission = speedLineParticles.emission;
+            rbVelocity = playerRB.velocity.magnitude;
 
-            if (rot <= maxLineRate)
-                emission.rateOverTime = rot;
+            if (rbVelocity + 1 >= minRBSpeed)
+            {
+                if (!speedLineParticles.isPlaying)
+                    speedLineParticles.Play();
 
-            var rad = (rbVelocity - minRBSpeed) * ((maxRadius - minRadius) / (maxRBSpeed - minRBSpeed)) + minRadius;
-            var shape = speedLineParticles.shape;
+                float rot = (rbVelocity - minRBSpeed) * ((maxLineRate - minLineRate) / (maxRBSpeed - minRBSpeed)) + minLineRate;
+                var emission = speedLineParticles.emission;
 
-            if (rad >= maxRadius)
-                shape.radius = rad;
-        }
-        else
-        {
-            if (speedLineParticles.isPlaying)
-                speedLineParticles.Stop();
+                if (rot <= maxLineRate)
+                    emission.rateOverTime = rot;
+
+                var rad = (rbVelocity - minRBSpeed) * ((maxRadius - minRadius) / (maxRBSpeed - minRBSpeed)) + minRadius;
+                var shape = speedLineParticles.shape;
+
+                if (rad >= maxRadius)
+                    shape.radius = rad;
+            }
+            else
+            {
+                if (speedLineParticles.isPlaying)
+                    speedLineParticles.Stop();
+            }
         }
     }
 }
