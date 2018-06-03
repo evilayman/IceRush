@@ -39,6 +39,7 @@ public class TunnelMovment : MonoBehaviour
     {
         if (other.tag == "PlayerCollider" && !collided)
         {
+            print(collided);
             player = other.GetComponent<Transform>();
             other.gameObject.GetComponentInParent<Rigidbody>().detectCollisions = false;
             collided = true;
@@ -101,7 +102,7 @@ public class TunnelMovment : MonoBehaviour
         {
             posList.Clear();
         }
-        for (int i =1; i < transform.childCount; i++)
+        for (int i = 2; i < transform.childCount; i++)
         {
             posList.Add(transform.GetChild(i));
         }
