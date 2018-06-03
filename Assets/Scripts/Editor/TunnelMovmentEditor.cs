@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 [CustomEditor(typeof(TunnelMovment))]
-public class NewBehaviourScript : Editor {
+public class NewBehaviourScript : Editor
+{
 
-   
+
 
     public override void OnInspectorGUI()
     {
@@ -18,12 +19,6 @@ public class NewBehaviourScript : Editor {
         {
             myScript.AddPoint();
         }
-
         serializedObject.ApplyModifiedProperties();
-    }
-
-    private void OnSceneGUI()
-    {
-        
     }
 }
