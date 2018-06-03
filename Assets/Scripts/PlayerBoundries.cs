@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlayerBoundries : MonoBehaviour
 {
-    public Transform boundries;
-    private PhotonView photonView;
     private GameManager GM;
+    private PhotonView photonView;
+    private Transform boundries;
     private Transform top, bot, left, right, front, back;
     private bool outBoundsSides, outBoundsTop, outBoundsBot, outBoundsFront, outBoundsBack;
 
     void Start()
     {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        boundries = GameObject.Find("Boundries").transform;
         photonView = GetComponent<PhotonView>();
 
         if (photonView.isMine || GM.Offline)
