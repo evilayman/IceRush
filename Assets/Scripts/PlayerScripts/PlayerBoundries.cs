@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerBoundries : MonoBehaviour
 {
+    public TextMeshPro boundsText;
+
     private GameManager GM;
+    private PlayerManagerForNetwork PM;
     private PhotonView photonView;
     private Transform boundries;
     private Transform top, bot, left, right, front, back;
-    private bool outBoundsSides, outBoundsTop, outBoundsBot, outBoundsFront, outBoundsBack;
+    private bool outBounds, outBoundsSides, outBoundsTop, outBoundsBot, outBoundsFront, outBoundsBack;
+    private Coroutine co;
 
     void Start()
     {
@@ -22,6 +27,8 @@ public class PlayerBoundries : MonoBehaviour
 
     private void Init()
     {
+        PM = GetComponent<PlayerManagerForNetwork>();
+
         top = boundries.GetChild(0).transform;
         bot = boundries.GetChild(1).transform;
 
@@ -37,25 +44,65 @@ public class PlayerBoundries : MonoBehaviour
     {
         if (photonView.isMine || GM.Offline)
         {
-            outBoundsSides = (transform.position.x < left.position.x || transform.position.x > right.position.x) ? true : false;
-
-            outBoundsTop = (transform.position.y > top.position.y) ? true : false;
-            outBoundsBot = (transform.position.y < bot.position.y) ? true : false;
-
-            outBoundsFront = (transform.position.z > front.position.z) ? true : false;
-            outBoundsBack = (transform.position.z < back.position.z) ? true : false;
-
-            if (outBoundsSides)
-                Debug.Log("Out Sides");
-            if (outBoundsTop)
-                Debug.Log("Out Top");
-            if (outBoundsBot)
-                Debug.Log("Out Bot");
-            if (outBoundsFront)
-                Debug.Log("Out Front");
-            if (outBoundsBack)
-                Debug.Log("Out Back");
-
+            BoundsCheck();
         }
+    }
+
+    void BoundsCheck()
+    {
+        outBoundsSides = (transform.position.x < left.position.x || transform.position.x > right.position.x) ? true : false;
+
+        outBoundsTop = (transform.position.y > top.position.y) ? true : false;
+        outBoundsBot = (transform.position.y < bot.position.y) ? true : false;
+
+        outBoundsFront = (transform.position.z > front.position.z) ? true : false;
+        outBoundsBack = (transform.position.z < back.position.z) ? true : false;
+
+        if (outBoundsTop || outBoundsBot || outBoundsFront || outBoundsBack || outBoundsSides)
+        {
+            if (!outBounds)
+            {
+                outBounds = true;
+                PM.currentPlayerState = PlayerManagerForNetwork.PlayerState.Slowed;
+                co = StartCoroutine(CountDownBounds(5));
+            }
+        }
+        else
+        {
+            if (outBounds)
+            {
+                outBounds = false;
+                PM.currentPlayerState = PlayerManagerForNetwork.PlayerState.Normal;
+                StopCoroutine(co);
+                boundsText.text = "";
+            }
+        }
+
+        //if (outBoundsTop)
+        //    boundsText.text = "Out Top\n";
+        //else if (outBoundsBot)
+        //    boundsText.text = "Out Bot\n";
+        //else if (outBoundsFront)
+        //    boundsText.text = "Out Front\n";
+        //else if (outBoundsBack)
+        //    boundsText.text = "Out Back\n";
+        //else if (outBoundsSides)
+        //    boundsText.text = "Out Sides\n";
+        //else
+        //    boundsText.text = "";
+    }
+
+    private IEnumerator CountDownBounds(int countDownTime)
+    {
+        var waitTime = new WaitForSeconds(1);
+        for (int i = countDownTime; i > 0; i--)
+        {
+            boundsText.text = "Out of Bounds \n" + i.ToString();
+            yield return waitTime;
+        }
+        boundsText.text = "Game Over";
+        yield return waitTime;
+        gameObject.GetPhotonView().RPC("RPC_Death", PhotonTargets.All);
+        boundsText.text = "";
     }
 }

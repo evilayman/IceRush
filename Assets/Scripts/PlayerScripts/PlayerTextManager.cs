@@ -8,7 +8,7 @@ public class PlayerTextManager : MonoBehaviour
     public TextMeshPro playerName, playerRank, playerCounter;
 
     public float countDownTimeStart, countDownTimeFinish, timerCD;
-    public int fontSize, maxFontSize, fontSizeIncrementSpeed;
+    public float fontSize, maxFontSize, fontSizeIncrementSpeed;
 
     [Space(10)]
     public float minDistance;

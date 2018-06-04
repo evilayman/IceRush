@@ -131,7 +131,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
             case CreateDronePattern.MyDangerLevel.Death:
                 //if (!isDead)
                 //StartCoroutine(Death());
-                gameObject.GetPhotonView().RPC("RPC_Death", PhotonTargets.All);
+                photonView.RPC("RPC_Death", PhotonTargets.All);
                 break;
             default:
                 break;
