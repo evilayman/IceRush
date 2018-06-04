@@ -39,10 +39,11 @@ public class TunnelMovment : MonoBehaviour
     {
         if (other.tag == "PlayerCollider" && !collided)
         {
-            print(collided);
             player = other.GetComponent<Transform>();
             other.gameObject.GetComponentInParent<Rigidbody>().detectCollisions = false;
             collided = true;
+            print("listCount: " + posList.Count);
+
         }
     }
 
@@ -53,6 +54,8 @@ public class TunnelMovment : MonoBehaviour
         {
             if (upOrDown)
             {
+                print("index: "+index);
+
                 player.parent.transform.position = Vector3.MoveTowards(player.parent.transform.position, posList[index].position,
                  moveTowardsSpeed * Time.deltaTime);
             }
@@ -62,7 +65,7 @@ public class TunnelMovment : MonoBehaviour
             }
 
 
-            if (player.position.z == posList[index].position.z)
+            if (player.position == posList[index].position)
             {
                 if (index != posList.Count - 1)
                     index++;
@@ -79,6 +82,7 @@ public class TunnelMovment : MonoBehaviour
 
     public void Move(int i)
     {
+        print(i);
         targetDir = posList[i].position - player.parent.transform.position;
         float step = rotateSpeed * Time.deltaTime;
         newDir = Vector3.RotateTowards(player.parent.transform.forward, targetDir, step, 0.0f);
@@ -102,7 +106,7 @@ public class TunnelMovment : MonoBehaviour
         {
             posList.Clear();
         }
-        for (int i = 2; i < transform.childCount; i++)
+        for (int i = 1; i < transform.childCount; i++)
         {
             posList.Add(transform.GetChild(i));
         }
