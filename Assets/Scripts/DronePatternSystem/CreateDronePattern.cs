@@ -91,7 +91,7 @@ public class CreateDronePattern : MonoBehaviour
     {
 
         //transform.position = startPosition;
-        //transform.localEulerAngles = startRotation;
+        //transform.rotation = Quaternion.Euler(startRotation);
 
         if (AlldroneGO != null)
         {

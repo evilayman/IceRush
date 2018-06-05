@@ -6,13 +6,13 @@ public class DroneCircleScript : MonoBehaviour
 {
     private GameObject drone;
     private Material myMat;
-    public float lineWidth = 1f;
+    public float lineWidth = 5f;
 
     public CreateDronePattern.MyDangerLevel danger;
 
     [Header("Circle Stats")]
     public int numberOfDrones = 4;
-    public float radius = 5;
+    public float radius = 25;
     public bool hasCenter = true, hasEdges = true;
 
     private List<GameObject> droneList = new List<GameObject>();

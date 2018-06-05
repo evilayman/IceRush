@@ -12,7 +12,7 @@ public class DroneLineScript : MonoBehaviour
 
     [Header("Line Stats")]
     public int numberOfDrones = 2;
-    public float increment = 20;
+    public float increment = 50;
     private List<GameObject> droneList = new List<GameObject>();
     public List<DroneVar> myDroneVarList = new List<DroneVar>();
 
