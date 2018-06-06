@@ -1643,6 +1643,7 @@ GameObject:
   - component: {fileID: 92699194284462998}
   - component: {fileID: 81942890299477462}
   - component: {fileID: 114617595322525716}
+  - component: {fileID: 114252218565063678}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -7441,6 +7442,18 @@ MonoBehaviour:
   startMenuAlias: 102
   touchModifier: 116
   hairTouchModifier: 104
+--- !u!114 &114252218565063678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1494322088643188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 530be6f9763a57a43be3c5c228e72a81, type: 2}
 --- !u!114 &114289797549983368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8330,7 +8343,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1583833557393670}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
