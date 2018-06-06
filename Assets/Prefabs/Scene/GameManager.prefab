@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114644537658364356}
   - component: {fileID: 114833072423662038}
   - component: {fileID: 114412542184098346}
+  - component: {fileID: 114677422906807452}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -204,6 +205,30 @@ MonoBehaviour:
   deadZone: {fileID: 4525203576009384}
   deadPlayer: {fileID: 1228519882390392, guid: 718be459cb9304543a100441ec4ac9ed, type: 2}
   debugText: {fileID: 114786386210711670}
+--- !u!114 &114677422906807452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288062374090742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fb94e711332104aa4b52a1c39ba014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emissionColor: {r: 1, g: 0, b: 0, a: 0}
+  myMats:
+  - {fileID: 2100000, guid: 5562cf257950ae74897e96a8929d2773, type: 2}
+  - {fileID: 2100000, guid: 9933fea0763d96c41b8f7724b002a7a1, type: 2}
+  - {fileID: 2100000, guid: 618c2c305ac2c4245ac42e4c8953026c, type: 2}
+  - {fileID: 2100000, guid: 21b1fe6fb34fff64dad363a3dd8fb15d, type: 2}
+  - {fileID: 2100000, guid: 524964994359642439b5c03cc23f8d68, type: 2}
+  - {fileID: 2100000, guid: 9622eaec775c2ec42bc669f9ed7f482b, type: 2}
+  - {fileID: 2100000, guid: b67bf33490c6584478cac1e3971b5b50, type: 2}
+  - {fileID: 2100000, guid: 144aefb0a76dd8f4682aae374fd566be, type: 2}
+  - {fileID: 2100000, guid: 5db72bc53af5943499328a70dd7f5f6f, type: 2}
+  - {fileID: 2100000, guid: e5b983aea778fac48bac4bb138c76a57, type: 2}
+  - {fileID: 2100000, guid: cc2ce019be3e8b5458ce24fb84e970fc, type: 2}
 --- !u!114 &114786386210711670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,7 +248,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Waiting for other players !
+  m_text: Wait
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -291,12 +316,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 114786386210711670}
-    characterCount: 27
+    characterCount: 4
     spriteCount: 0
-    spaceCount: 4
-    wordCount: 4
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 1
@@ -323,7 +348,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1288062374090742}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55846862f286f4640a91f884b31bf298, type: 3}
   m_Name: 
