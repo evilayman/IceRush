@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectsShowHide : MonoBehaviour
 {
     public Transform gameRegion, enviroment;
-    public float offsetSize;
+    public float offsetDestTime, offsetActivePosition;
 
     private List<Transform> myObjs;
     private List<float> myObjsTime;
@@ -30,6 +30,7 @@ public class ObjectsShowHide : MonoBehaviour
             GetGroups((parent.GetChild(i).transform));
         }
     }
+
     void GetGroups(Transform parent)
     {
         for (int i = 0; i < parent.childCount; i++)
@@ -37,6 +38,7 @@ public class ObjectsShowHide : MonoBehaviour
             AddChildren((parent.GetChild(i).transform));
         }
     }
+
     void AddChildren(Transform parent)
     {
         for (int i = 0; i < parent.childCount; i++)
@@ -61,7 +63,7 @@ public class ObjectsShowHide : MonoBehaviour
             if (myObjs[index].gameObject.tag == "Drone")
                 objSpeed = -myObjs[index].gameObject.GetComponent<CreateDronePattern>().direction.z;
 
-            StartCoroutine(DeActivateObj(myObjs[index], ((regionScript.regionSize + offsetSize) / (regionScript.speed + objSpeed))));
+            StartCoroutine(DeActivateObj(myObjs[index], ((regionScript.regionSize) / (regionScript.speed + objSpeed)) + offsetDestTime));
 
             myObjs.RemoveAt(index);
             myObjsTime.RemoveAt(index);

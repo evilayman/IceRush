@@ -67,7 +67,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             model.gameObject.SetActive(false);
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
