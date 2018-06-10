@@ -14,18 +14,23 @@ public class GameManager : MonoBehaviour
         endGame
     }
 
+
+    //public List<GameObject> regions;
     public GameState currentState;
     public Transform finishLine, deadZone;
-    public GameObject deadPlayer;
+    public GameObject deadPlayer/*, player*/;
     public TextMeshPro debugText;
 
     private List<GameObject> myPlayersSorted, finishedPlayers;
     private List<float> finishTime;
 
     private int playersLoaded, playerList;
-    private float waitTime;
+    private float waitTime/*, compNum*/;
+    //[SerializeField]
+    //private float RegionSize;
     private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait, offline = true;
-
+    //private int currentRegion;
+    //private GameObject region;
     public int PlayersLoaded
     {
         get
@@ -71,11 +76,15 @@ public class GameManager : MonoBehaviour
         finishedPlayers = new List<GameObject>();
         finishTime = new List<float>();
         playerList = PhotonNetwork.playerList.Length;
-
+        //player = GameObject.FindGameObjectWithTag("Player");
+        //compNum = RegionSize * 2;
+        //currentRegion = 1;
         if (Offline)
         {
             currentState = GameState.inGame;
         }
+
+        
     }
 
     [PunRPC]
@@ -231,4 +240,24 @@ public class GameManager : MonoBehaviour
     {
         return -(A.transform.position.z - finishLine.position.z).CompareTo(B.transform.position.z - finishLine.position.z);
     }
+
+    //private void ShowHideRegions()
+    //{
+    //    //if (player.transform.position.z > 500)
+    //    //{
+
+    //    if (player.transform.position.z % RegionSize == 0)
+    //    {
+    //        region=GameObject.Find("Region" + currentRegion);
+    //        region.gameObject.SetActive(false);
+    //        region = GameObject.Find("Region" + currentRegion + 2);
+    //        if (region)
+    //        {
+    //            GameObject.Find("Region" + currentRegion + 2).gameObject.SetActive(true);
+    //        }           
+    //        currentRegion++;
+    //        compNum += RegionSize;
+    //    }
+    //    //}
+    //}
 }
