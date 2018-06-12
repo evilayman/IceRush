@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectsShowHide : MonoBehaviour
 {
     public Transform gameRegion, enviroment;
-    public float offsetDestTime, offsetActivePosition;
+    public float borderSize;
 
     private List<Transform> myObjs;
     private List<float> myObjsTime;
@@ -25,7 +25,7 @@ public class ObjectsShowHide : MonoBehaviour
 
     void GetRegions(Transform parent)
     {
-        for (int i = 0; i < parent.childCount; i++)
+        for (int i = 1; i < parent.childCount; i++)
         {
             GetGroups((parent.GetChild(i).transform));
         }
@@ -57,19 +57,30 @@ public class ObjectsShowHide : MonoBehaviour
     {
         if (index < myObjsTime.Count && myObjsTime.Count > 0 && Time.time >= myObjsTime[index])
         {
-            var objSpeed = 0f;
-            myObjs[index].gameObject.SetActive(true);
-
             if (myObjs[index].gameObject.tag == "Drone")
-                objSpeed = -myObjs[index].gameObject.GetComponent<CreateDronePattern>().direction.z;
-
-            StartCoroutine(DeActivateObj(myObjs[index], ((regionScript.regionSize) / (regionScript.speed + objSpeed)) + offsetDestTime));
+            {
+                StartCoroutine(ActivateDrone(myObjs[index]));
+            }
+            else
+            {
+                myObjs[index].gameObject.SetActive(true);
+                StartCoroutine(DeActivateObj(myObjs[index], ((regionScript.regionSize) / (regionScript.speed))));
+            }
 
             myObjs.RemoveAt(index);
             myObjsTime.RemoveAt(index);
 
             CheckToEnable(index + 1);
         }
+    }
+
+    IEnumerator ActivateDrone(Transform Obj)
+    {
+        var delay = ((regionScript.regionSize/2) - (borderSize/2)) / regionScript.speed;
+        yield return new WaitForSeconds(delay);
+        Obj.gameObject.SetActive(true);
+        var objSpeed = -Obj.gameObject.GetComponent<CreateDronePattern>().direction.z;
+        StartCoroutine(DeActivateObj(Obj, ((regionScript.regionSize) / (regionScript.speed - objSpeed))));
     }
 
     IEnumerator DeActivateObj(Transform Obj, float time)
@@ -98,5 +109,4 @@ public class ObjectsShowHide : MonoBehaviour
     {
         return A.transform.position.z.CompareTo(B.transform.position.z);
     }
-
 }

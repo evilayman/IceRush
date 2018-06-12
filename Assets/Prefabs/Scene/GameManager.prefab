@@ -216,7 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0fb94e711332104aa4b52a1c39ba014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emissionColor: {r: 0, g: 0.010153294, b: 1, a: 0}
+  emissionColor: {r: 1, g: 0, b: 0.04490614, a: 0}
+  intensity: 2
   myMats:
   - {fileID: 2100000, guid: 5562cf257950ae74897e96a8929d2773, type: 2}
   - {fileID: 2100000, guid: 9933fea0763d96c41b8f7724b002a7a1, type: 2}
@@ -229,6 +230,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 5db72bc53af5943499328a70dd7f5f6f, type: 2}
   - {fileID: 2100000, guid: e5b983aea778fac48bac4bb138c76a57, type: 2}
   - {fileID: 2100000, guid: cc2ce019be3e8b5458ce24fb84e970fc, type: 2}
+  - {fileID: 2100000, guid: b56306d2cdc30914ab3d61c98b0a3d78, type: 2}
+  - {fileID: 2100000, guid: b560ec6036f47f945919283cd072279d, type: 2}
 --- !u!114 &114786386210711670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,8 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameRegion: {fileID: 0}
   enviroment: {fileID: 0}
-  offsetDestSize: 250
-  offsetActiveSize: 100
+  borderSize: 500
 --- !u!222 &222503621351303104
 CanvasRenderer:
   m_ObjectHideFlags: 1

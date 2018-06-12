@@ -41,7 +41,7 @@ public class CreateDronePattern : MonoBehaviour
     public void Start()
     {
         AddChildren();
-        ResetPosition();
+        //ResetPosition();
     }
     public void Update()
     {

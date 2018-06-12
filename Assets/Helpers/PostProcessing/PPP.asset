@@ -27,9 +27,9 @@ MonoBehaviour:
   fog:
     m_Enabled: 1
     m_Settings:
-      excludeSkybox: 0
+      excludeSkybox: 1
   antialiasing:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       method: 0
       fxaaSettings:
@@ -83,7 +83,7 @@ MonoBehaviour:
       sampleCount: 10
       frameBlending: 0
   eyeAdaptation:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       lowPercent: 1
       highPercent: 23.446928
@@ -97,14 +97,14 @@ MonoBehaviour:
       logMin: -4
       logMax: 10
   bloom:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
+        intensity: 5
         threshold: 1.1
         softKnee: 0.5
         radius: 4
-        antiFlicker: 0
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
@@ -132,7 +132,7 @@ MonoBehaviour:
         blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
       colorWheels:
-        mode: 1
+        mode: 0
         log:
           slope: {r: 1, g: 1, b: 1, a: 0}
           power: {r: 1, g: 1, b: 1, a: 0}
@@ -149,21 +149,21 @@ MonoBehaviour:
             - serializedVersion: 3
               time: 0
               value: 0
-              inSlope: 1
+              inSlope: 0
               outSlope: 1
               tangentMode: 0
               weightedMode: 0
-              inWeight: 0.33333334
-              outWeight: 0.33333334
+              inWeight: 0
+              outWeight: 0
             - serializedVersion: 3
               time: 1
               value: 1
               inSlope: 1
-              outSlope: 1
+              outSlope: 0
               tangentMode: 0
               weightedMode: 0
-              inWeight: 0.33333334
-              outWeight: 0.33333334
+              inWeight: 0
+              outWeight: 0
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
@@ -319,7 +319,7 @@ MonoBehaviour:
   vignette:
     m_Enabled: 0
     m_Settings:
-      mode: 0
+      mode: 1
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.49863058, y: 0.6}
       intensity: 0
