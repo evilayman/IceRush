@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 4350884746014594}
   - component: {fileID: 114548780900934950}
   - component: {fileID: 65573774926250506}
+  - component: {fileID: 64009619653505746}
   m_Layer: 0
   m_Name: RoundTunnel
   m_TagString: Untagged
@@ -252,7 +253,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562733385607184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9.64}
+  m_LocalPosition: {x: 0, y: 50, z: 450}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4978823181128638}
@@ -376,6 +377,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1850068534164484}
   m_Mesh: {fileID: 4300000, guid: 25f26a5c22306b14eba418204f753d9d, type: 3}
+--- !u!64 &64009619653505746
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1562733385607184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 0}
 --- !u!65 &65573774926250506
 BoxCollider:
   m_ObjectHideFlags: 1

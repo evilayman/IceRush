@@ -1760,6 +1760,7 @@ GameObject:
   - component: {fileID: 114548258275230662}
   - component: {fileID: 114292761162147112}
   - component: {fileID: 114480004780992896}
+  - component: {fileID: 114456946158770700}
   m_Layer: 0
   m_Name: PlayerSkateNetwork
   m_TagString: Player
@@ -7863,6 +7864,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_maskType: 0
+--- !u!114 &114456946158770700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519298155083464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9607ebd5567ae26418655e1a43441c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114471872871772616
 MonoBehaviour:
   m_ObjectHideFlags: 1

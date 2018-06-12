@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4340415005231632}
   - component: {fileID: 114478526682449900}
   - component: {fileID: 65158431915780022}
+  - component: {fileID: 64490232099805962}
   m_Layer: 0
   m_Name: LoneTunnel
   m_TagString: Untagged
@@ -123,8 +124,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1053606512285192}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.361, y: -4.2624, z: -20.797}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 11, y: 47, z: 440}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4100794579343254}
@@ -132,7 +133,7 @@ Transform:
   - {fileID: 4802739330122928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4802739330122928
 Transform:
   m_ObjectHideFlags: 1
@@ -202,6 +203,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026342637857204}
   m_Mesh: {fileID: 4300004, guid: 25f26a5c22306b14eba418204f753d9d, type: 3}
+--- !u!64 &64490232099805962
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053606512285192}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 0}
 --- !u!65 &65158431915780022
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -16,18 +16,19 @@ public class SpeedLines : MonoBehaviour
     private float rbVelocity;
 
     private Vector3 newDir;
+    private GameManager GM;
 
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-
-        if (photonView.isMine)
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (photonView.isMine || GM.Offline)
             playerRB = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        if (photonView.isMine)
+        if (photonView.isMine || GM.Offline)
         {
             if (playerRB.velocity != Vector3.zero)
                 speedLines.rotation = Quaternion.LookRotation(playerRB.velocity);
