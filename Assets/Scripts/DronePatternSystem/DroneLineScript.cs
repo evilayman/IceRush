@@ -125,6 +125,7 @@ public class DroneLineScript : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, distance))
         {
+            print(hit.collider.tag);
             if (hit.collider.tag == "PlayerCollider")
             {
                 hit.collider.GetComponentInParent<PlayerManagerForNetwork>().DroneHit(danger);
