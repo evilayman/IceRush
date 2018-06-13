@@ -8,7 +8,7 @@ public class DroneLineScript : MonoBehaviour
     private Material myMat;
     public float lineWidth = 5f;
 
-    public CreateDronePattern.MyDangerLevel danger;
+    public CreateDronePattern.MyDangerLevel danger = CreateDronePattern.MyDangerLevel.Respwan;
 
     [Header("Line Stats")]
     public int numberOfDrones = 2;
@@ -125,7 +125,6 @@ public class DroneLineScript : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, distance))
         {
-            print(hit.collider.tag);
             if (hit.collider.tag == "PlayerCollider")
             {
                 hit.collider.GetComponentInParent<PlayerManagerForNetwork>().DroneHit(danger);

@@ -232,7 +232,7 @@ BoxCollider:
   m_GameObject: {fileID: 1604501250100564}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 50, y: 50, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -344,9 +344,9 @@ MonoBehaviour:
   myMatSlow: {fileID: 2100000, guid: 7b4063c067519ec429b7757518994bfd, type: 2}
   myMatRespwan: {fileID: 2100000, guid: 3f9654c5d059f1b4d9d5a406a99c0820, type: 2}
   myMatDeath: {fileID: 2100000, guid: f24c74233fcd25046a697006a883f775, type: 2}
-  enableRayCast: 0
-  move: 1
-  direction: {x: 0, y: 0, z: -25}
+  enableRayCast: 1
+  move: 0
+  direction: {x: 0, y: 0, z: 0}
   shapeTransforms:
   - position: {x: 0, y: 25, z: 0}
     rotation: {x: 0, y: 0, z: 0}

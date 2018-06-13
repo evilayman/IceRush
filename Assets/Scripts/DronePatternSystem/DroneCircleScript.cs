@@ -8,7 +8,7 @@ public class DroneCircleScript : MonoBehaviour
     private Material myMat;
     public float lineWidth = 5f;
 
-    public CreateDronePattern.MyDangerLevel danger;
+    public CreateDronePattern.MyDangerLevel danger = CreateDronePattern.MyDangerLevel.Respwan;
 
     [Header("Circle Stats")]
     public int numberOfDrones = 4;

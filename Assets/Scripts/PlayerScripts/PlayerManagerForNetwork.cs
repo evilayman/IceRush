@@ -125,7 +125,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
                     StartCoroutine(Slow());
                 break;
             case CreateDronePattern.MyDangerLevel.Respwan:
-                print("henaaa");
                 if (canCol && !inRespwan) 
                     StartCoroutine(Respwan());
                 break;
