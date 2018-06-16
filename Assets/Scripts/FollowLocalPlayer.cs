@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class FollowLocalPlayer : MonoBehaviour
 {
-    public Transform target;
+    public Transform targetNormal, targetLerp;
+    public float lerpT;
     private PhotonView photonView;
     private GameManager GM;
 
-	void Start ()
+    void Start()
     {
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
         if (photonView.isMine || GM.Offline)
         {
-            target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
+            if (targetNormal)
+                targetNormal.transform.position = new Vector3(targetNormal.transform.position.x, targetNormal.transform.position.y, transform.position.z);
+
+            if (targetLerp)
+            {
+                var targetLerpPos = new Vector3(targetLerp.transform.position.x, targetLerp.transform.position.y, transform.position.z);
+                targetLerp.transform.position = Vector3.Lerp(targetLerp.transform.position, targetLerpPos, lerpT    );
+            }
         }
+
     }
 }

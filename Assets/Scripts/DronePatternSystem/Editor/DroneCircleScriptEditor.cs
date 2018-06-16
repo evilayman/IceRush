@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -30,19 +30,19 @@ public class DroneCircleScriptEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void OnSceneGUI()
-    {
-        DroneCircleScript myScript = (DroneCircleScript)target;
+    //private void OnSceneGUI()
+    //{
+    //    DroneCircleScript myScript = (DroneCircleScript)target;
 
-        myScript.Update();
-        myScript.GetComponent<ParentPoint>().Update();
+    //    myScript.Update();
+    //    myScript.GetComponent<ParentPoint>().Update();
     
-        if (myScript.DroneList != null)
-        {
-            for (int i = 0; i < myScript.DroneList.Count; i++)
-            {
-                myScript.DroneList[i].GetComponent<DroneVarScript>().Update();
-            }
-        }
-    }
+    //    if (myScript.DroneList != null)
+    //    {
+    //        for (int i = 0; i < myScript.DroneList.Count; i++)
+    //        {
+    //            myScript.DroneList[i].GetComponent<DroneVarScript>().Update();
+    //        }
+    //    }
+    //}
 }

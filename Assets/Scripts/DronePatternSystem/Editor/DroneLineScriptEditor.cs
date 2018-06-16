@@ -31,19 +31,19 @@ public class DroneLineScriptEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void OnSceneGUI()
-    {
-        DroneLineScript myScript = (DroneLineScript)target;
+    //private void OnSceneGUI()
+    //{
+    //    DroneLineScript myScript = (DroneLineScript)target;
 
-        myScript.Update();
-        myScript.GetComponent<ParentPoint>().Update();
+    //    myScript.Update();
+    //    myScript.GetComponent<ParentPoint>().Update();
 
-        if(myScript.DroneList != null)
-        {
-            for (int i = 0; i < myScript.DroneList.Count; i++)
-            {
-                myScript.DroneList[i].GetComponent<DroneVarScript>().Update();
-            }
-        }
-    }
+    //    if(myScript.DroneList != null)
+    //    {
+    //        for (int i = 0; i < myScript.DroneList.Count; i++)
+    //        {
+    //            myScript.DroneList[i].GetComponent<DroneVarScript>().Update();
+    //        }
+    //    }
+    //}
 }
