@@ -74,9 +74,11 @@ public class MovementForNetwork : Photon.MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("Velocity" + playerRB.velocity + "\tBoostSpeed: " + currentbaseSpeed);
+        Debug.Log("Velocity" + playerRB.velocity + "\tBoostSpeed: " + currentbaseSpeed);
         if (photonView.isMine || GM.Offline)
         {
+            //GM.debugText.text = (headTransform.position.ToString());
+
             mousePressedLeft = Input.GetKey(KeyCode.Mouse0) ? true : false;
             mousePressedRight = Input.GetKey(KeyCode.Mouse1) ? true : false;
 
