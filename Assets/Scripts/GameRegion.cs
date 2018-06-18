@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GameRegion : MonoBehaviour
 {
-    public float speed, regionSize;
-	
-	void Update ()
+    public float speed, regionSize, stopPoint;
+
+    void Update()
     {
-        transform.position += Vector3.forward * speed * Time.deltaTime;
+        if (transform.position.z < stopPoint)
+            transform.position += Vector3.forward * speed * Time.deltaTime;
     }
 }
