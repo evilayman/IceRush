@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Gateuv_07
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _NORMALMAP
+  m_Shader: {fileID: 4800000, guid: 0028366432aa15145818e57304494b4e, type: 3}
+  m_ShaderKeywords: _EMISSION _NORMALMAP _SNOWMODE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,6 +38,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 39002b132ed1abd4185a988fd4b06c38, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _IntersectionBump:
+        m_Texture: {fileID: 2800000, guid: 09fef9dc6c1693a4491de16a53ee2eec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IntersectionMap:
+        m_Texture: {fileID: 2800000, guid: 4e87cfc3cdb6ee84aaa39b63abae7e67, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,23 +67,40 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaDeflate: 0
+    - _BlueInflate: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _DepthFactor: 0.06
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _GreenSub: 0
+    - _InflateGround: 35
+    - _IntersectionPow: 5.78
+    - _IntersectionScale: 0.05
+    - _IntersectionThresholdMax: 0.09
+    - _MaskMult: 1
+    - _MaskPow: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RedAdd: 0
     - _SmoothnessTextureChannel: 0
+    - _SnowMode: 1
+    - _SnowMult: 3
+    - _SnowPow: -5
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _YOffset: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 2, b: 1.9916072, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+    - _EmissionColor: {r: 0, g: 1.9654379, b: 2, a: 2}
+    - _IntersectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TargetNormal: {r: 0, g: 1, b: 0, a: 1}
