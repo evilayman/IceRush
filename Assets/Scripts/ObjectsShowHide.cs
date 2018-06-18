@@ -25,7 +25,7 @@ public class ObjectsShowHide : MonoBehaviour
 
     void GetRegions(Transform parent)
     {
-        for (int i = 1; i < parent.childCount; i++)
+        for (int i = 0; i < parent.childCount; i++)
         {
             GetGroups((parent.GetChild(i).transform));
         }
@@ -76,11 +76,18 @@ public class ObjectsShowHide : MonoBehaviour
 
     IEnumerator ActivateDrone(Transform Obj)
     {
-        var delay = ((regionScript.regionSize/2) - (borderSize/2)) / regionScript.speed;
+        float regionStartPosition = gameRegion.position.z + (borderSize / 2);
+        float delay = (Obj.transform.position.z - regionStartPosition) / regionScript.speed;
+
+        //if (Obj.parent.parent != enviroment.GetChild(0))
+        //var delay = ((regionScript.regionSize / 2) - (borderSize / 2)) / regionScript.speed;
+
+        //Debug.Log(delay);
+
         yield return new WaitForSeconds(delay);
         Obj.gameObject.SetActive(true);
         var objSpeed = -Obj.gameObject.GetComponent<CreateDronePattern>().direction.z;
-        StartCoroutine(DeActivateObj(Obj, ((regionScript.regionSize) / (regionScript.speed - objSpeed))));
+        StartCoroutine(DeActivateObj(Obj, ((borderSize) / (regionScript.speed + objSpeed))));
     }
 
     IEnumerator DeActivateObj(Transform Obj, float time)

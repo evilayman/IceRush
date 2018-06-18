@@ -28,7 +28,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!1 &1288062374090742
 GameObject:
@@ -48,7 +48,7 @@ GameObject:
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1555463834957892
 GameObject:
@@ -63,7 +63,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1905575256372968
 GameObject:
@@ -78,7 +78,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4479190917434934
 Transform:
@@ -102,8 +102,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1555463834957892}
-  m_LocalRotation: {x: 0.16952562, y: 0.1925652, z: -0.033800796, w: 0.9659385}
-  m_LocalPosition: {x: -123.07799, y: 157.87146, z: 1221.2964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 50, z: -250}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4479190917434934}
@@ -116,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905575256372968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 5000}
+  m_LocalPosition: {x: 0, y: 50, z: 5300}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4479190917434934}
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0fb94e711332104aa4b52a1c39ba014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emissionColor: {r: 0, g: 1, b: 0.9958036, a: 0}
+  emissionColor: {r: 0, g: 0.98271894, b: 1, a: 1}
   intensity: 2
   myMats:
   - {fileID: 2100000, guid: 5562cf257950ae74897e96a8929d2773, type: 2}
@@ -330,6 +330,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b560ec6036f47f945919283cd072279d, type: 2}
   - {fileID: 2100000, guid: cafe609eca240244e887327b2626717f, type: 2}
   - {fileID: 2100000, guid: f7f74838e8c10a04eb1dd74ae358b7fd, type: 2}
+  - {fileID: 2100000, guid: 117a9e10991ab174d978cde199517569, type: 2}
+  - {fileID: 2100000, guid: 978c95b251236bb499e1c40c3243c028, type: 2}
+  - {fileID: 2100000, guid: 07e85b3ec4ec79c43a23111b200845f0, type: 2}
+  - {fileID: 2100000, guid: a325b16343f9b6747a744e293ef2fe23, type: 2}
+  - {fileID: 2100000, guid: 89773c861f2491841984c20876b6b874, type: 2}
 --- !u!114 &114786386210711670
 MonoBehaviour:
   m_ObjectHideFlags: 1

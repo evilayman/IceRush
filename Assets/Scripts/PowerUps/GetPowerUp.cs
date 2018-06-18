@@ -73,19 +73,18 @@ public class GetPowerUp : MonoBehaviour
 
         var randomValue = Random.Range(0, 100f);
 
-        //if (randomValue <= percList[0])
-        //    return UsePowerUp.PowerUpType.Rocket;
-        //else if (randomValue > percList[0] && randomValue <= percList[1])
-        //    return UsePowerUp.PowerUpType.Sheild;
-        //else if (randomValue > percList[1] && randomValue <= percList[2])
-        //    return UsePowerUp.PowerUpType.Teleport;
-        //else if (randomValue > percList[2] && randomValue <= percList[3])
-        //    return UsePowerUp.PowerUpType.Boost;
-        //else if (randomValue > percList[3] && randomValue <= percList[4])
-        //    return UsePowerUp.PowerUpType.Trap;
-        //else
-        //    return UsePowerUp.PowerUpType.None;
+        if (randomValue <= percList[0])
             return UsePowerUp.PowerUpType.Rocket;
+        else if (randomValue > percList[0] && randomValue <= percList[1])
+            return UsePowerUp.PowerUpType.Sheild;
+        else if (randomValue > percList[1] && randomValue <= percList[2])
+            return UsePowerUp.PowerUpType.Teleport;
+        else if (randomValue > percList[2] && randomValue <= percList[3])
+            return UsePowerUp.PowerUpType.Boost;
+        else if (randomValue > percList[3] && randomValue <= percList[4])
+            return UsePowerUp.PowerUpType.Trap;
+        else
+            return UsePowerUp.PowerUpType.None;
 
     }
 
