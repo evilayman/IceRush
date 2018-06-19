@@ -258,11 +258,11 @@
     <Compile Include="Assets\Scripts\Editor\TunnelMovmentEditor.cs" />
     <None Include="Assets\Helpers\Aura\Editor\Shaders\ColorFieldDrawerShader.shader" />
     <None Include="Assets\Helpers\Aura\Editor\Shaders\Texture3DPreviewShader.shader" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Edu/Unity Projects/IceRush/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Edu/Unity Projects/IceRush/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>D:/Edu/Unity Projects/IceRush/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity2018/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

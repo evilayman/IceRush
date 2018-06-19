@@ -839,6 +839,7 @@
     <Compile Include="Assets\Helpers\VRTK\Source\SDK\Ximmerse\SDK_XimmerseDefines.cs" />
     <Compile Include="Assets\Helpers\VRTK\Source\SDK\Ximmerse\SDK_XimmerseHeadset.cs" />
     <Compile Include="Assets\Helpers\VRTK\Source\SDK\Ximmerse\SDK_XimmerseSystem.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\BoundriesAlphaChange.cs" />
     <Compile Include="Assets\Scripts\BuildingColors.cs" />
     <Compile Include="Assets\Scripts\CheckPoint.cs" />
@@ -849,8 +850,6 @@
     <Compile Include="Assets\Scripts\DronePatternSystem\DroneVarScript.cs" />
     <Compile Include="Assets\Scripts\DronePatternSystem\ParentPoint.cs" />
     <Compile Include="Assets\Scripts\DroneRotation.cs" />
-    <Compile Include="Assets\Scripts\EmissionColor.cs" />
-    <Compile Include="Assets\Scripts\EnableAura.cs" />
     <Compile Include="Assets\Scripts\FollowLocalPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameRegion.cs" />
@@ -888,6 +887,7 @@
     <Compile Include="Assets\Scripts\PowerUps\ShieldScript.cs" />
     <Compile Include="Assets\Scripts\PowerUps\TeleportScript.cs" />
     <Compile Include="Assets\Scripts\PowerUps\UsePowerUp.cs" />
+    <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\Stats.cs" />
     <Compile Include="Assets\Scripts\TunnelMovment.cs" />
     <None Include="Assets\Helpers\PostProcessing\Resources\Shaders\DepthOfField.shader" />
@@ -1091,11 +1091,11 @@
     <None Include="Assets\Helpers\ProCore\Polybrush\Font\Apache License.txt" />
     <None Include="Assets\Helpers\ProCore\Polybrush\Shader\z_TextureBlendModulate_SfSrc.shader" />
     <None Include="Assets\Helpers\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Edu/Unity Projects/IceRush/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Edu/Unity Projects/IceRush/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>D:/Edu/Unity Projects/IceRush/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity2018/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

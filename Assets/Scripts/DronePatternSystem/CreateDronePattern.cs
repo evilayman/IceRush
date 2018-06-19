@@ -43,6 +43,8 @@ public class CreateDronePattern : MonoBehaviour
         AddChildren();
         //ResetPosition();
     }
+
+
     public void Update()
     {
         if (move)

@@ -11,9 +11,12 @@ public class ObjectsShowHide : MonoBehaviour
     private List<float> myObjsTime;
 
     private GameRegion regionScript;
+    private AudioManager AM;
 
     void Start()
     {
+        AM = FindObjectOfType<AudioManager>();
+
         regionScript = gameRegion.GetComponent<GameRegion>();
         myObjs = new List<Transform>();
         myObjsTime = new List<float>();
@@ -86,6 +89,8 @@ public class ObjectsShowHide : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
         Obj.gameObject.SetActive(true);
+        AM.Play("Laser", Obj.gameObject);
+
         var objSpeed = -Obj.gameObject.GetComponent<CreateDronePattern>().direction.z;
         StartCoroutine(DeActivateObj(Obj, ((borderSize) / (regionScript.speed + objSpeed))));
     }
