@@ -106,7 +106,7 @@ namespace VRTK
                 canvasBoxCollider = canvas.gameObject.AddComponent<BoxCollider>();
                 canvasBoxCollider.size = new Vector3(canvasSize.x, canvasSize.y, zScale);
                 canvasBoxCollider.center = new Vector3(canvasSize.x / 2 - canvasSize.x * pivot.x, canvasSize.y / 2 - canvasSize.y * pivot.y, zScale / 2f);
-                canvasBoxCollider.isTrigger = true;
+                canvasBoxCollider.isTrigger = false;
             }
 
             if (canvas.gameObject.GetComponent<Rigidbody>() == null)
