@@ -54,15 +54,15 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: f27dbb8bd0054fd4f9c3109d5cca1808, type: 3}
-    volume: 0.1
+    volume: 0.2
     pitch: 1
     spatialBlend: 0
     loop: 1
     source: {fileID: 0}
   - name: Laser
     clip: {fileID: 8300000, guid: fa4e7341050b0d14eba8b39a91d7e6d5, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
+    volume: 0.4
+    pitch: 2
+    spatialBlend: 1
     loop: 1
     source: {fileID: 0}

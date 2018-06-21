@@ -55,6 +55,7 @@ Shader "Environment Starter/Standard Intersection Mask" {
 		Tags { "RenderType"="Opaque" "Queue"="Geometry" }
 		LOD 200
 		ZWrite On
+		Cull back
 		CGPROGRAM
 		#pragma surface surf Standard vertex:vert addshadow
 		#pragma target 3.0
