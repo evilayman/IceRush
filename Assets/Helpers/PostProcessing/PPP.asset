@@ -29,7 +29,7 @@ MonoBehaviour:
     m_Settings:
       excludeSkybox: 1
   antialiasing:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       method: 0
       fxaaSettings:
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 1
+        intensity: 3.4
         threshold: 1.1
         softKnee: 0.5
         radius: 2
@@ -313,16 +313,16 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       colored: 0
-      intensity: 1
+      intensity: 0
       size: 3
       luminanceContribution: 1
   vignette:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      mode: 1
+      mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
-      center: {x: 0.49863058, y: 0.6}
-      intensity: 0
+      center: {x: 0.5, y: 0.5}
+      intensity: 0.2
       smoothness: 1
       roundness: 1
       mask: {fileID: 0}

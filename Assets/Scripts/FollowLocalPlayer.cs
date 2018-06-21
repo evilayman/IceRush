@@ -15,7 +15,7 @@ public class FollowLocalPlayer : MonoBehaviour
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (photonView.isMine || GM.Offline)
         {
@@ -25,7 +25,7 @@ public class FollowLocalPlayer : MonoBehaviour
             if (targetLerp)
             {
                 var targetLerpPos = new Vector3(targetLerp.transform.position.x, targetLerp.transform.position.y, transform.position.z);
-                targetLerp.transform.position = Vector3.Lerp(targetLerp.transform.position, targetLerpPos, lerpT    );
+                targetLerp.transform.position = Vector3.Lerp(targetLerp.transform.position, targetLerpPos, lerpT * Time.fixedDeltaTime);
             }
         }
 
