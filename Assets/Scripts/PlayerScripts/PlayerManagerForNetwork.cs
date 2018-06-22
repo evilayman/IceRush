@@ -18,7 +18,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     public PlayerState currentPlayerState;
     public float fadeTime, slowTime, respwanTime, pauseColTime, pauseSlowTime;
 
-    private Vector3 spawnPoint;
+    public Transform spawnPoint;
     private PhotonView photonView;
     private GameManager GM;
 
@@ -36,18 +36,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
             inBoostRegion = value;
         }
     }
-    public Vector3 SpawnPoint
-    {
-        get
-        {
-            return spawnPoint;
-        }
 
-        set
-        {
-            spawnPoint = value;
-        }
-    }
     public bool IsDead
     {
         get
@@ -144,7 +133,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         currentPlayerState = PlayerState.Stopped;
         yield return new WaitForSeconds(respwanTime);
         inRespwan = false;
-        transform.position = SpawnPoint;
+        transform.position = spawnPoint.position;
         currentPlayerState = PlayerState.Normal;
         FadeFromBlack(fadeTime);
 

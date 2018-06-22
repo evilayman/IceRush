@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectsShowHide : MonoBehaviour
 {
     public Transform gameRegion, enviroment;
-    public float borderSize;
+    public float borderSize, startPositionsLimit;
 
     private List<Transform> myObjs;
     private List<float> myObjsTime;
@@ -57,8 +57,13 @@ public class ObjectsShowHide : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             myObjs.Add(parent.GetChild(i).transform);
-            if (parent.GetChild(i).transform.position.z < 500 && parent.GetChild(i).tag != "Drone")
+            if (parent.GetChild(i).transform.position.z < startPositionsLimit && parent.GetChild(i).tag != "Drone")
                 parent.GetChild(i).transform.gameObject.SetActive(true);
+            else if(parent.GetChild(i).tag == "Drone")
+            {
+                parent.GetChild(i).transform.localScale = Vector3.zero;
+                parent.GetChild(i).transform.gameObject.SetActive(false);
+            }
             else
                 parent.GetChild(i).transform.gameObject.SetActive(false);
 
