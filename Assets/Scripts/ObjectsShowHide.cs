@@ -13,6 +13,9 @@ public class ObjectsShowHide : MonoBehaviour
     private GameRegion regionScript;
     private AudioManager AM;
 
+    private float startTime;
+    private bool started = false;
+
     void Start()
     {
         AM = FindObjectOfType<AudioManager>();
@@ -23,7 +26,14 @@ public class ObjectsShowHide : MonoBehaviour
 
         GetRegions(enviroment);
         myObjs.Sort(CompareTransform);
+    }
+
+    public void StartShow()
+    {
+        started = true;
+        startTime = Time.time;
         myObjsTime = SetActiveTime(myObjs);
+
     }
 
     void GetRegions(Transform parent)
@@ -47,7 +57,11 @@ public class ObjectsShowHide : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             myObjs.Add(parent.GetChild(i).transform);
-            parent.GetChild(i).transform.gameObject.SetActive(false);
+            if (parent.GetChild(i).transform.position.z < 500 && parent.GetChild(i).tag != "Drone")
+                parent.GetChild(i).transform.gameObject.SetActive(true);
+            else
+                parent.GetChild(i).transform.gameObject.SetActive(false);
+
         }
     }
 
@@ -111,7 +125,7 @@ public class ObjectsShowHide : MonoBehaviour
         for (int i = 0; i < myObjs.Count; i++)
         {
             time = (myObjs[i].transform.position.z - regionStartPosition) / regionScript.speed;
-            temp.Add(time);
+            temp.Add(time + startTime);
         }
 
         return temp;

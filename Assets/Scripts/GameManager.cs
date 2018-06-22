@@ -14,23 +14,18 @@ public class GameManager : MonoBehaviour
         endGame
     }
 
-
-    //public List<GameObject> regions;
     public GameState currentState;
     public Transform finishLine, deadZone;
-    public GameObject deadPlayer/*, player*/;
+    public GameObject deadPlayer;
     public TextMeshPro debugText;
+    private bool endWithOne;
 
     private List<GameObject> myPlayersSorted, finishedPlayers;
     private List<float> finishTime;
 
     private int playersLoaded, playerList;
-    private float waitTime/*, compNum*/;
-    //[SerializeField]
-    //private float RegionSize;
+    private float waitTime;
     private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait, offline = true;
-    //private int currentRegion;
-    //private GameObject region;
     public int PlayersLoaded
     {
         get
@@ -56,7 +51,6 @@ public class GameManager : MonoBehaviour
             offline = value;
         }
     }
-
     public List<GameObject> MyPlayersSorted
     {
         get
@@ -76,15 +70,14 @@ public class GameManager : MonoBehaviour
         finishedPlayers = new List<GameObject>();
         finishTime = new List<float>();
         playerList = PhotonNetwork.playerList.Length;
-        //player = GameObject.FindGameObjectWithTag("Player");
-        //compNum = RegionSize * 2;
-        //currentRegion = 1;
+
+        if (playerList > 1)
+            endWithOne = true;
+
         if (Offline)
         {
             currentState = GameState.inGame;
         }
-
-        
     }
 
     [PunRPC]
@@ -151,11 +144,14 @@ public class GameManager : MonoBehaviour
                 {
                     inGameFirstTime = true;
                     AddPlayers();
+                    GetComponent<ObjectsShowHide>().StartShow();
                 }
+                CheckSurvivingPlayers();
                 MyPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
             case GameState.goalReached:
+                CheckSurvivingPlayers();
                 MyPlayersSorted.Sort(SortByDistance);
                 CheckFinishLine();
                 break;
@@ -169,6 +165,17 @@ public class GameManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void CheckSurvivingPlayers()
+    {
+        if(endWithOne && MyPlayersSorted.Count <= 1)
+        {
+            finishedPlayers.Add(MyPlayersSorted[0]);
+            finishTime.Add(Time.time);
+            MyPlayersSorted.RemoveAt(0);
+            currentState = GameState.endGame;
         }
     }
 

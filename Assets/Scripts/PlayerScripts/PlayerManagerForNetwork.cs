@@ -48,7 +48,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
             spawnPoint = value;
         }
     }
-
     public bool IsDead
     {
         get
@@ -168,7 +167,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
         yield return new WaitForSeconds(pauseSlowTime);
         canSlow = true;
     }
-
 
     private IEnumerator Death()
     {
