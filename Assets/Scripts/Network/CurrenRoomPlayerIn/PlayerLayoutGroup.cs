@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerLayoutGroup : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class PlayerLayoutGroup : MonoBehaviour
         get { return _playerListingPrefab; }
     }
     [SerializeField]
-    private Text roomState;
+    private TextMeshProUGUI roomState;
 
     private List<PlayerListing> _playerListings = new List<PlayerListing>();
     private List<PlayerListing> PlayerListings
@@ -33,7 +34,7 @@ public class PlayerLayoutGroup : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        MainCanvasManager.Instance.CurrentRoomCanvas.transform.SetAsLastSibling();
+        //MainCanvasManager.Instance.CurrentRoomCanvas.transform.SetAsLastSibling();
         PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
         for (int i = 0; i < photonPlayers.Length; i++)
         {

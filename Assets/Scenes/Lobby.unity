@@ -238,12 +238,12 @@ Prefab:
     - target: {fileID: 224806576226475508, guid: 41c5a027d34bb3947bc4c3dcf2201cd6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00003666495
+      value: 0.000024740471
       objectReference: {fileID: 0}
     - target: {fileID: 224448961871594494, guid: 41c5a027d34bb3947bc4c3dcf2201cd6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00003286929
+      value: 0.000029560159
       objectReference: {fileID: 0}
     - target: {fileID: 1482535866897146, guid: 41c5a027d34bb3947bc4c3dcf2201cd6, type: 2}
       propertyPath: m_IsActive
@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404c316885a451d4e900d4bca8ab2def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPlayers: {fileID: 0}
   playerName: {fileID: 0}
   _roomName: {fileID: 0}
 --- !u!114 &748530964
@@ -371,8 +372,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 999
-  instantiationId: 999
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &748530965
