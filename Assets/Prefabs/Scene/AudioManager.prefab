@@ -54,9 +54,11 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: f27dbb8bd0054fd4f9c3109d5cca1808, type: 3}
-    volume: 0.2
+    volume: 0.5
     pitch: 1
     spatialBlend: 0
+    rollOff: 0
+    maxDistance: 500
     loop: 1
     source: {fileID: 0}
   - name: Laser
@@ -64,5 +66,34 @@ MonoBehaviour:
     volume: 0.4
     pitch: 2
     spatialBlend: 1
+    rollOff: 0
+    maxDistance: 500
+    loop: 1
+    source: {fileID: 0}
+  - name: WalkAtAt
+    clip: {fileID: 8300000, guid: ce4d1a249248cb0459e6abde6cb6e108, type: 3}
+    volume: 0.12
+    pitch: 1
+    spatialBlend: 1
+    rollOff: 1
+    maxDistance: 1000
+    loop: 0
+    source: {fileID: 0}
+  - name: ScreamATAT
+    clip: {fileID: 8300000, guid: 740d67790bf0ca143acced99ca83ef1e, type: 3}
+    volume: 0.5
+    pitch: 1
+    spatialBlend: 1
+    rollOff: 1
+    maxDistance: 1000
+    loop: 0
+    source: {fileID: 0}
+  - name: Wind
+    clip: {fileID: 8300000, guid: 2aadecf546529c642bd505685aa15cbc, type: 3}
+    volume: 0.2
+    pitch: 1
+    spatialBlend: 0
+    rollOff: 1
+    maxDistance: 1000
     loop: 1
     source: {fileID: 0}

@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private int playersLoaded, playerList;
     private float waitTime;
     private bool inGameFirstTime, endGameFirstTime, stopCheck, startWait, offline = true;
+    private AudioManager AM;
+
     public int PlayersLoaded
     {
         get
@@ -66,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        AM = FindObjectOfType<AudioManager>();
         MyPlayersSorted = new List<GameObject>();
         finishedPlayers = new List<GameObject>();
         finishTime = new List<float>();
@@ -145,6 +148,8 @@ public class GameManager : MonoBehaviour
                     inGameFirstTime = true;
                     AddPlayers();
                     GetComponent<ObjectsShowHide>().StartShow();
+                    GameObject GM = new GameObject();
+                    AM.Play("Theme", Instantiate(GM, transform));
                 }
                 CheckSurvivingPlayers();
                 MyPlayersSorted.Sort(SortByDistance);

@@ -9,7 +9,9 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Play("Theme", gameObject);
+        GameObject GM = new GameObject();
+        //Play("Theme", Instantiate(GM, transform));
+        Play("Wind", Instantiate(GM, transform));
     }
 
     public void Play(string name, GameObject sourceObj)
@@ -19,11 +21,16 @@ public class AudioManager : MonoBehaviour
         if (s == null)
             return;
 
-        s.source = sourceObj.AddComponent<AudioSource>();
-        s.source.clip = s.clip;
-        s.source.volume = s.volume;
-        s.source.spatialBlend = s.spatialBlend;
-        s.source.loop = s.loop;
+        if(!sourceObj.GetComponent<AudioSource>())
+        {
+            s.source = sourceObj.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.volume = s.volume;
+            s.source.spatialBlend = s.spatialBlend;
+            s.source.loop = s.loop;
+            s.source.rolloffMode = s.rollOff;
+            s.source.maxDistance = s.maxDistance;
+        }
 
         s.source.Play();
     }

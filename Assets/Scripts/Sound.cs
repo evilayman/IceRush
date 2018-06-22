@@ -17,8 +17,11 @@ public class Sound
     [Range(0f, 1f)]
     public float spatialBlend;
 
+    public AudioRolloffMode rollOff;
+    public float maxDistance;
     public bool loop;
 
+    
     [HideInInspector]
     public AudioSource source;
 

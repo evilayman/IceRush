@@ -98,6 +98,10 @@ public class PlayerManagerForNetwork : MonoBehaviour
             {
                 StartCoroutine(Respwan());
             }
+            else if(collision.gameObject.tag == "ATAT")
+            {
+                photonView.RPC("RPC_Death", PhotonTargets.All);
+            }
         }
     }
 
