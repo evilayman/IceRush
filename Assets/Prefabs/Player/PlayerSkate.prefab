@@ -702,7 +702,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1341453462631164
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -903,7 +903,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1479917927911868
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -2462,7 +2462,7 @@ Transform:
   - {fileID: 4493574093210440}
   - {fileID: 4899308169920444}
   m_Father: {fileID: 4897801171375770}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4194779274483636
 Transform:
@@ -2781,6 +2781,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161100260114638}
+  - {fileID: 4975125663660372}
   m_Father: {fileID: 4546601625009202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3024,6 +3025,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4816081606187700}
+  - {fileID: 4898913672807784}
   m_Father: {fileID: 4546601625009202}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3500,11 +3502,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084356354881532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4975125663660372}
-  - {fileID: 4898913672807784}
   - {fileID: 4194256156410428}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3520,7 +3520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4494749967210896}
-  m_Father: {fileID: 4897801171375770}
+  m_Father: {fileID: 4542013914170694}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4899308169920444
@@ -3645,8 +3645,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4793209232602460}
-  m_Father: {fileID: 4897801171375770}
-  m_RootOrder: 0
+  m_Father: {fileID: 4436898580523732}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20369939738687232
 Camera:
@@ -4662,7 +4662,7 @@ MonoBehaviour:
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactUse: {fileID: 0}
-  customOrigin: {fileID: 4975125663660372}
+  customOrigin: {fileID: 0}
   controller: {fileID: 114375797739046338}
 --- !u!114 &114283477693962498
 MonoBehaviour:
@@ -4861,8 +4861,8 @@ MonoBehaviour:
     maxAllowedPerFrameAngleDifference: 1.5
   validCollisionColor: {r: 0, g: 1, b: 0, a: 1}
   invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
-  tracerVisibility: 0
-  cursorVisibility: 0
+  tracerVisibility: 1
+  cursorVisibility: 1
   maximumLength: 100
   scaleFactor: 0.002
   cursorScaleMultiplier: 25
@@ -5367,9 +5367,9 @@ MonoBehaviour:
   maximumLength: Infinity
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
-  customOrigin: {fileID: 4975125663660372}
+  customOrigin: {fileID: 4436898580523732}
   controller: {fileID: 114375797739046338}
-  pointerOriginTransform: {fileID: 4975125663660372}
+  pointerOriginTransform: {fileID: 4436898580523732}
   hoveringElement: {fileID: 0}
   controllerRenderModel: {fileID: 0}
   hoverDurationTimer: 0
@@ -5490,8 +5490,8 @@ MonoBehaviour:
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactUse: {fileID: 0}
-  customOrigin: {fileID: 0}
-  controller: {fileID: 0}
+  customOrigin: {fileID: 4542013914170694}
+  controller: {fileID: 114993238864784306}
 --- !u!114 &114914788137733168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5579,9 +5579,9 @@ MonoBehaviour:
   maximumLength: Infinity
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
-  customOrigin: {fileID: 0}
-  controller: {fileID: 0}
-  pointerOriginTransform: {fileID: 0}
+  customOrigin: {fileID: 4542013914170694}
+  controller: {fileID: 114993238864784306}
+  pointerOriginTransform: {fileID: 4542013914170694}
   hoveringElement: {fileID: 0}
   controllerRenderModel: {fileID: 0}
   hoverDurationTimer: 0
