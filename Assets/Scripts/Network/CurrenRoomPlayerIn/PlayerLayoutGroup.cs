@@ -7,6 +7,10 @@ using TMPro;
 public class PlayerLayoutGroup : MonoBehaviour
 {
     [SerializeField]
+    private GameObject chosenRoom;
+    [SerializeField]
+    private GameObject roomsList;
+    [SerializeField]
     private GameObject _playerListingPrefab;
     private GameObject PlayerListingPrefab
     {
@@ -25,6 +29,9 @@ public class PlayerLayoutGroup : MonoBehaviour
     private void OnMasterClientSwitched(PhotonPlayer newMasterClient)
     {
         PhotonNetwork.LeaveRoom();
+        chosenRoom.SetActive(false);
+        roomsList.SetActive(true);
+
     }
 
     //this function is called by photon when you join a room
@@ -70,7 +77,7 @@ public class PlayerLayoutGroup : MonoBehaviour
         //incase there's a delay in network and a player is added twice
         PlayerLeftRoom(photonPlayer);
 
-        GameObject playerListingObj=Instantiate(PlayerListingPrefab);
+        GameObject playerListingObj = Instantiate(PlayerListingPrefab);
         playerListingObj.transform.SetParent(transform, false);
 
         PlayerListing playerListing = playerListingObj.GetComponent<PlayerListing>();
@@ -97,6 +104,7 @@ public class PlayerLayoutGroup : MonoBehaviour
 
     public void OnClickLeaveRoom()
     {
+     
         PhotonNetwork.LeaveRoom();
     }
 
