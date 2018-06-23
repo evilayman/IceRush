@@ -964,7 +964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1280593324309458
 GameObject:
   m_ObjectHideFlags: 1
@@ -4173,8 +4173,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875299719580756}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.7}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: -0.7, z: -1.7}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 224051619476184820}
@@ -4210,7 +4210,7 @@ Transform:
   - {fileID: 224807216434842518}
   m_Father: {fileID: 4490377062016488}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!4 &4398874904377458
 Transform:
   m_ObjectHideFlags: 1
@@ -4324,8 +4324,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1479353021490610}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.7}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: -0.7, z: -1.7}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 224149345139744072}
@@ -4361,7 +4361,7 @@ Transform:
   - {fileID: 224616497573991790}
   m_Father: {fileID: 4490377062016488}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!4 &4524421766574804
 Transform:
   m_ObjectHideFlags: 1
@@ -8985,7 +8985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastingSource: {fileID: 0}
   target: {fileID: 1479353021490610}
-  clickInputName: Fire1
+  clickInputName: VRTrigger
 --- !u!114 &114013224542386740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9470,11 +9470,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -10160,11 +10160,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -10914,11 +10914,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -11171,7 +11171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastingSource: {fileID: 0}
   target: {fileID: 1875299719580756}
-  clickInputName: Fire1
+  clickInputName: VRTrigger
 --- !u!114 &114328719719062092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11998,11 +11998,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -12206,11 +12206,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -12610,11 +12610,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -13034,11 +13034,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -13402,7 +13402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curvature: 0.88
   raycastingSource: {fileID: 0}
-  clickHandle: Fire1
+  clickHandle: VRTrigger
   keyNormalMaterial: {fileID: 2100000, guid: bb7654ca046610943934aa8af4730ef9, type: 2}
   keySelectedMaterial: {fileID: 2100000, guid: 30b8943c5725ffd44ba63d75bdd6babf, type: 2}
   keyPressedMaterial: {fileID: 2100000, guid: 9c5964a2bd15adc498e38750d0db6a76, type: 2}
@@ -13410,7 +13410,7 @@ MonoBehaviour:
   space: {fileID: 114201391419884484}
   referencedPixels: 1
   centerPointDistance: 8.2223
-  wasStaticOnStart: 0
+  wasStaticOnStart: 1
 --- !u!114 &114589405811923380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13995,7 +13995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curvature: 0.88
   raycastingSource: {fileID: 0}
-  clickHandle: Fire1
+  clickHandle: VRTrigger
   keyNormalMaterial: {fileID: 2100000, guid: bb7654ca046610943934aa8af4730ef9, type: 2}
   keySelectedMaterial: {fileID: 2100000, guid: 30b8943c5725ffd44ba63d75bdd6babf, type: 2}
   keyPressedMaterial: {fileID: 2100000, guid: 9c5964a2bd15adc498e38750d0db6a76, type: 2}
@@ -14846,11 +14846,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -15335,11 +15335,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
