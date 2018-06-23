@@ -41,7 +41,37 @@ ModelImporter:
     4300006: Shoe_low
     4300008: Hair_low
     4300010: Clothe_low
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_low
+    second: {fileID: 2100000, guid: 810c09d612eecc04dba96006c6a14423, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clothe_low
+    second: {fileID: 2100000, guid: 850304e060640264a836a42b8409b16c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass_low
+    second: {fileID: 2100000, guid: 9748e138adb0ba84ea7ba93245f5cf08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair_low
+    second: {fileID: 2100000, guid: 9ac09b4c272c70c46acea718d56362e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_low
+    second: {fileID: 2100000, guid: 34b16847055ff004a90a8bd2e651bd74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoe_low
+    second: {fileID: 2100000, guid: 25016eafa7fcae54092636e63a1da1a2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -72,7 +102,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.085
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -91,7 +121,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

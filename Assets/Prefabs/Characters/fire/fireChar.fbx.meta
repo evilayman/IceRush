@@ -53,7 +53,47 @@ ModelImporter:
     4300010: Belt_low
     4300012: Belt2_low
     4300014: Clothe_low
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bag_low
+    second: {fileID: 2100000, guid: 00c9a1d5e0c5a9f45994869a53d22b66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Belt2_low
+    second: {fileID: 2100000, guid: 371f2342a70cf194bafe42935156b36b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Belt_low
+    second: {fileID: 2100000, guid: 0ef5cdb79528ecb4e964d5141aa2dad7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clothe_low
+    second: {fileID: 2100000, guid: 3ea3c1aa9b79d12448bff14b1356d4c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_low
+    second: {fileID: 2100000, guid: f2923b22f04787f408bb104490ed31e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hand_low
+    second: {fileID: 2100000, guid: de3ff5eb4bc98ed46bd06a048cfba669, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mask_low
+    second: {fileID: 2100000, guid: 27bbb7f4517cf8b47a776102de93f876, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoe_low
+    second: {fileID: 2100000, guid: 73d2cfeac8aa7314bbe4d3e593f63c6f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -84,7 +124,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.085
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -103,7 +143,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

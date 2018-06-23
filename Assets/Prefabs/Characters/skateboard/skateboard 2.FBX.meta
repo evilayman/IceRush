@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1bf50282989aad4ab8d663707b66dd6
+guid: 5fcd612bafdbf254e9a49860e2703344
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -17,7 +17,19 @@ ModelImporter:
     3300002: Plane001
     4300000: Plane001
     4300002: Cylinder001
-  externalObjects: {}
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: 544b9e228f8a1c0449d7b264e5feddcf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: f5ee1b6b8e4d8584c880659bbbe8a579, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -48,7 +60,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.05
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -67,7 +79,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -92,7 +104,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
