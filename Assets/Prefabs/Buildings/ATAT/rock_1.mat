@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: b3_02
-  m_Shader: {fileID: 4800000, guid: 0028366432aa15145818e57304494b4e, type: 3}
-  m_ShaderKeywords: _EMISSION _SNOWMODE_ON _SPECGLOSSMAP
-  m_LightmapFlags: 1
+  m_Name: rock_1
+  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _SPECGLOSSMAP
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 9b2bff87549c9374f8bef3b2bb5d7031, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -35,19 +35,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 5318920c24170784ba10f8f8bb6c7c45, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _IntersectionBump:
-        m_Texture: {fileID: 2800000, guid: 09fef9dc6c1693a4491de16a53ee2eec, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _IntersectionMap:
-        m_Texture: {fileID: 2800000, guid: 4e87cfc3cdb6ee84aaa39b63abae7e67, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 74963593efe616946ba940da80e479e0, type: 3}
+        m_Texture: {fileID: 2800000, guid: fa567ab01c63eba4d90d0d2005159411, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -63,44 +55,27 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: fea3f8f6b075a39499ba6bacd2a2d4d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: b40c726da07700b43a60c091b0a2b992, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AlphaDeflate: 0
-    - _BlueInflate: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthFactor: 0.06
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
-    - _GreenSub: 0
-    - _InflateGround: 0
-    - _IntersectionPow: 5.78
-    - _IntersectionScale: 0.05
-    - _IntersectionThresholdMax: 0.09
-    - _MaskMult: 1
-    - _MaskPow: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RedAdd: 0
     - _SmoothnessTextureChannel: 0
-    - _SnowMode: 1
-    - _SnowMult: 3
-    - _SnowPow: -5
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _YOffset: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.34233716, g: 0.40896326, b: 0.46226418, a: 1}
     - _EmissionColor: {r: 0, g: 1.5215693, b: 2, a: 0}
-    - _IntersectionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TargetNormal: {r: 0, g: 1, b: 0, a: 1}
+    - _SpecColor: {r: 0.19999993, g: 0.19999993, b: 0.19999993, a: 1}

@@ -280,7 +280,42 @@ ModelImporter:
     13700004: Object010
     13700006: Object011
     13700008: Object012
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body1
+    second: {fileID: 2100000, guid: 7903bdce66e9d2f4cbd36ac892f32ba0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass1
+    second: {fileID: 2100000, guid: 7129e49680bf4064eb1c5cdc74ec2193, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock_1
+    second: {fileID: 2100000, guid: 8fe89c2aecf52d945bc714232e61de1a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rusty_steel1
+    second: {fileID: 2100000, guid: 4df5b62372e040345b241b5e1fe6d93f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: steel1
+    second: {fileID: 2100000, guid: b2d10ed5fdb2ba64e8c7824124c82c3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wire1
+    second: {fileID: 2100000, guid: 9681ee776c477ec49a793e3fc90e3fcf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wire_088144225_003
+    second: {fileID: 2100000, guid: 90139ce2b86e0ee48821e888a604a29b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
