@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class RoomManager : MonoBehaviour
 {
-    
     [SerializeField]
-    private Text playerName;
+    private TextMeshProUGUI maxPlayers;
     [SerializeField]
-    private Text _roomName;
-    private Text RoomName
+    private TextMeshProUGUI playerName;
+    [SerializeField]
+    private TextMeshProUGUI _roomName;
+    private TextMeshProUGUI RoomName
     {
         get { return _roomName; }
     }
@@ -24,16 +26,30 @@ public class RoomManager : MonoBehaviour
     }
     public void OnEndEditingPlayerName()
     {
+
         PhotonNetwork.playerName = playerName.text;
+        print(PhotonNetwork.playerName);
     }
     public void OnClick_CreateRoom()
     {
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 3 }; 
-        if (PhotonNetwork.CreateRoom(RoomName.text,roomOptions,TypedLobby.Default))
+        int maxPlayersInRoom = int.Parse(maxPlayers.text);
+        if (maxPlayersInRoom > 3)
         {
-            //print("created room succseffuly");
-               
+            maxPlayersInRoom = 3;
         }
+        if (maxPlayersInRoom < 2)
+        {
+            maxPlayersInRoom = 2;
+        }
+
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)maxPlayersInRoom };
+        if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
+        {
+            print("created room succseffuly");
+
+        }
+       
+
     }
 
     private void OnPhotonCreateRoomFailed(object[] codeAndMessage)

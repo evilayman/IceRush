@@ -22,6 +22,7 @@ public class MyClient : MonoBehaviour
     {
 
         //string playerName = "Player" + Random.Range(0, 1000);
+        print("connected to Master");
         PhotonNetwork.automaticallySyncScene = true;
        
         PhotonNetwork.JoinLobby(TypedLobby.Default);
@@ -30,11 +31,13 @@ public class MyClient : MonoBehaviour
     private void OnJoinedLobby()
     {
         //ConnectPanel.SetActive(true);
-        //print("joined lobby");
-        if (!PhotonNetwork.inRoom)
-        {
-            MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
-        }
+        print("joined lobby");
+
+        //next if statment is commented before integrating new ui
+        //if (!PhotonNetwork.inRoom)
+        //{
+        //    MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
+        //}
         
     }
 

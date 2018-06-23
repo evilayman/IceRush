@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerListing  : MonoBehaviour
 {
     public PhotonPlayer PhotonPlayer { get; private set; }
     [SerializeField]
-    private Text playerName;
-    private Text PlayerName
+    private TextMeshProUGUI playerName;
+    private TextMeshProUGUI PlayerName
     {
         get { return playerName; }
     }

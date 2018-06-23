@@ -16,7 +16,7 @@ public class LobbyCanvas : MonoBehaviour
       
         if (PhotonNetwork.JoinRoom(roomName))
         {
-            
+            print("joined room");
         }
         else
 	    {
