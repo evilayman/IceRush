@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 224643896659358882}
   - component: {fileID: 222633456999594290}
   - component: {fileID: 114625298804785350}
+  - component: {fileID: 114680337963093172}
   m_Layer: 5
   m_Name: RoomsNameLable
   m_TagString: Untagged
@@ -943,6 +944,17 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114680337963093172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947266139654316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71956ee6ae13dbc4f899b2bce9c1769c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114694249818506676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1471,7 +1483,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015239034}
+  m_AnchoredPosition: {x: 0, y: -0.000045776367}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224946606549428286

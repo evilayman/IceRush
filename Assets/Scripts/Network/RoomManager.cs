@@ -14,14 +14,15 @@ public class RoomManager : MonoBehaviour
     [SerializeField]
     private GameObject createRoomMenu;
     [SerializeField]
-    private GameObject chosenRoom;
+    private GameObject chosenRoomMenu;
     [SerializeField]
     private TextMeshProUGUI maxPlayers;
     [SerializeField]
     private TextMeshProUGUI playerName;
     [SerializeField]
     private TextMeshProUGUI _roomName;
-    private TextMeshProUGUI RoomName
+    [HideInInspector]
+    public TextMeshProUGUI RoomName
     {
         get { return _roomName; }
     }
@@ -45,10 +46,14 @@ public class RoomManager : MonoBehaviour
     public void OnClick_CreateRoom()
     {
         int maxPlayersInRoom;
-        if (_roomName.text.Length >= 3 && maxPlayers.text.Length >= 3)
+        print("before if statement");
+        if (_roomName.text.Length >= 3 && maxPlayers.text.Length == 2)
         {
+            print(_roomName.text.Length);
+            print(maxPlayers.text.Length);
             if (int.TryParse(maxPlayers.text, out maxPlayersInRoom))
             {
+                print("tryparse succeded");
                 if (maxPlayersInRoom > 3)
                 {
                     maxPlayersInRoom = 3;
@@ -62,6 +67,8 @@ public class RoomManager : MonoBehaviour
                 if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
                 {
                     print("created room succseffuly");
+                    createRoomMenu.SetActive(false);
+                    chosenRoomMenu.SetActive(true);
 
                 }
             }
