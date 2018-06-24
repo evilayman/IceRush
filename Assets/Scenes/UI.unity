@@ -53,7 +53,7 @@ LightmapSettings:
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 0
+    m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 10
     m_Resolution: 2
@@ -11680,6 +11680,26 @@ Prefab:
     - target: {fileID: 4651679401809372, guid: f3e9cbb2189817a46a34860fe910a21d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 23821163554086836, guid: f3e9cbb2189817a46a34860fe910a21d,
+        type: 2}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23603086188033002, guid: f3e9cbb2189817a46a34860fe910a21d,
+        type: 2}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23827457381465936, guid: f3e9cbb2189817a46a34860fe910a21d,
+        type: 2}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23235225668145578, guid: f3e9cbb2189817a46a34860fe910a21d,
+        type: 2}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f3e9cbb2189817a46a34860fe910a21d, type: 2}
