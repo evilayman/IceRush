@@ -22,7 +22,7 @@ public class PlayerNetwork : MonoBehaviour
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Main")
+        if (scene.name == "MainOld")
         {
             if (PhotonNetwork.isMasterClient)
             {
@@ -50,7 +50,7 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_LoadGameForOthers()
     {
-        PhotonNetwork.LoadLevel("Main");
+        PhotonNetwork.LoadLevel("MainOld");
     }
 
     [PunRPC]

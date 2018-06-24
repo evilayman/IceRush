@@ -8,7 +8,8 @@ public class UsePowerUp : MonoBehaviour
     private PlayerManagerForNetwork playerManager;
     private TeleportScript teleport;
     [SerializeField]
-    float teleportDistance,boostTime;
+    float teleportDistance, boostTime;
+    private bool teleportPSIsPlaying;
     public enum PowerUpType
     {
         None,
@@ -33,21 +34,50 @@ public class UsePowerUp : MonoBehaviour
         }
     }
 
+    public float TeleportDistance
+    {
+        get
+        {
+            return teleportDistance;
+        }
+
+        set
+        {
+            teleportDistance = value;
+        }
+    }
+
     private PhotonView photonView;
     private GameObject myPower;
 
     private void Start()
     {
         playerManager = GetComponent<PlayerManagerForNetwork>();
-        teleport = new TeleportScript();
+        teleport = (TeleportScript)FindObjectOfType(typeof(TeleportScript));
         photonView = GetComponent<PhotonView>();
     }
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Space) && photonView.isMine)
+        {
+            if (CurrentPower == PowerUpType.Teleport)
+            {
+                UsePower();
+                teleport.StopPlayingTeleportPS();
+                teleportPSIsPlaying = false;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Space) && photonView.isMine)
         {
-            UsePower();
+            if (CurrentPower != PowerUpType.Teleport)
+                UsePower();
+            if (CurrentPower == PowerUpType.Teleport && !teleportPSIsPlaying)
+            {
+                teleportPSIsPlaying = true;
+                teleport.StartPlayingTeleportPS();
+            }
         }
+
     }
 
     private void UsePower()
@@ -63,7 +93,7 @@ public class UsePowerUp : MonoBehaviour
                 gameObject.transform.Find("ShieldInnerChild").gameObject.SetActive(true);
                 break;
             case PowerUpType.Boost:
-                playerManager.StartCoroutine("BoostPlayer",new object[] { boostTime});
+                playerManager.StartCoroutine("BoostPlayer", new object[] { boostTime });
                 break;
             case PowerUpType.Trap:
                 break;

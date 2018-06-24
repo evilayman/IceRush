@@ -46,14 +46,11 @@ public class RoomManager : MonoBehaviour
     public void OnClick_CreateRoom()
     {
         int maxPlayersInRoom;
-        print("before if statement");
+
         if (_roomName.text.Length >= 3 && maxPlayers.text.Length == 2)
         {
-            print(_roomName.text.Length);
-            print(maxPlayers.text.Length);
             if (int.TryParse(maxPlayers.text, out maxPlayersInRoom))
             {
-                print("tryparse succeded");
                 if (maxPlayersInRoom > 3)
                 {
                     maxPlayersInRoom = 3;
@@ -66,7 +63,6 @@ public class RoomManager : MonoBehaviour
                 RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)maxPlayersInRoom };
                 if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
                 {
-                    print("created room succseffuly");
                     createRoomMenu.SetActive(false);
                     chosenRoomMenu.SetActive(true);
 
