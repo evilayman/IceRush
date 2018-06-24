@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.0009
+  m_FogDensity: 0.0014
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -961,16 +961,6 @@ Prefab:
     - target: {fileID: 1084356354881532, guid: 3bdd0970e285bce45b041334ccf0de12, type: 2}
       propertyPath: m_Name
       value: SDKScripts
-      objectReference: {fileID: 0}
-    - target: {fileID: 114971497689804474, guid: 3bdd0970e285bce45b041334ccf0de12,
-        type: 2}
-      propertyPath: activationMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114971497689804474, guid: 3bdd0970e285bce45b041334ccf0de12,
-        type: 2}
-      propertyPath: activationButton
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdd0970e285bce45b041334ccf0de12, type: 2}
