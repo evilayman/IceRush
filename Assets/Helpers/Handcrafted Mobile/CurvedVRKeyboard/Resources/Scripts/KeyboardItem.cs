@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using VRTK;
 
 namespace CurvedVRKeyboard {
     public class KeyboardItem : KeyboardComponent {
@@ -30,7 +31,7 @@ namespace CurvedVRKeyboard {
         private const string QUAD_FRONT = "Front";
         private const string MAIN_TEXURE_NAME_IN_SHADER = "_MainTex";
 
-
+        private VRTK_ControllerEvents left, right;
 
         public enum KeyMaterialEnum {
             Normal, Selected, Pressed
@@ -47,6 +48,13 @@ namespace CurvedVRKeyboard {
             }
         }
 
+        private void Start()
+        {
+            var hands = FindObjectsOfType<VRTK_ControllerEvents>();
+            left = hands[0];
+            right = hands[1];
+        }
+
         /// <summary>
         /// Handle for hover function
         /// </summary>
@@ -54,7 +62,12 @@ namespace CurvedVRKeyboard {
             if(!clicked) {// Is not already being clicked?
                 ChangeDisplayedMaterial(keySelectedMaterial);
             }
-            else {
+            else
+            {
+                if(left.triggerPressed || right.triggerPressed)
+                {
+                    Click();
+                }
                 HoldClick();
             }
         }

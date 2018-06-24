@@ -702,7 +702,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1341453462631164
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -710,9 +710,6 @@ GameObject:
   - component: {fileID: 4898913672807784}
   - component: {fileID: 114993238864784306}
   - component: {fileID: 114629228306223512}
-  - component: {fileID: 114982996900193040}
-  - component: {fileID: 114381320385551774}
-  - component: {fileID: 114283477693962498}
   - component: {fileID: 114971497689804474}
   - component: {fileID: 114851570408493172}
   - component: {fileID: 114373623571095802}
@@ -903,7 +900,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1479917927911868
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -2781,7 +2778,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161100260114638}
-  - {fileID: 4975125663660372}
   m_Father: {fileID: 4546601625009202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3025,7 +3021,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4816081606187700}
-  - {fileID: 4898913672807784}
   m_Father: {fileID: 4546601625009202}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3506,6 +3501,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4194256156410428}
+  - {fileID: 4975125663660372}
+  - {fileID: 4898913672807784}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3520,8 +3517,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4494749967210896}
-  m_Father: {fileID: 4542013914170694}
-  m_RootOrder: 1
+  m_Father: {fileID: 4897801171375770}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4899308169920444
 Transform:
@@ -3645,7 +3642,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4793209232602460}
-  m_Father: {fileID: 4436898580523732}
+  m_Father: {fileID: 4897801171375770}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20369939738687232
@@ -4664,27 +4661,6 @@ MonoBehaviour:
   interactUse: {fileID: 0}
   customOrigin: {fileID: 0}
   controller: {fileID: 114375797739046338}
---- !u!114 &114283477693962498
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341453462631164}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58cdac96da703d7488a11cc3bde08cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToGrab: {fileID: 114791601055671722, guid: e4c8bb5eacaa6644cb8b49a71a1f2dc0,
-    type: 2}
-  objectIsPrefab: 1
-  cloneGrabbedObject: 0
-  alwaysCloneOnEnable: 0
-  attemptSecondaryGrab: 0
-  interactTouch: {fileID: 0}
-  interactGrab: {fileID: 0}
-  secondaryInteractTouch: {fileID: 0}
-  secondaryInteractGrab: {fileID: 0}
 --- !u!114 &114287404906395078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4920,21 +4896,6 @@ MonoBehaviour:
   gripSenseAxisChanged: 0
   gripSensePressed: 0
   controllerVisible: 1
---- !u!114 &114381320385551774
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341453462631164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65eb64f0f2fd6d64faddbcf5d7d3bdbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useButton: 7
-  controllerEvents: {fileID: 0}
-  interactTouch: {fileID: 0}
-  interactGrab: {fileID: 0}
 --- !u!114 &114413230854537438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5367,9 +5328,9 @@ MonoBehaviour:
   maximumLength: Infinity
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
-  customOrigin: {fileID: 4436898580523732}
+  customOrigin: {fileID: 4975125663660372}
   controller: {fileID: 114375797739046338}
-  pointerOriginTransform: {fileID: 4436898580523732}
+  pointerOriginTransform: {fileID: 4975125663660372}
   hoveringElement: {fileID: 0}
   controllerRenderModel: {fileID: 0}
   hoverDurationTimer: 0
@@ -5490,7 +5451,7 @@ MonoBehaviour:
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactUse: {fileID: 0}
-  customOrigin: {fileID: 4542013914170694}
+  customOrigin: {fileID: 4898913672807784}
   controller: {fileID: 114993238864784306}
 --- !u!114 &114914788137733168
 MonoBehaviour:
@@ -5579,9 +5540,9 @@ MonoBehaviour:
   maximumLength: Infinity
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
-  customOrigin: {fileID: 4542013914170694}
+  customOrigin: {fileID: 4898913672807784}
   controller: {fileID: 114993238864784306}
-  pointerOriginTransform: {fileID: 4542013914170694}
+  pointerOriginTransform: {fileID: 4898913672807784}
   hoveringElement: {fileID: 0}
   controllerRenderModel: {fileID: 0}
   hoverDurationTimer: 0
@@ -5600,24 +5561,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customColliderContainer: {fileID: 1888596869509218}
---- !u!114 &114982996900193040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341453462631164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947b27445602ed640b885db7e667dfc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabButton: 0
-  grabPrecognition: 0
-  throwMultiplier: 1
-  createRigidBodyWhenNotTouching: 0
-  controllerAttachPoint: {fileID: 54455183033142944}
-  controllerEvents: {fileID: 0}
-  interactTouch: {fileID: 0}
 --- !u!114 &114991054364186236
 MonoBehaviour:
   m_ObjectHideFlags: 1
