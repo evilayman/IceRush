@@ -50,10 +50,11 @@ public class DirectorScript : MonoBehaviour
         {
             if (myTexts[i].IsActive())
             {
-                Vector3 newDir = Vector3.RotateTowards(myTexts[i].transform.forward, camsList[currentPriority].transform.forward, 0.5f * Time.deltaTime, 0.0f);
+                Vector3 newDir = Vector3.RotateTowards(myTexts[i].transform.forward, Camera.main.transform.forward, 0.5f * Time.deltaTime, 0.0f);
                 myTexts[i].transform.rotation = Quaternion.LookRotation(newDir);
             }
         }
+
     }
     private void CameraMove()
     {
@@ -77,7 +78,7 @@ public class DirectorScript : MonoBehaviour
                 currentPriority = camsList.Count - 1;
             }
             else
-            {
+            {   
                 currentPriority--;
             }
 
@@ -139,14 +140,26 @@ public class DirectorScript : MonoBehaviour
     private void SetSlide(int slideNumber)
     {
         ActivateSlide(slideNumber);
-        LookAtTarget.target = slidesList[slideNumber].transform.position;
-        Debug.Log(LookAtTarget.target);
-        SetCam(0);
+        LookAtTarget.target = slidesList[slideNumber].transform.GetChild(0).position;
 
-        if (slideNumber == 1)
+        SetCam(0);      
+
+        switch (slideNumber)
         {
-            SetCam(1);
+            case 1:
+                SetCam(1);
+                break;
+            case 2:
+                SetCam(3);
+                break;
+            case 3:
+                SetCam(4);
+                break;
+            case 4:
+                SetCam(5);
+                break;
+            default:
+                break;
         }
-
     }
 }
