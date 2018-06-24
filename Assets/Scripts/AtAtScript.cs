@@ -11,7 +11,7 @@ public class AtAtScript : MonoBehaviour
     GameObject bot, top;
     GameManager GM;
 
-	void Start ()
+    void Start()
     {
         GM = FindObjectOfType<GameManager>();
         AM = FindObjectOfType<AudioManager>();
@@ -23,26 +23,28 @@ public class AtAtScript : MonoBehaviour
         top = transform.GetChild(1).gameObject;
     }
 
-    void Update ()
+    void Update()
     {
-        if(CDWalk.IsReady())
+        if (CDWalk.IsReady())
         {
             CDWalk.Reset();
             AM.Play("WalkAtAt", bot);
         }
 
-        var playerPos = GM.MyPlayersSorted[GM.MyPlayersSorted.Count - 1].transform.position;
-
-        if (Vector3.Distance(playerPos, transform.position) < screamDistance)
+        if (GM)
         {
-            if (CDScream.IsReady())
+            var playerPos = GM.MyPlayersSorted[GM.MyPlayersSorted.Count - 1].transform.position;
+
+            if (Vector3.Distance(playerPos, transform.position) < screamDistance)
             {
-                CDScream.Reset();
-                AM.Play("ScreamATAT", top);
+                if (CDScream.IsReady())
+                {
+                    CDScream.Reset();
+                    AM.Play("ScreamATAT", top);
+                }
             }
         }
 
 
-        
     }
 }
