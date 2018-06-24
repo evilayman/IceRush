@@ -8,6 +8,14 @@ using TMPro;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject enterYourNameMenu;
+    [SerializeField]
+    private GameObject mainMenu;
+    [SerializeField]
+    private GameObject createRoomMenu;
+    [SerializeField]
+    private GameObject chosenRoom;
+    [SerializeField]
     private TextMeshProUGUI maxPlayers;
     [SerializeField]
     private TextMeshProUGUI playerName;
@@ -26,29 +34,40 @@ public class RoomManager : MonoBehaviour
     }
     public void OnEndEditingPlayerName()
     {
+        if (playerName.text.Length >= 3)
+        {
+            PhotonNetwork.playerName = playerName.text;
+            enterYourNameMenu.SetActive(false);
+            mainMenu.SetActive(true);
+        }
 
-        PhotonNetwork.playerName = playerName.text;
-        print(PhotonNetwork.playerName);
     }
     public void OnClick_CreateRoom()
     {
-        int maxPlayersInRoom = int.Parse(maxPlayers.text);
-        if (maxPlayersInRoom > 3)
+        int maxPlayersInRoom;
+        if (_roomName.text.Length >= 3 && maxPlayers.text.Length >= 3)
         {
-            maxPlayersInRoom = 3;
-        }
-        if (maxPlayersInRoom < 2)
-        {
-            maxPlayersInRoom = 2;
+            if (int.TryParse(maxPlayers.text, out maxPlayersInRoom))
+            {
+                if (maxPlayersInRoom > 3)
+                {
+                    maxPlayersInRoom = 3;
+                }
+                if (maxPlayersInRoom < 2)
+                {
+                    maxPlayersInRoom = 2;
+                }
+
+                RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)maxPlayersInRoom };
+                if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
+                {
+                    print("created room succseffuly");
+
+                }
+            }
         }
 
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)maxPlayersInRoom };
-        if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
-        {
-            print("created room succseffuly");
 
-        }
-       
 
     }
 

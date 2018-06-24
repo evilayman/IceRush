@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public enum GameState
@@ -209,8 +209,27 @@ public class GameManager : MonoBehaviour
             else
                 print(finishedPlayers[i].GetComponentInParent<DeadTextManager>().playerName.text + " - Time: " + finishTime[i]);
         }
+        StartCoroutine(ReturnToMainMenu());
     }
 
+    IEnumerator ReturnToMainMenu()
+    {
+        yield return new WaitForSeconds(5);
+        //LoadSceneMode sceneMode = LoadSceneMode.Single;
+        //SceneManager.LoadSceneAsync("UI", sceneMode);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("UI");
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        PhotonNetwork.LeaveRoom();
+        GameObject enterYourNameMenu = GameObject.Find("EnterNameFirst");
+        enterYourNameMenu.SetActive(false);
+        GameObject MainMenu = GameObject.Find("MainMenu");
+        MainMenu.SetActive(true);
+
+
+    }
     private void CheckFinishLine()
     {
         if (MyPlayersSorted.Count > 0 && (MyPlayersSorted[0].transform.position.z - finishLine.position.z) >= 0)
