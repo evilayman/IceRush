@@ -747,7 +747,8 @@ GameObject:
   - component: {fileID: 20740622716330728}
   - component: {fileID: 124220522526375964}
   - component: {fileID: 114355298931232228}
-  - component: {fileID: 114209948733614372}
+  - component: {fileID: 114509493808236148}
+  - component: {fileID: 114951200615373294}
   m_Layer: 0
   m_Name: Camera (eye)
   m_TagString: MainCamera
@@ -875,6 +876,7 @@ GameObject:
   - component: {fileID: 92806249697254426}
   - component: {fileID: 81289628160548252}
   - component: {fileID: 114184356571326658}
+  - component: {fileID: 114296691899970548}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -3497,7 +3499,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084356354881532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -3}
+  m_LocalPosition: {x: 0, y: 50, z: -230}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4194256156410428}
@@ -3734,7 +3736,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.05
-  far clip plane: 1000
+  far clip plane: 1300
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -4566,20 +4568,6 @@ MonoBehaviour:
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
---- !u!114 &114209948733614372
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1392197742251778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _head: {fileID: 4398689540586500}
-  _ears: {fileID: 4953869257995972}
-  wireframe: 0
 --- !u!114 &114223853396078430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4725,6 +4713,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Control Hints
+--- !u!114 &114296691899970548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468346527746556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 88a0af03e638fcb4ca0d3b666cb0ba0a, type: 2}
 --- !u!114 &114302411582960934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5037,6 +5037,18 @@ MonoBehaviour:
   smoothsScale: 0
   maxAllowedPerFrameSizeDifference: 0.003
   _moment: 2
+--- !u!114 &114509493808236148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392197742251778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 88a0af03e638fcb4ca0d3b666cb0ba0a, type: 2}
 --- !u!114 &114513490467841978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5499,6 +5511,20 @@ MonoBehaviour:
   smoothsScale: 0
   maxAllowedPerFrameSizeDifference: 0.003
   _moment: 2
+--- !u!114 &114951200615373294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392197742251778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 4398689540586500}
+  _ears: {fileID: 4953869257995972}
+  wireframe: 0
 --- !u!114 &114956900598566302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5531,8 +5557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b26f999cbdac8478b6c2a046256169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationButton: 7
-  activationMode: 0
+  activationButton: 3
+  activationMode: 2
   selectionButton: 3
   clickMethod: 0
   attemptClickOnDeactivate: 0

@@ -91,7 +91,7 @@ public class RoomLayoutGroup : MonoBehaviour
     }
     private void Update()
     {
-  
+
         RoomInfo[] rooms = PhotonNetwork.GetRoomList();
         //print(rooms.Length);
 
@@ -111,7 +111,7 @@ public class RoomLayoutGroup : MonoBehaviour
     //    foreach (RoomInfo room in rooms)
     //    {
     //        RoomReceived(room);
-            
+
     //    }
     //    RemoveOldRooms();
     //}
