@@ -5,11 +5,6 @@ using UnityEngine;
 public class BoardFollow : MonoBehaviour
 {
     public Transform head;
-
-	void Start ()
-    {
-		
-	}
 	
 	void FixedUpdate ()
     {

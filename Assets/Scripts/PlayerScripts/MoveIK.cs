@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveIK : MonoBehaviour
 {
     public Transform leftHand, rightHand, head;
+    public Transform trailLeft, trailRight;
     Animator anim;
     Vector3 dir, test;
     Rigidbody rb;
@@ -58,6 +59,9 @@ public class MoveIK : MonoBehaviour
 
         dir = (head.position - transform.position).normalized;
         transform.forward = new Vector3(dir.x, transform.forward.y, dir.z);
+
+        trailLeft.position = leftHand.position;
+        trailRight.position = rightHand.position;
 
     }
 }

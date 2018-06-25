@@ -10,6 +10,7 @@ public class AtAtScript : MonoBehaviour
     CooldownTimer CDWalk, CDScream;
     GameObject bot, top;
     GameManager GM;
+    public ParticleSystem walkEffect;
 
     void Start()
     {
@@ -28,7 +29,8 @@ public class AtAtScript : MonoBehaviour
         if (CDWalk.IsReady())
         {
             CDWalk.Reset();
-            AM.Play("WalkAtAt", bot);
+            AM.PlayForce("WalkAtAt", bot);
+            walkEffect.Play();
         }
 
         if (GM)
@@ -44,7 +46,6 @@ public class AtAtScript : MonoBehaviour
                 }
             }
         }
-
 
     }
 }

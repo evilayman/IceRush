@@ -17,11 +17,13 @@ public class SpeedLines : MonoBehaviour
 
     private Vector3 newDir;
     private GameManager GM;
+    private AudioManager AM;
 
     void Start()
     {
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        AM = FindObjectOfType<AudioManager>();
         if (photonView.isMine || GM.Offline)
             playerRB = GetComponent<Rigidbody>();
     }
@@ -30,9 +32,20 @@ public class SpeedLines : MonoBehaviour
     {
         if (photonView.isMine || GM.Offline)
         {
-            if (playerRB.velocity != Vector3.zero)
-                speedLines.rotation = Quaternion.LookRotation(playerRB.velocity);
+            if(playerRB.velocity.magnitude > 30)
+            {
+                AM.Play("Fly", gameObject);
+            }
+            else
+            {
+                AM.Stop(gameObject);
+            }
 
+            if (playerRB.velocity != Vector3.zero)
+            {
+                speedLines.rotation = Quaternion.LookRotation(playerRB.velocity);
+            }
+            
             rbVelocity = playerRB.velocity.magnitude;
 
             if (rbVelocity + 1 >= minRBSpeed)

@@ -97,3 +97,30 @@ MonoBehaviour:
     maxDistance: 1000
     loop: 1
     source: {fileID: 0}
+  - name: Respwan
+    clip: {fileID: 8300000, guid: 4de10fe946c94ba468c8c1bfe7b699d6, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    rollOff: 1
+    maxDistance: 1000
+    loop: 0
+    source: {fileID: 0}
+  - name: Explostion
+    clip: {fileID: 8300000, guid: 0baf8600b856b794b90ef46e9e7fb215, type: 3}
+    volume: 0.5
+    pitch: 1
+    spatialBlend: 1
+    rollOff: 1
+    maxDistance: 1000
+    loop: 0
+    source: {fileID: 0}
+  - name: Fly
+    clip: {fileID: 8300000, guid: 192c40a696d409d40a7dada1d4c1f1e2, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    rollOff: 1
+    maxDistance: 1000
+    loop: 1
+    source: {fileID: 0}

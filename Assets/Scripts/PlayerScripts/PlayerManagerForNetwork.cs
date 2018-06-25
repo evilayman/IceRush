@@ -21,7 +21,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     public Transform spawnPoint;
     private PhotonView photonView;
     private GameManager GM;
-
+    private AudioManager AM;
     private bool inBoostRegion, inRespwan = false, inSlow = false, inGameFirstTime,
         canCol = true, canSlow = true, isDead;
     public bool InBoostRegion
@@ -36,6 +36,8 @@ public class PlayerManagerForNetwork : MonoBehaviour
             inBoostRegion = value;
         }
     }
+
+    public ParticleSystem explostion;
 
     public bool IsDead
     {
@@ -53,11 +55,12 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GM = FindObjectOfType<GameManager>();
+        AM = FindObjectOfType<AudioManager>();
 
         if (photonView.isMine || GM.Offline)
         {
-            //model.gameObject.SetActive(false);
+            model.gameObject.SetActive(false);
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
         }
         else
@@ -77,6 +80,11 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 currentPlayerState = PlayerState.Normal;
             }
         }
+
+        if (inRespwan)
+        {
+            transform.Translate(Vector3.down * 20 * Time.deltaTime);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -87,7 +95,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
             {
                 StartCoroutine(Respwan());
             }
-            else if(collision.gameObject.tag == "ATAT")
+            else if (collision.gameObject.tag == "ATAT")
             {
                 photonView.RPC("RPC_Death", PhotonTargets.All);
             }
@@ -117,7 +125,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
                     StartCoroutine(Slow());
                 break;
             case CreateDronePattern.MyDangerLevel.Respwan:
-                if (canCol && !inRespwan) 
+                if (canCol && !inRespwan)
                     StartCoroutine(Respwan());
                 break;
             case CreateDronePattern.MyDangerLevel.Death:
@@ -132,12 +140,25 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     private IEnumerator Respwan()
     {
-        inRespwan = true;
+        if (GM.Offline)
+            InRespwan();
+        else
+            photonView.RPC("InRespwan", PhotonTargets.All);
+
         FadeToBlack(fadeTime);
         currentPlayerState = PlayerState.Stopped;
         yield return new WaitForSeconds(respwanTime);
-        inRespwan = false;
+
+        AM.Play("Respwan", Instantiate(new GameObject(), transform));
+
+        if (GM.Offline)
+            InRespwan();
+        else
+            photonView.RPC("InRespwan", PhotonTargets.All);
+
+
         transform.position = spawnPoint.position;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         currentPlayerState = PlayerState.Normal;
         FadeFromBlack(fadeTime);
 
@@ -146,6 +167,18 @@ public class PlayerManagerForNetwork : MonoBehaviour
         yield return new WaitForSeconds(pauseColTime);
         canCol = true;
         canSlow = true;
+    }
+
+    [PunRPC]
+    private void InRespwan()
+    {
+        inRespwan = (inRespwan) ? false : true;
+
+        if (inRespwan)
+        {
+            AM.Play("Explostion", Instantiate(new GameObject(), transform));
+            explostion.Play();
+        }
     }
 
     private IEnumerator Slow()
@@ -175,7 +208,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
     public IEnumerator BoostPlayer(object[] parms)
     {
-        float boostTime = (float) parms[0];
+        float boostTime = (float)parms[0];
         inBoostRegion = true;
         yield return new WaitForSeconds(boostTime);
         InBoostRegion = false;
