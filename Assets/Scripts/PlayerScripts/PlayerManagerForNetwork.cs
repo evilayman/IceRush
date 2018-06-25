@@ -57,7 +57,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
         if (photonView.isMine || GM.Offline)
         {
-            model.gameObject.SetActive(false);
+            //model.gameObject.SetActive(false);
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
         }
         else

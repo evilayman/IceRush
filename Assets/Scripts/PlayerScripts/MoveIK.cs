@@ -7,10 +7,38 @@ public class MoveIK : MonoBehaviour
     public Transform leftHand, rightHand, head;
     Animator anim;
     Vector3 dir, test;
+    Rigidbody rb;
+    bool tempM;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponentInParent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        ChangeAnimation();
+    }
+
+    private void ChangeAnimation()
+    {
+        if (rb.velocity.magnitude > 5)
+        {
+            if (!tempM)
+            {
+                anim.SetBool("isMoving", true);
+                tempM = true;
+            }
+        }
+        else
+        {
+            if (tempM)
+            {
+                anim.SetBool("isMoving", false);
+                tempM = false;
+            }
+        }
     }
 
     private void OnAnimatorIK()
