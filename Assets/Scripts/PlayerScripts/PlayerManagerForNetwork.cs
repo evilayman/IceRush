@@ -18,7 +18,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
     public PlayerState currentPlayerState;
     public float fadeTime, slowTime, respwanTime, pauseColTime, pauseSlowTime;
 
-    public Transform spawnPoint;
+    private Transform spawnPoint;
     private PhotonView photonView;
     private GameManager GM;
     private AudioManager AM;
@@ -60,7 +60,8 @@ public class PlayerManagerForNetwork : MonoBehaviour
 
         if (photonView.isMine || GM.Offline)
         {
-            model.gameObject.SetActive(false);
+            spawnPoint = GameObject.Find("SpawnPoint").transform;
+            //model.gameObject.SetActive(false);
             GM.gameObject.GetPhotonView().RPC("RPC_playerLoaded", PhotonTargets.MasterClient);
         }
         else

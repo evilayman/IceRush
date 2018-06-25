@@ -7,12 +7,12 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Ice
-  m_Shader: {fileID: 4800000, guid: 01356ad681515416f8e7059b93abd38b, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -52,7 +52,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: cb147cfeecb854273b278011a513732d, type: 3}
-        m_Scale: {x: 15, y: 15}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -60,7 +60,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 2800000, guid: bf02cf77d40f04818aada3fdaf8f0025, type: 3}
-        m_Scale: {x: 15, y: 15}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -89,9 +89,11 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Gloss: 0.797
-    - _Glossiness: 0.5
-    - _LightDisperse: 0.758
+    - _Gloss: 0.52
+    - _GlossMapScale: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 1
+    - _LightDisperse: 0.426
     - _LightReflectance: 0.794
     - _Metallic: 0
     - _Mode: 0
@@ -99,7 +101,9 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Roughness: 0.618
-    - _Shadows: 0.866
+    - _Shadows: 0.23
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
     - _Specularity: 0.939
     - _SrcBlend: 1
     - _Transparency: 1
@@ -125,8 +129,8 @@ Material:
     - _node_8632: 1
     - _node_9777: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.7294118, g: 0.99607843, b: 1, a: 1}
     - _node_1071: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _node_2885: {r: 0.5147059, g: 0.4200909, b: 0.4200909, a: 1}
     - _node_528: {r: 0.5, g: 0.5, b: 0.5, a: 1}

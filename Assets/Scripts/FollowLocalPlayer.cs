@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class FollowLocalPlayer : MonoBehaviour
 {
-    public Transform targetNormal, targetLerp;
+    private Transform targetNormal, targetLerp;
     public float lerpT;
     private PhotonView photonView;
     private GameManager GM;
 
     void Start()
     {
+        targetLerp = GameObject.Find("FollowLerp").transform;
+        targetNormal = GameObject.Find("FollowNormal").transform;
         photonView = GetComponent<PhotonView>();
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
