@@ -1,6 +1,7 @@
 ﻿// Controller Events|Interactors|30010
 namespace VRTK
 {
+    using System;
     using UnityEngine;
 
     /// <summary>
@@ -2620,5 +2621,7 @@ namespace VRTK
                 gripSenseAxis = ProcessSenseAxis(VRTK_SDK_Bridge.GetControllerSenseAxis(SDK_BaseController.ButtonTypes.Grip, controllerReference));
             }
         }
+
+        
     }
 }

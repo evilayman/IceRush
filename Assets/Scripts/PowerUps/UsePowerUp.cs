@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using VRTK;
 
 public class UsePowerUp : MonoBehaviour
 {
+    private VRTK_ControllerEvents leftHandController, rightHandController;
     private PlayerManagerForNetwork playerManager;
     private TeleportScript teleport;
     [SerializeField]
     float teleportDistance, boostTime;
-    private bool teleportPSIsPlaying;
+    private bool teleportPSIsPlaying,tempBool;
     public enum PowerUpType
     {
         None,
@@ -55,26 +57,56 @@ public class UsePowerUp : MonoBehaviour
         playerManager = GetComponent<PlayerManagerForNetwork>();
         teleport = (TeleportScript)FindObjectOfType(typeof(TeleportScript));
         photonView = GetComponent<PhotonView>();
+
+        leftHandController = playerManager.leftHand.GetComponent<VRTK_ControllerEvents>();
+        rightHandController = playerManager.rightHand.GetComponent<VRTK_ControllerEvents>();
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space) && photonView.isMine)
+      
+        //if ((Input.GetKeyUp(KeyCode.Space) && photonView.isMine ))
+        //{
+        //    if (CurrentPower == PowerUpType.Teleport)
+        //    {
+        //        teleport.PlayFirstTeleportPSForOthers(gameObject);               
+        //        UsePower();
+        //        teleport.PlaySecondTeleportPSForOthers(gameObject);
+        //        teleport.StopPlayingTeleportPS();               
+        //        teleportPSIsPlaying = false;
+        //    }
+        //}
+        //if ((Input.GetKeyDown(KeyCode.Space) || rightHandController.gripPressed) && photonView.isMine)
+        //{
+        //    if (CurrentPower != PowerUpType.Teleport)
+        //        UsePower();
+        //    if (CurrentPower == PowerUpType.Teleport && !teleportPSIsPlaying)
+        //    {
+        //        teleportPSIsPlaying = true;
+        //        teleport.StartPlayingTeleportPS();
+        //    }
+        //}
+      
+        if ((Input.GetKeyUp(KeyCode.Space ) || !rightHandController.gripPressed) && photonView.isMine)
         {
-            if (CurrentPower == PowerUpType.Teleport)
+            
+            if (CurrentPower == PowerUpType.Teleport && tempBool)
             {
-                teleport.PlayFirstTeleportPSForOthers(gameObject);               
+                teleport.PlayFirstTeleportPSForOthers(gameObject);
                 UsePower();
                 teleport.PlaySecondTeleportPSForOthers(gameObject);
-                teleport.StopPlayingTeleportPS();               
+                teleport.StopPlayingTeleportPS();
                 teleportPSIsPlaying = false;
+                tempBool = false;
             }
+            
         }
-        if (Input.GetKeyDown(KeyCode.Space) && photonView.isMine)
+        if ((Input.GetKeyDown(KeyCode.Space) || rightHandController.gripPressed) && photonView.isMine)
         {
             if (CurrentPower != PowerUpType.Teleport)
                 UsePower();
             if (CurrentPower == PowerUpType.Teleport && !teleportPSIsPlaying)
             {
+                tempBool = true;
                 teleportPSIsPlaying = true;
                 teleport.StartPlayingTeleportPS();
             }
