@@ -8,13 +8,20 @@ public class ChangeRoomNameLabel : MonoBehaviour
     RoomManager roomManager;
 	void Start ()
     {
-        roomManager=(RoomManager) FindObjectOfType(typeof(RoomManager));
+        StartCoroutine(WaitASecond());
+              
+	}
+    
+    IEnumerator WaitASecond()
+    {
+        yield return new WaitForSeconds(1);
+        roomManager = (RoomManager)FindObjectOfType(typeof(RoomManager));
         if (roomManager)
         {
             GetComponent<TextMeshProUGUI>().text = roomManager.RoomName.text;
         }
-        
-	}
-  
+
+    }
+   
 	
 }

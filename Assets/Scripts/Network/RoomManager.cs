@@ -27,6 +27,9 @@ public class RoomManager : MonoBehaviour
         get { return _roomName; }
     }
 
+    private void Start()
+    {
+    }
     private void Awake()
     {
         // uncomment these two lines if the network is laggy or don't 
@@ -63,6 +66,8 @@ public class RoomManager : MonoBehaviour
                 RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)maxPlayersInRoom };
                 if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
                 {
+                    
+                    
                     createRoomMenu.SetActive(false);
                     chosenRoomMenu.SetActive(true);
 
@@ -77,6 +82,11 @@ public class RoomManager : MonoBehaviour
     private void OnPhotonCreateRoomFailed(object[] codeAndMessage)
     {
         //print("create room failed " + codeAndMessage[1]);
+    }
+    
+    public void OnClickOnARoomToJoin(GameObject myRoomName)
+    {
+        _roomName = GetComponent<TextMeshProUGUI>();
     }
 
 }
