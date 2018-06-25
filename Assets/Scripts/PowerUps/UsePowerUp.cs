@@ -62,8 +62,10 @@ public class UsePowerUp : MonoBehaviour
         {
             if (CurrentPower == PowerUpType.Teleport)
             {
+                teleport.PlayFirstTeleportPSForOthers(gameObject);               
                 UsePower();
-                teleport.StopPlayingTeleportPS();
+                teleport.PlaySecondTeleportPSForOthers(gameObject);
+                teleport.StopPlayingTeleportPS();               
                 teleportPSIsPlaying = false;
             }
         }
