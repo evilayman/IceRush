@@ -3874,8 +3874,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843465340476264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.544, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4998937339467298}
   m_RootOrder: 11
@@ -7615,7 +7615,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843465340476264}
-  m_Mesh: {fileID: 4300000, guid: cc0e03177ac56a54b9d6830ad2f00c98, type: 3}
+  m_Mesh: {fileID: 4300000, guid: bb331f0d0beaf85459452c620965dba4, type: 2}
 --- !u!33 &33833733839010760
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -8062,6 +8062,8 @@ MonoBehaviour:
   leftHand: {fileID: 4731605237075004}
   rightHand: {fileID: 4875953675093012}
   head: {fileID: 4271481841900900}
+  trailLeft: {fileID: 0}
+  trailRight: {fileID: 0}
 --- !u!114 &114180067336099542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8234,6 +8236,8 @@ MonoBehaviour:
   leftHand: {fileID: 4731605237075004}
   rightHand: {fileID: 4875953675093012}
   head: {fileID: 4271481841900900}
+  trailLeft: {fileID: 0}
+  trailRight: {fileID: 0}
 --- !u!114 &114320129732605194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8584,8 +8588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9607ebd5567ae26418655e1a43441c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetNormal: {fileID: 0}
-  targetLerp: {fileID: 0}
   lerpT: 5
 --- !u!114 &114471872871772616
 MonoBehaviour:
@@ -8742,7 +8744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportDistance: 30
-  boostTime: 3
+  boostTime: 2
 --- !u!114 &114485075965803706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9591,8 +9593,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114132240446301604}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114877638065171152
@@ -9680,7 +9682,7 @@ MonoBehaviour:
   respwanTime: 2
   pauseColTime: 4.75
   pauseSlowTime: 1
-  spawnPoint: {fileID: 0}
+  explostion: {fileID: 0}
 --- !u!114 &114940101193562786
 MonoBehaviour:
   m_ObjectHideFlags: 1

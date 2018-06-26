@@ -46,7 +46,6 @@ public class GetPowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("entered collider");
         if (other.gameObject.tag == "PlayerCollider")
         {
             numPlayers = GM.MyPlayersSorted.Count;
@@ -74,19 +73,19 @@ public class GetPowerUp : MonoBehaviour
 
         var randomValue = Random.Range(0, 100f);
 
-        //if (randomValue <= percList[0])
-        //    return UsePowerUp.PowerUpType.Rocket;
-        //else if (randomValue > percList[0] && randomValue <= percList[1])
-        //    return UsePowerUp.PowerUpType.Sheild;
-        //else if (randomValue > percList[1] && randomValue <= percList[2])
-        //    return UsePowerUp.PowerUpType.Teleport;
-        //else if (randomValue > percList[2] && randomValue <= percList[3])
-        //    return UsePowerUp.PowerUpType.Boost;
-        //else if (randomValue > percList[3] && randomValue <= percList[4])
-        //    return UsePowerUp.PowerUpType.Trap;
-        //else
-        //    return UsePowerUp.PowerUpType.None;
-        return UsePowerUp.PowerUpType.Teleport;
+        if (randomValue <= percList[0])
+            return UsePowerUp.PowerUpType.Rocket;
+        else if (randomValue > percList[0] && randomValue <= percList[1])
+            return UsePowerUp.PowerUpType.Sheild;
+        else if (randomValue > percList[1] && randomValue <= percList[2])
+            return UsePowerUp.PowerUpType.Teleport;
+        else if (randomValue > percList[2] && randomValue <= percList[3])
+            return UsePowerUp.PowerUpType.Boost;
+        else if (randomValue > percList[3] && randomValue <= percList[4])
+            return UsePowerUp.PowerUpType.Trap;
+        else
+            return UsePowerUp.PowerUpType.None;
+
 
     }
 
