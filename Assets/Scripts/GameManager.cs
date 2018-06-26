@@ -255,6 +255,9 @@ public class GameManager : MonoBehaviour
 
     public void DeathSwap(GameObject GO)
     {
+        if(!endWithOne)
+            currentState = GameState.endGame;
+
         var index = MyPlayersSorted.FindIndex(x => x == GO);
         var name = MyPlayersSorted[index].GetComponentInParent<PhotonView>().owner.NickName;
         var go = Instantiate(deadPlayer, MyPlayersSorted[index].transform.position, Quaternion.identity);
