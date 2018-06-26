@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using VRTK;
+using TMPro;
 
 public class UsePowerUp : MonoBehaviour
 {
     private VRTK_ControllerEvents leftHandController, rightHandController;
     private PlayerManagerForNetwork playerManager;
     private TeleportScript teleport;
+    public TextMeshPro powerUpText;
     [SerializeField]
     float teleportDistance, boostTime;
-    private bool teleportPSIsPlaying,tempBool;
+    private bool teleportPSIsPlaying, tempBool;
     public enum PowerUpType
     {
         None,
@@ -35,6 +37,7 @@ public class UsePowerUp : MonoBehaviour
             currentPower = value;
         }
     }
+    private PowerUpType lastPower;
 
     public float TeleportDistance
     {
@@ -52,6 +55,8 @@ public class UsePowerUp : MonoBehaviour
     private PhotonView photonView;
     private GameObject myPower;
 
+    private bool showingPower;
+
     private void Start()
     {
         playerManager = GetComponent<PlayerManagerForNetwork>();
@@ -63,7 +68,14 @@ public class UsePowerUp : MonoBehaviour
     }
     void Update()
     {
-      
+
+        if (lastPower != currentPower && photonView.isMine)
+        {
+            lastPower = currentPower;
+            showingPower = true;
+            StartCoroutine(ShowPower());
+        }
+
         //if ((Input.GetKeyUp(KeyCode.Space) && photonView.isMine ))
         //{
         //    if (CurrentPower == PowerUpType.Teleport)
@@ -85,10 +97,10 @@ public class UsePowerUp : MonoBehaviour
         //        teleport.StartPlayingTeleportPS();
         //    }
         //}
-      
-        if ((Input.GetKeyUp(KeyCode.Space ) || !rightHandController.gripPressed) && photonView.isMine)
+
+        if ((Input.GetKeyUp(KeyCode.Space) || !rightHandController.gripPressed) && photonView.isMine)
         {
-            
+
             if (CurrentPower == PowerUpType.Teleport && tempBool)
             {
                 teleport.PlayFirstTeleportPSForOthers(gameObject);
@@ -98,7 +110,7 @@ public class UsePowerUp : MonoBehaviour
                 teleportPSIsPlaying = false;
                 tempBool = false;
             }
-            
+
         }
         if ((Input.GetKeyDown(KeyCode.Space) || rightHandController.gripPressed) && photonView.isMine)
         {
@@ -111,6 +123,18 @@ public class UsePowerUp : MonoBehaviour
                 teleport.StartPlayingTeleportPS();
             }
         }
+
+        if (leftHandController.gripPressed && photonView.isMine)
+        {
+            StartCoroutine(ShowPower());
+        }
+    }
+
+    IEnumerator ShowPower()
+    {
+        powerUpText.text = CurrentPower.ToString();
+        yield return new WaitForSeconds(1.5f);
+        powerUpText.text = "";
 
     }
 

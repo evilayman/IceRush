@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1396595834985142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -33.466}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4238776377363240}
@@ -278,11 +278,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d6b91dfc9d2ca49b7a15cace75cc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: 0, z: 3}
-  rocketSpeed: 100
+  startPosition: {x: 0, y: 0, z: 0}
+  rocketSpeed: 50
   rocketRotSpeed: 10
-  rocketDestructTime: 4
-  rockectCanColTime: 1
+  rocketDestructTime: 5
+  rockectCanColTime: 0.2
 --- !u!114 &114458266390385946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +302,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

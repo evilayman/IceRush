@@ -15,7 +15,7 @@ public class CurrentRoomCanvas : MonoBehaviour
             return;
         PhotonNetwork.room.IsOpen = false;
         PhotonNetwork.room.IsVisible = false;
-        PhotonNetwork.LoadLevel("MainOld");
+        PhotonNetwork.LoadLevel("SortingScene");
 
     }
 

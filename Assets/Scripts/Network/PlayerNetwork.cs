@@ -22,7 +22,7 @@ public class PlayerNetwork : MonoBehaviour
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainOld")
+        if (scene.name == "SortingScene")
         {
             if (PhotonNetwork.isMasterClient)
             {
@@ -50,7 +50,7 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_LoadGameForOthers()
     {
-        PhotonNetwork.LoadLevel("MainOld");
+        PhotonNetwork.LoadLevel("SortingScene");
     }
 
     [PunRPC]
@@ -68,8 +68,14 @@ public class PlayerNetwork : MonoBehaviour
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().Offline = false;
         GameObject.Find("GameManager").GetComponent<GameManager>().currentState = GameManager.GameState.none;
+        int spawnPosInx = 1;
+        for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
+        {
+            if (PhotonNetwork.playerList[i] == PhotonNetwork.player)
+                spawnPosInx = (i - 1) * 2;
 
-        float randomValue = Random.Range(-5f, 5f);
-        instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(randomValue, 50, 0), Quaternion.identity, 0);
+        }
+
+        instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(spawnPosInx, 50, 0), Quaternion.identity, 0);
     }
 }

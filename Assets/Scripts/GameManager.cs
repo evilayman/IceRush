@@ -217,16 +217,17 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(5);
         //LoadSceneMode sceneMode = LoadSceneMode.Single;
         //SceneManager.LoadSceneAsync("UI", sceneMode);
+        PhotonNetwork.LeaveRoom();
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("UI");
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        PhotonNetwork.LeaveRoom();
-        GameObject enterYourNameMenu = GameObject.Find("EnterNameFirst");
-        enterYourNameMenu.SetActive(false);
-        GameObject MainMenu = GameObject.Find("MainMenu");
-        MainMenu.SetActive(true);
+        
+        //GameObject enterYourNameMenu = GameObject.Find("EnterNameFirst");
+        //enterYourNameMenu.SetActive(false);
+        //GameObject MainMenu = GameObject.Find("MainMenu");
+        //MainMenu.SetActive(true);
 
 
     }

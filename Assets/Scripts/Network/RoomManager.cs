@@ -29,6 +29,11 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        if(PhotonNetwork.playerName != "")
+        {
+            enterYourNameMenu.SetActive(false);
+            mainMenu.SetActive(true);
+        }
     }
     private void Awake()
     {
