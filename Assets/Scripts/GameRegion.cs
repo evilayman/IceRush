@@ -19,7 +19,7 @@ public class GameRegion : MonoBehaviour
         {
             if (transform.position.z < stopPoint)
                 transform.position += Vector3.forward * speed * Time.deltaTime;
-            else if (AtAt.transform.position.z < stopPoint - 350)
+            else if (AtAt.transform.position.z < stopPoint + 350)
             {
                 AtAt.transform.position += Vector3.forward * speed * Time.deltaTime;
                 BackBorder.transform.position += Vector3.forward * speed * Time.deltaTime;

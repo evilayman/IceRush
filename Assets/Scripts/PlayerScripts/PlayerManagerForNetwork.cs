@@ -22,7 +22,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
     private PhotonView photonView;
     private GameManager GM;
     private AudioManager AM;
-    private Transform Sasa;
     private bool inBoostRegion, inRespwan = false, inSlow = false, inGameFirstTime,
         canCol = true, canSlow = true, isDead;
     public bool InBoostRegion
@@ -58,7 +57,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         GM = FindObjectOfType<GameManager>();
         AM = FindObjectOfType<AudioManager>();
-        Sasa = GameObject.Find("GameRegion").transform.GetChild(0).gameObject.transform;
+
         if (photonView.isMine || GM.Offline)
         {
             spawnPoint = GameObject.Find("SpawnPoint").transform;
@@ -80,11 +79,6 @@ public class PlayerManagerForNetwork : MonoBehaviour
             {
                 inGameFirstTime = true;
                 currentPlayerState = PlayerState.Normal;
-            }
-
-            if(transform.position.z < Sasa.transform.position.z)
-            {
-                photonView.RPC("RPC_Death", PhotonTargets.All);
             }
         }
 

@@ -50,7 +50,6 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     private void RPC_LoadGameForOthers()
     {
-        FadeToBlack(0.2f);
         PhotonNetwork.LoadLevel("SortingScene");
     }
 
@@ -78,21 +77,5 @@ public class PlayerNetwork : MonoBehaviour
         }
 
         instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PlayerSkateNetwork"), new Vector3(spawnPosInx, 50, 0), Quaternion.identity, 0);
-        //FadeFromBlack(0.2f);
-    }
-    private void FadeToBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.clear, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.black, time);
-    }
-
-    private void FadeFromBlack(float time)
-    {
-        //set start color
-        SteamVR_Fade.Start(Color.black, 0f);
-        //set and start fade to
-        SteamVR_Fade.Start(Color.clear, time);
     }
 }
