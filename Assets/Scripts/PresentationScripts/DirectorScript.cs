@@ -142,20 +142,23 @@ public class DirectorScript : MonoBehaviour
         ActivateSlide(slideNumber);
         LookAtTarget.target = slidesList[slideNumber].transform.GetChild(0).position;
 
-        SetCam(0);      
-
+        SetCam(0);
+        
         switch (slideNumber)
         {
             case 1:
                 SetCam(1);
                 break;
             case 2:
-                SetCam(3);
+                SetCam(2);
                 break;
             case 3:
-                SetCam(4);
+                SetCam(3);
                 break;
             case 4:
+                SetCam(4);
+                break;
+            case 5 :
                 SetCam(5);
                 break;
             default:
