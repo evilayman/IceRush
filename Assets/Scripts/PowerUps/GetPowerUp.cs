@@ -46,6 +46,7 @@ public class GetPowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print("entered collider");
         if (other.gameObject.tag == "PlayerCollider")
         {
             numPlayers = GM.MyPlayersSorted.Count;
@@ -125,13 +126,18 @@ public class GetPowerUp : MonoBehaviour
     [PunRPC]
     private void RPC_ResetPowerUp()
     {
+
         transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
         StartCoroutine(ResetPowerUp());
     }
 
     IEnumerator ResetPowerUp()
     {
+
+
         yield return PowerUpTimer;
         transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
     }
 }
