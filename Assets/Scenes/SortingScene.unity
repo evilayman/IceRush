@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.003
@@ -704,12 +704,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 33069622747456372, guid: 6f804da90c031f74dac4deb74f3135bb,
+    - target: {fileID: 33833067933684288, guid: 6f804da90c031f74dac4deb74f3135bb,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 33833067933684288, guid: 6f804da90c031f74dac4deb74f3135bb,
+    - target: {fileID: 33069622747456372, guid: 6f804da90c031f74dac4deb74f3135bb,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -2217,6 +2217,22 @@ Prefab:
     - target: {fileID: 4790748210718086, guid: cf8c33c54b2c220409aaf6bfdc5878ed, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693868476732928, guid: cf8c33c54b2c220409aaf6bfdc5878ed, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 12000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474913868770828, guid: cf8c33c54b2c220409aaf6bfdc5878ed, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 12000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603009507162042, guid: cf8c33c54b2c220409aaf6bfdc5878ed, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 12000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4420679582765120, guid: cf8c33c54b2c220409aaf6bfdc5878ed, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 12000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf8c33c54b2c220409aaf6bfdc5878ed, type: 2}
