@@ -129,13 +129,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4538794152322966}
   - component: {fileID: 95530995359351794}
+  - component: {fileID: 135453838970016184}
   m_Layer: 0
   m_Name: FrontDrone
-  m_TagString: Untagged
+  m_TagString: ATAT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1087276566321286
 GameObject:
   m_ObjectHideFlags: 1
@@ -353,7 +354,7 @@ GameObject:
   - component: {fileID: 23202586262051372}
   m_Layer: 0
   m_Name: rightSide
-  m_TagString: Untagged
+  m_TagString: ATAT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -614,7 +615,7 @@ GameObject:
   - component: {fileID: 23026292058758952}
   m_Layer: 0
   m_Name: leftSide
-  m_TagString: Untagged
+  m_TagString: ATAT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3160,8 +3161,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1082623838250970}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 500}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 50, z: 450}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4555269894207150}
   - {fileID: 4517199772509918}
@@ -4308,8 +4309,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 022800e25f68bc64489742dae7bf3b69, type: 2}
   - {fileID: 2100000, guid: 686c91900c9ee814aa99ff7cc54573ac, type: 2}
+  - {fileID: 2100000, guid: 022800e25f68bc64489742dae7bf3b69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5247,11 +5248,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7c3537d2ce6904691ece1c0534ba93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 30
   regionSize: 2000
   stopPoint: 5000
   AtAt: {fileID: 1590174341023046}
   BackBorder: {fileID: 1194547240014670}
+--- !u!135 &135453838970016184
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1082623838250970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137161328254846818
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

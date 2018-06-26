@@ -115,7 +115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905575256372968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 5300}
+  m_LocalPosition: {x: 0, y: 50, z: 6000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4479190917434934}
@@ -200,8 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1a1cfba2baa654fbb602cb03897708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0.34233716, g: 0.40896326, b: 0.46226418, a: 1}
-  emissionColor: {r: 0, g: 0.7607846, b: 1, a: 0}
+  color: {r: 0.390852, g: 0.43172687, b: 0.462, a: 0.050980393}
+  emissionColor: {r: 0, g: 0.75793123, b: 1, a: 1}
   intensity: 2
   myMats:
   - {fileID: 2100000, guid: 5562cf257950ae74897e96a8929d2773, type: 2}
