@@ -14,10 +14,12 @@ public class PlayerBoundries : MonoBehaviour
     private Transform top, bot, left, right, front, back;
     private bool outBounds, outBoundsSides, outBoundsTop, outBoundsBot, outBoundsFront, outBoundsBack;
     private Coroutine co;
+    private AudioManager AM;
 
     void Start()
     {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        AM = FindObjectOfType<AudioManager>();
         boundries = GameObject.Find("Boundries").transform;
         photonView = GetComponent<PhotonView>();
 
@@ -100,9 +102,11 @@ public class PlayerBoundries : MonoBehaviour
             boundsText.text = "Out of Bounds \n" + i.ToString();
             yield return waitTime;
         }
-        boundsText.text = "Game Over";
+
+        boundsText.text = "Froozen";
+        AM.Play("Freezing", Instantiate(new GameObject(), transform));
         yield return waitTime;
-        gameObject.GetPhotonView().RPC("RPC_Death", PhotonTargets.All);
+        gameObject.GetPhotonView().RPC("RPC_Collision", PhotonTargets.All);
         boundsText.text = "";
     }
 }

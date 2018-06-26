@@ -81,7 +81,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
                 currentPlayerState = PlayerState.Normal;
             }
 
-            if(sasa.position.z > transform.position.z)
+            if(sasa.position.z > transform.position.z && !isDead)
             {
                 photonView.RPC("RPC_Death", PhotonTargets.All);
             }
@@ -101,7 +101,7 @@ public class PlayerManagerForNetwork : MonoBehaviour
             {
                 StartCoroutine(Respwan());
             }
-            else if (collision.gameObject.tag == "ATAT")
+            else if (collision.gameObject.tag == "ATAT" && !isDead)
             {
                 photonView.RPC("RPC_Death", PhotonTargets.All);
             }

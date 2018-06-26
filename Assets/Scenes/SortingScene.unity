@@ -2106,6 +2106,16 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114367442028677036, guid: 6f804da90c031f74dac4deb74f3135bb,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114367442028677036, guid: 6f804da90c031f74dac4deb74f3135bb,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114708552337351428, guid: 6f804da90c031f74dac4deb74f3135bb,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -2122,16 +2132,6 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114948790838271678, guid: 6f804da90c031f74dac4deb74f3135bb,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114367442028677036, guid: 6f804da90c031f74dac4deb74f3135bb,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114367442028677036, guid: 6f804da90c031f74dac4deb74f3135bb,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1

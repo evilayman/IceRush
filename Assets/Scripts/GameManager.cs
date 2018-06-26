@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ReturnToMainMenu()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         //LoadSceneMode sceneMode = LoadSceneMode.Single;
         //SceneManager.LoadSceneAsync("UI", sceneMode);
         PhotonNetwork.LeaveRoom();
@@ -255,6 +255,9 @@ public class GameManager : MonoBehaviour
 
     public void DeathSwap(GameObject GO)
     {
+        if (!endWithOne)
+            currentState = GameState.endGame;
+
         var index = MyPlayersSorted.FindIndex(x => x == GO);
         var name = MyPlayersSorted[index].GetComponentInParent<PhotonView>().owner.NickName;
         var go = Instantiate(deadPlayer, MyPlayersSorted[index].transform.position, Quaternion.identity);
