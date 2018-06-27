@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class PlayerPresScript : MonoBehaviour
 {
-
+    private Rigidbody rb;
+    private Transform target;
+    public float speed, rotSpeed;
 	void Start ()
     {
-		
+        target = FindObjectOfType<MoveTarget>().transform;
+        rb = GetComponent<Rigidbody>();
 	}
 	
 	void FixedUpdate ()
     {
-        GetComponent<Rigidbody>().velocity = transform.forward * 10;
-	}
+
+        Vector3 targetDir = target.position - transform.position;
+
+        float step = rotSpeed * Time.deltaTime;
+
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+
+        transform.rotation = Quaternion.LookRotation(newDir);
+
+        rb.velocity = transform.forward * speed;
+    }
 }
