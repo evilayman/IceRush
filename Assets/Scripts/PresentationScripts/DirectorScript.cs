@@ -167,6 +167,15 @@ public class DirectorScript : MonoBehaviour
             case 7 :
                 SetCam(7);
                 break;
+            case 8 :
+                SetCam(8);
+                break;
+            case 9 :
+                SetCam(9);
+                break;
+            case 10 :
+                SetCam(10);
+                break;
             default:
                 break;
         }
